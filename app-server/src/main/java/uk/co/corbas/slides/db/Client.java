@@ -21,19 +21,18 @@ package uk.co.corbas.slides.db;
 
 
 import com.marklogic.client.query.QueryManager;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * A simple wrapper for a connection that enables autowiring of the MarkLogic
  * database client in the Services
  *
  */
-@PropertySource("classpath:application.properties")
+@Component
 public class Client {
 
     /**

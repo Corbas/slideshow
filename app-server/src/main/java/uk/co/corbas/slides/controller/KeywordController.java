@@ -11,7 +11,6 @@ import uk.co.corbas.slides.model.Keyword;
 import java.util.HashSet;
 
 @RestController
-@EnableAutoConfiguration
 public class KeywordController {
 
     @RequestMapping("/keywords")
