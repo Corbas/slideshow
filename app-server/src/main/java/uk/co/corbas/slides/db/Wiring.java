@@ -4,7 +4,6 @@ package uk.co.corbas.slides.db;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ComponentScan
-@Configuration
 public class Wiring {
 
     @Autowired

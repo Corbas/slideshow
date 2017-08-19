@@ -3,7 +3,7 @@ package uk.co.corbas.slides.db;
 
 /*
  *
- * Derived from com.marklogic.simplestack.dbclient.MarkLogicBaseServices.
+ * Derived from com.marklogic.samplestack.dbclient.MarkLogicBaseServices.
  * Simplified to remove security settings
  *
  * Copyright 2012-2015 MarkLogic Corporation

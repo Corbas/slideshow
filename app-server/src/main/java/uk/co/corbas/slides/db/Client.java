@@ -25,14 +25,12 @@ import org.springframework.core.env.Environment;
 
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * A simple wrapper for a connection that enables autowiring of the MarkLogic
- * database client in the Services
+ * database client in the service classes
  *
  */
-@Component
 public class Client {
 
     /**
