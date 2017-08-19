@@ -1,0 +1,7 @@
+<options xmlns="http://marklogic.com/appservices/search">
+    <values name="keyword-list">
+        <range type="xs:string">
+            <element ns="http://www.corbas.co.uk/ns/presentations" name="keyword"/>
+        </range>
+    </values>
+</options>

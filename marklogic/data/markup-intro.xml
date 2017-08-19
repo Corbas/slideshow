@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><p:div xmlns:p="http://www.corbas.co.uk/ns/presentations" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+	<p:meta>
+		<p:id>markup-intro</p:id>
+		<p:keyword>Mark-up</p:keyword>
+		<p:keyword>XML</p:keyword>
+		<p:level>Introductory</p:level>
+	</p:meta>
+	
+	<p:title>Mark-up</p:title>
+
+	<p:slide xml:id="d1e21">
+		<h2>What is mark-up?</h2>
+		<ul>
+			<li>Annotations on a text</li>
+			<li>Distinct from the text itself in some way</li>
+			<li>Electronic texts are marked up using tags</li>
+		</ul>
+		<p:code type="text"> It is **very** important to mark up your text </p:code>
+		<p>That <code>**</code> above is mark-up — we read it as emphasis</p>
+		<p>A mark-up language is just a set of rules for how to apply mark-up to text.</p>
+	</p:slide>
+
+	<p:slide xml:id="d1e51">
+		<h2>Types of mark-up</h2>
+		<p>We can divide mark-up into three categories:</p>
+		<ul>
+			<li>presentational</li>
+			<li>procedural</li>
+			<li>semantic</li>
+		</ul>
+	</p:slide>
+
+	<p:slide xml:id="d1e72">
+		<h2>Presentational Mark-up</h2>
+		<pre> 
+			Presentational Mark-up<br/>
+			---------------------- 
+		</pre>
+		<p>Uses cues in the content to show the structure of the content<br/> e.g. row of hyphens under
+			a line to indicate a heading</p>
+	</p:slide>
+
+	<p:slide xml:id="d1e89">
+		<h2>Procedural mark-up</h2>
+		<p:code type="text"> 
+E&lt;bold&gt;E&lt;underline&gt;Procedural Mark-upE&lt;underline&gt;E&lt;bold&gt; 
+Procedural Mark-up uses embedded codes to indicate document structure. 
+For example,  the title here has been marked with tags to indicate 
+bold and underlined text.</p:code>
+		<ul>
+			<li>Uses markers in the content to indicate formatting to be interpreted by some software</li>
+			<li>Word processors use procedural mark-up</li>
+		</ul>
+	</p:slide>
+
+	<p:slide xml:id="d1e107">
+		<h2>Semantic mark-up</h2>
+		<p:code type="xml">
+			<title>Descriptive or Semantic Mark-up</title>
+			<para>Semantic mark-up attempts to indicate the function of a piece of text using tags.</para>
+			<para>This example uses para and title tags to mark pieces of text with those roles.</para>
+			<equation>c = 2πr</equation>
+		</p:code>
+		<p>Uses tags to indicate the function or meaning of a piece of text or information</p>
+	</p:slide>
+	
+
+	<p:slide xml:id="d1e131">
+		<h2>What does that have to do with language?</h2>
+		<p>These groups of tags are known as tag-sets or languages.</p>
+		<p>They are languages because we can create grammars for them – artificial languages.</p>
+		<p>A procedural mark-up language is much like programming – make this bold – a semantic mark-up
+			language indicates what sort of thing we are talking about without defining what it should
+			look like.</p>
+		<p>E<em style="color:rgb(183, 3, 44)">X</em>tensible <em style="color:rgb(183, 3, 44)">M</em>ark-up <em style="color:rgb(183, 3, 44)">L</em>anguage is a set of rules for creating
+			mark-up languages.</p>
+	</p:slide>
+	
+
+
+	<p:slide xml:id="d1e158">
+		<h2>A little history</h2>
+		<ul>
+			<li>XML is a descendant of SGML*</li>
+			<li>SGML comes from work done by Charles Goldfarb at IBM in the 1960s.</li>
+			<li>SGML was standardised in 1986.</li>
+			<li>Started as an attempt to create a web profile for SGML</li>
+			<li>SGML was seen as too complex for web use</li>
+			<li>The XML Working Group simplified the syntax of SGML</li>
+			<li>Started in 1996</li>
+			<li>Became a W3C recommendation in 1998</li>
+		</ul>
+		
+		<p class="footnote">* Standard Generalised Mark-up Language</p>
+		
+	</p:slide>
+	
+	<p:slide xml:id="d1e195">
+		<h2>What's so special about them?</h2>
+		<ul>
+			<li>XML and SGML are specifications that describe how you write a mark-up language</li>
+			<li>They are meta-languages</li>
+			<li>All XML based languages have common features:</li>
+			<li>opening and closing tags using angle brackets (<code>&lt;tag&gt;</code>) with the closing
+				tag indicated by a forward slash (<code>&lt;/tag&gt;</code>) attributes within the tags (<code>&lt;tag
+					attribute=’value’&gt;</code>)</li>
+			<li>strict rules on how to create well-formed xml</li>
+		</ul>
+	</p:slide>
+
+
+	<p:slide xml:id="d1e228">
+		<h2>HTML</h2>
+		<p>Where does HTML fit in?</p>
+		<ul>
+			<li>HTML (pre HTML 5) is an SGML language - defined using the SGML rules</li>
+			<li>HTML 5 is SGML-ish but it's neither SGML nor XML</li>
+			<li>XHTML was created in 1999 to supplant HTML — it failed</li>
+		</ul>
+	</p:slide>
+	
+	<p:slide xml:id="d1e250">
+		<h2>What’s the difference between SGML, HTML and XML?</h2>
+		
+		<ul>
+			<li>XML is a limited subset of SGML</li>
+			<li>HTML is a language written to the SGML rules</li>
+			<li><em>X</em>HTML is a variant of HTML using XML rules!</li>
+		</ul>
+		
+	</p:slide>
+
+</p:div>
