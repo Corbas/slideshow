@@ -45,11 +45,15 @@
 					pageTitle: 'Home'
 				}
 			})
-			.state('shipwrecks',{
-	        url:'/shipwrecks',
-	        templateUrl: viewsPrefix + 'shipwrecks.html',
-	        controller:'ShipwreckListController'
-	    }).state('viewShipwreck',{
+			.state('decks',{
+	        url:'/decks',
+	        templateUrl: viewsPrefix + 'decks.html',
+	        controller:'DeckListController'
+	    }).state('keywords',{
+	       url:'/keywords',
+	       templateUrl: viewsPrefix + 'keywords.html',
+	       controller:'KeywordListController'
+	    }).state('presentations',{
 	       url:'/shipwrecks/:id/view',
 	       templateUrl: viewsPrefix + 'shipwreck-view.html',
 	       controller:'ShipwreckViewController'
