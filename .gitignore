@@ -1,1 +1,2 @@
 app-server/out/**
+**/node_modules/**
