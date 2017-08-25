@@ -1,0 +1,31 @@
+{"presentations":[ 
+    {
+        "id": "pres003A10",
+        "title": "XML Basics",
+        "author": "Nic Gibson",
+        "updated": "2018-08-22",
+        "decks": [ 
+          {
+              "id": "markup-intro",
+              "url": "/decks/markup-intro.xml"
+          }, {
+              "id":  "xml-syntax",
+              "url": "/decks/syntax-short.xml"
+          }]
+      },
+      
+      {
+        "id": "pres003A11",
+        "title": "DTD Basics",
+        "author": "Nic Gibson",
+        "updated": "2018-08-22",
+        "decks": [ {
+          "id": "dtd-intro",
+          "url": "/decks/dtds.xml",
+          "exclude": ["d1e828", "d1e867", "d1e879", "d1e908", "d1e957", "d1e998", "d1e1029",
+                      "d1e1053", "d1e1090", "d1e1108", "d1e1126", "d1e1159", "d1e1181"]
+        }]
+        
+      }
+    
+]}
