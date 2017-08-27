@@ -123,7 +123,7 @@
     "component-selector": [
       true,
       "element",
-      "pm",
+      "slides",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

@@ -1,0 +1,61 @@
+[
+  {
+    "id": "dtd-intro",
+    "keywords": [
+      "Schema",
+      "DTD",
+      "XML",
+      "DTD"
+    ],
+    "level": "Intermediate",
+    "author": "Nic Gibson",
+    "updated": "2017-08-25",
+    "title": "DTDs"
+  },
+  {
+    "id": "entities-intro",
+    "keywords": [
+      "XML",
+      "Unicode",
+      "Entity"
+    ],
+    "level": "Introductory",
+    "author": "Nic Gibson",
+    "updated": "2017-08-25",
+    "title": "Entities"
+  },
+  {
+    "id": "markup-intro",
+    "keywords": [
+      "Mark-up",
+      "XML",
+      "Entity"
+    ],
+    "level": "Introductory",
+    "author": "Nic Gibson",
+    "updated": "2017-08-25",
+    "title": "Mark-up"
+  },
+  {
+    "id": "xml-syntax",
+    "keywords": [
+      "Syntax",
+      "XML"
+    ],
+    "level": "Introductory",
+    "author": "Nic Gibson",
+    "updated": "2017-08-25",
+    "title": "XML Components"
+  },
+  {
+    "id": "unicode-intro",
+    "keywords": [
+      "Unicode",
+      "Encoding"
+    ],
+    "level": "Introductory",
+    "author": "Nic Gibson",
+    "updated": "2017-08-25",
+    "title": "Unicode and encodings"
+  }
+]

@@ -1,7 +1,8 @@
-{"presentations":[ 
+[ 
     {
         "id": "pres003A10",
         "title": "XML Basics",
+        "description": "Introductory XML Course, explaining the concepts of mark-up, XML, well-formedness and valiity.",
         "author": "Nic Gibson",
         "updated": "2018-08-22",
         "decks": [ 
@@ -18,6 +19,7 @@
         "id": "pres003A11",
         "title": "DTD Basics",
         "author": "Nic Gibson",
+        "description": "A brief introduction to the simpler aspects of DTD authoring.",
         "updated": "2018-08-22",
         "decks": [ {
           "id": "dtd-intro",
@@ -28,4 +30,4 @@
         
       }
     
-]}
+]
