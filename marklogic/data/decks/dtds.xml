@@ -460,8 +460,14 @@
 			<li>They represent a definition of an external data type</li>
 			<li>Both <strong>PUBLIC</strong> &amp; <strong>SYSTEM </strong>notations can be defined</li>
 		</ul>
-		<p:code type="text"> &lt;!-- public notation --&gt; &lt;!NOTATION JPEG PUBLIC "JPEG 1.0"&gt; &lt;!-- public notation with system identifier --&gt;
-			&lt;!NOTATION JPEG PUBLIC "JPEG 1.0" "image/jpeg"&gt; &lt;!-- system identifier only --&gt; &lt;!NOTATION JPEG SYSTEM "image/jpeg"&gt; </p:code>
+		<p:code type="text" xml:space="preserve">
+&lt;!-- public notation --&gt; 
+&lt;!NOTATION JPEG PUBLIC "JPEG 1.0"&gt; 
+&lt;!-- public notation with system identifier --&gt;
+&lt;!NOTATION JPEG PUBLIC "JPEG 1.0" "image/jpeg"&gt; 
+&lt;!-- system identifier only --&gt; 
+&lt;!NOTATION JPEG SYSTEM "image/jpeg"&gt; 
+		</p:code>
 		<p>The system identifier gives information an application can use to work out how to process the content</p>
 	</p:slide>
 
@@ -484,8 +490,10 @@
 			<li>Internal &amp; external entities (“general” entities) function in XML; parameter entities function in DTDs</li>
 			<li>Parameter entities can also be internal or external.</li>
 		</ul>
-		<p>Defined as</p>        <p:code type="text">&gt;&lt;!ENTITY name % SYSTEM "filename"&gt;</p:code>
-		<p>or</p>          <p:code>&lt;!ENTITY name % "DTD content"</p:code>
+		<p>Defined as</p>        
+		<p:code type="dtd">&lt;!ENTITY name % SYSTEM "filename"&gt;</p:code>
+		<p>or</p>          
+		<p:code>&lt;!ENTITY name % "DTD content"</p:code>
 		<p>Referenced as <code>%name;</code>
 		</p>
 		
@@ -496,7 +504,8 @@
 			<li>Define parts of a DTD for reuse</li>
 			<li>Use to define shared content models</li>
 		</ul>
-		<p:code type="text">&lt;!ENTITY inline-models % "em | link | xref | field"&gt; &lt;!ELEMENT para (#PCDATA | %inline-models;)*&gt;</p:code>
+		<p:code type="text">&lt;!ENTITY inline-models % "em | link | xref | field"&gt; 
+			&lt;!ELEMENT para (#PCDATA | %inline-models;)*&gt;</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e1108">
 		<p:title>External parameter entities</p:title>
