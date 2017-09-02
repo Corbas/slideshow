@@ -76,7 +76,7 @@ declare function su:load-and-simplify-deck($deck-id as xs:string) as element(pre
   return
    <pres:div>
     {
-      $deck/pres:meta, $deck/pres:title
+      $deck/pres:meta/*, $deck/pres:title
     }
     { for $slide in $deck/pres:slide
         return 
