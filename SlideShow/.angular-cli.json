@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "apm"
+    "name": "slide-show"
   },
   "apps": [
     {
@@ -9,7 +9,6 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "api",
         "favicon.ico"
       ],
       "index": "index.html",
@@ -18,10 +17,9 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "pm",
+      "prefix": "slides",
       "styles": [
-        "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.css"
+        "styles.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

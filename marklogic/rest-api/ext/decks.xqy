@@ -2,6 +2,9 @@ xquery version "1.0-ml";
 
 module namespace slides = "http://marklogic.com/rest-api/resource/decks";
 
+import module namespace json = "http://marklogic.com/xdmp/json"
+    at "/MarkLogic/json/json.xqy";
+
 import module namespace su = "http://www.corbas.co.uk/ns/slides-utils"
     at "/slide-utils.xqy";
 
@@ -33,31 +36,49 @@ function slides:get(
   $params  as map:map
 ) as document-node()*
 {
-  map:put($context, "output-types", "application/xml"),
-  map:put($context, "output-status", (200, "OK")),
-  document { "GET called on the ext service extension" }
+  let $content-type as xs:string? := su:get-format($context, $params)
+  
+  return if ($content-type) then
+    slides:deck-as($context, $params, $content-type)
+    else su:bad-content-type($context)
 };
 
 
 (:
-(\:
-    Convert a deck to JSON if requested. 
-:\)
-declare function slides:convert-deck-to-json($deck as element(pres:div)) as document-node()
+  Choose whether to return the presentations info as XML or JSON
+  (the document in the DB is natively JSON) but we default to returning XML
+:)
+declare function slides:deck-as($context as map:map, $params as map:map, $format as xs:string) as document-node()*
 {
+   
+    map:put($context, 'output-types', $format),
+    map:put($context, "output-status", (200, "OK")),
+    if ($format eq 'application/xml') 
+      then document { slides:load-deck($params) }  
+      else slides:convert-deck-to-json(slides:load-deck($params))
+};
+
+(:
+    Convert a deck to JSON if requested. 
+:)
+declare function slides:convert-deck-to-json($deck as document-node()) as document-node()
+{
+    let $json-xml := xdmp:xslt-invoke("/deck-to-json.xsl", $deck)
+    
+    return document { json:object($json-xml/*) } 
   
 };
-:)
+
 
 (:
     Extract the deck id from the parameters and fetch the
     deck from the database. Raises errors if the parameter is missing
     or if no deck with that id exists.
 :)
-declare function slides:get-deck-id($params) as xs:string?
+declare function slides:load-deck($params) as document-node()?
 {
     let $deck-id := map:get($params, 'deck')
-    let $deck := if ($deck-id) then su:load-and-simplify-deck($deck-id) 
+    let $deck := if ($deck-id) then  document { su:load-and-simplify-deck($deck-id) } 
       else fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter", "The 'deck' parameter is required"))
     
     return if ($deck) then $deck 

@@ -1,4 +1,4 @@
-export interface IDeck {
+export class Deck {
     id: string;
     keywords: string[];
     level: string;

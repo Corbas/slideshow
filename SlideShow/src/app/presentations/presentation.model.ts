@@ -1,11 +1,11 @@
 
-import { IDeck } from './decks.interface';
+import { Deck } from './deck.model';
 
-export interface IPresentations {
+export class Presentation {
     id: string;
     title: string;
     description: string;
     author: string;
     updated: string;
-    decks: IDeck[];
+    decks: Deck[];
 }

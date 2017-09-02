@@ -88,20 +88,16 @@ declare function slides:get-slide-by-id($params as map:map) as element(pres:slid
 (:
   If the parameters aren't both present return an error
 :)
-declare function slides:bad-params($context as map:map) as document-node()*
+declare function slides:bad-params($context as map:map) as item()*
 {
-  map:put($context, "output-types", "text/plain"),
-  map:put($context, "output-status", (500, "Internal System Error")),
-  document { "The deck and slide/index parameters must be supplied" }
+  fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter(s)", "The 'deck' and 'slide/index' parameters are required"))
 };
 
 
 (:
   If the slide isn't found return an error
 :)
-declare function slides:missing-slide($context as map:map) as document-node()*
+declare function slides:missing-slide($context as map:map) as item()*
 {
-  map:put($context, "output-types", "text/plain"),
-  map:put($context, "output-status", (404, "Slide not found")),
-  document { "No matching slide found" }
+    fn:error((), "RESTAPI-SRVEXERR", (404, "Slide not found", "The requested slide was not found"))
 };

@@ -57,12 +57,9 @@ declare function su:get-accepted-type($context as map:map) as xs:string?
 (:
   If the content type is not acceptoble, return a simple error
 :)
-declare function su:bad-content-type($context as map:map) as document-node()*
+declare function su:bad-content-type($context as map:map) as item()*
 {
-  
-  map:put($context, "output-types", "text/plain"),
-  map:put($context, "output-status", (500, "Internal System Error")),
-  document { "Acceptable content types did not contain XML or JSON" }
+   fn:error((), "RESTAPI-SRVEXERR", (400, "No usable content type", "Acceptable content types did not contain XML or JSON"))
 };
 
 
@@ -72,7 +69,7 @@ declare function su:bad-content-type($context as map:map) as document-node()*
   This is used when loading presentations or loading decks for editing.
   We use xdmp:directory here because the search set is tiny.
 :)
-declare function su:load-and-simplify-deck($deck-id as xs:string) as element(pres:deck)?
+declare function su:load-and-simplify-deck($deck-id as xs:string) as element(pres:div)?
 {
   let $deck := xdmp:directory('/decks/')/pres:div[pres:meta/pres:id = $deck-id]
   
