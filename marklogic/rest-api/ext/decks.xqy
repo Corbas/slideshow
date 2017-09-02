@@ -10,7 +10,7 @@ import module namespace su = "http://www.corbas.co.uk/ns/slides-utils"
 
 declare namespace roxy = "http://marklogic.com/roxy";
 declare namespace rapi = "http://marklogic.com/rest-api";
-declare namespace pres = "http://www.corbas.co.uk/ns/preseentations";
+declare namespace pres = "http://www.corbas.co.uk/ns/presentations";
 
 (:
  : Fetch deck metadata from the database. The metadata is the deck, its metadata 
@@ -63,10 +63,11 @@ declare function slides:deck-as($context as map:map, $params as map:map, $format
 :)
 declare function slides:convert-deck-to-json($deck as document-node()) as document-node()
 {
-    let $json-xml := xdmp:xslt-invoke("/deck-to-json.xsl", $deck)
-    
-    return document { json:object($json-xml/*) } 
-  
+    let $config := json:config('custom')
+    let $x := map:put($config, 'whitespace', 'ignore')
+    let $x := map:put($config, 'array-element-names', (xs:QName('pres:slide'), xs:QName('pres:keyword') ))
+      
+     return document { json:transform-to-json($deck ,$config) }
 };
 
 
