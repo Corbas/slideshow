@@ -1,0 +1,42 @@
+    
+    <div class="row">
+         <div class='col-lg-2'>
+              
+         </div>
+         
+        <div class="col-lg-10">
+            <ngb-accordion [closeOthers]="true" activeIds="idx-1">
+                <ngb-panel *ngFor='let deck of decks; index as i' [title]='deck.title' [id]='"idx" + i'>
+                <ng-template ngbPanelContent>
+                    <div class="responsive-table">
+                        <table class="table">
+                            <tr>
+                                <th>Title </th>
+                                <td>{{deck.title}}</td>
+                                <th>Author</th>
+                                <td>{{deck.author}}</td>
+                            </tr>
+                            <tr>
+                                <th>ID</th>
+                                <td>{{deck.id}}</td>
+                                <th>Updated</th>
+                                <td>{{deck.updated}}</td>                                
+                            </tr>
+                            <tr>
+                                <th>Level</th>
+                                <td>{{deck.level}}</td>
+                                <th>Keywords</th>
+                                <td>
+                                    <!-- <button #ngFor="let kw of deck.keywords" typ="button" class="btn btn-secondary">{{kw}}</button> -->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+
+
+        

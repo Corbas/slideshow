@@ -4,5 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  username: 'slideshow-user',
+  password: 'sideshow-bob',
+  restRoot: 'http://localhost:8070/v1/resources'
 };
