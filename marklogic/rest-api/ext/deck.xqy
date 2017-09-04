@@ -1,12 +1,16 @@
 xquery version "1.0-ml";
 
-module namespace slides = "http://marklogic.com/rest-api/resource/decks";
+module namespace slides = "http://marklogic.com/rest-api/resource/deck";
 
 import module namespace json = "http://marklogic.com/xdmp/json"
     at "/MarkLogic/json/json.xqy";
 
 import module namespace su = "http://www.corbas.co.uk/ns/slides-utils"
     at "/slide-utils.xqy";
+
+import module namespace du = "http://www.corbas.co.uk/ns/deck-utils"
+    at "/deck-utils.xqy";
+
 
 declare namespace roxy = "http://marklogic.com/roxy";
 declare namespace rapi = "http://marklogic.com/rest-api";
@@ -55,19 +59,7 @@ declare function slides:deck-as($context as map:map, $params as map:map, $format
     map:put($context, "output-status", (200, "OK")),
     if ($format eq 'application/xml') 
       then document { slides:load-deck($params) }  
-      else slides:convert-deck-to-json(slides:load-deck($params))
-};
-
-(:
-    Convert a deck to JSON if requested. 
-:)
-declare function slides:convert-deck-to-json($deck as document-node()) as document-node()
-{
-    let $config := json:config('custom')
-    let $x := map:put($config, 'whitespace', 'ignore')
-    let $x := map:put($config, 'array-element-names', (xs:QName('pres:slide'), xs:QName('pres:keyword') ))
-      
-     return document { json:transform-to-json($deck ,$config) }
+      else du:convert-decks-to-json(slides:load-deck($params))
 };
 
 
@@ -79,7 +71,7 @@ declare function slides:convert-deck-to-json($deck as document-node()) as docume
 declare function slides:load-deck($params) as document-node()?
 {
     let $deck-id := map:get($params, 'deck')
-    let $deck := if ($deck-id) then  document { su:load-and-simplify-deck($deck-id) } 
+    let $deck := if ($deck-id) then  document { du:load-and-simplify-deck($deck-id) } 
       else fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter", "The 'deck' parameter is required"))
     
     return if ($deck) then $deck 

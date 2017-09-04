@@ -1,6 +1,6 @@
 xquery version "1.0-ml";
 
-module namespace slides = "http://marklogic.com/rest-api/resource/presentations";
+module namespace slides = "http://marklogic.com/rest-api/resource/list-presentations";
 
 import module namespace json = "http://marklogic.com/xdmp/json"
     at "/MarkLogic/json/json.xqy";

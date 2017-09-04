@@ -11,7 +11,7 @@
 	
 	<p:title>XML Components</p:title>
 	<p:slide xml:id="comp-elements">
-		<h2>Elements</h2>
+		<p:title>Elements</p:title>
 		<ul>
 			<li>Main syntactic component of XML</li>
 			<li>An element is a start tag, an end tag and some (potentially optional) content.</li>
@@ -33,14 +33,14 @@
 		<p class="footnote">* Ignoring attributes for now</p>
 	</p:slide>
 	<p:slide xml:id="d1e75">
-		<h2>Elements (cont)</h2>
+		<p:title>Elements (cont)</p:title>
 		<p:code>
 			<para>Ceci n'est pas un paragraphe.</para>
 			<img src="pipe.jpg" alt="Ceci n'est pas une pipe"/>
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e89">
-		<h2>Names</h2>
+		<p:title>Names</p:title>
 		<p>XML has strict rules for element names.</p>
 		<blockquote><p>A Name is a token beginning with a letter or one of a few punctuation characters,
 				and continuing with letters, digits, hyphens, underscores, colons, or full stops, together
@@ -52,7 +52,7 @@
 		<p>Element names are case sensitive and must be the same across opening and closing tags.</p>
 	</p:slide>
 	<p:slide xml:id="comp-attributes">
-		<h2>Attributes</h2>
+		<p:title>Attributes</p:title>
 		<ul>
 			<li>Attribute are additional information associated with elements</li>
 			<li>They consist of name and a value</li>
@@ -71,7 +71,7 @@
 		</ul>
 	</p:slide>
 	<p:slide xml:id="d1e157">
-		<h2>Element content</h2>
+		<p:title>Element content</p:title>
 		<p>Element content is whatever goes between the tags.</p>
 		<p>It can be any or all of:</p>
 		<ul>
@@ -88,7 +88,7 @@
 			types listed above, the document itself is considered to a node.</p>
 	</p:slide>
 	<p:slide xml:id="comp-text">
-		<h2>Text</h2>
+		<p:title>Text</p:title>
 		<p>XML documents can contain two types of text:</p>
 		<ul>
 			<li>PCDATA — <em>Parsed Character Data</em></li>
@@ -100,7 +100,7 @@
 			confuse them.</p>
 	</p:slide>
 	<p:slide xml:id="d1e231">
-		<h2>Text (cont)</h2>
+		<p:title>Text (cont)</p:title>
 		<h4>PCDATA</h4>
 		<p>PCDATA can't contain:</p>
 		<ul>
@@ -117,7 +117,7 @@
 				<em>'</em> (whichever isn't used as the attribute value delimiter is OK).</p>
 	</p:slide>
 	<p:slide xml:id="d1e286">
-		<h2>Text (cont)</h2>
+		<p:title>Text (cont)</p:title>
 		<h4>CDATA</h4>
 		<p>All the restrictions on PCDATA content are relaxed on CDATA.</p>
 		<p>The cost is the requirement that the content is wrapped up in a deliberately obscure
@@ -130,7 +130,7 @@
 		<p>The difference is in the 'P' - CDATA is not parsed (processed by the parser).</p>
 	</p:slide>
 	<p:slide xml:id="comp-pis">
-		<h2>Processing Instructions</h2>
+		<p:title>Processing Instructions</p:title>
 		<p>Processing instructions are special nodes. They are intended to be ignored by anything that
 			doesn't understand the specific processing instruction (PI).</p>
 		<p>A PI is made up of the characters <code>&lt;?</code> followed by a name (following the rules
@@ -142,7 +142,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="comp-comments">
-		<h2>Comments</h2>
+		<p:title>Comments</p:title>
 		<p>Comments in XML are pieces of text ignored by the parser. You can put anything except a
 			comment in a comment.</p>
 		<p>Comments look like <code>&lt;!--</code> followed by the comment body followed by
@@ -155,7 +155,7 @@
 			finishing a comment)</p>
 	</p:slide>
 	<p:slide xml:id="syntax-declaration">
-		<h2>The XML Declaration</h2>
+		<p:title>The XML Declaration</p:title>
 		<p>Now we have enough information to discuss this!</p>
 		<p>The XML declaration is the first thing in many XML files. It's not required but it is
 			sensible.</p>
@@ -171,7 +171,7 @@
 			definitions which might change the content (like default attribute values).</p>
 	</p:slide>
 	<p:slide xml:id="d1e425">
-		<h2>Well-formed XML</h2>
+		<p:title>Well-formed XML</p:title>
 		<p>The XML specification is clear:</p>
 		<blockquote>
 			<p>Violations of well-formedness constraints are fatal errors</p>
@@ -179,7 +179,7 @@
 		<p>In other words, if it's not well-formed, it's not XML.</p>
 	</p:slide>
 	<p:slide xml:id="d1e443" toc="exclude">
-		<h2>Well-formed XML</h2>
+		<p:title>Well-formed XML</p:title>
 		<h4>The rules</h4>
 		<ul>
 			<li>There must be a single root element</li>
@@ -193,7 +193,7 @@
 		</ul>
 	</p:slide>
 	<p:slide xml:id="d1e479">
-		<h2>Nesting</h2>
+		<p:title>Nesting</p:title>
 		<p>The rules for element content imply this. An element may contain other elements and an
 			element consists of both the start and end tags. If only one is present, the element isn't
 			contained properly.</p>
@@ -206,7 +206,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e507">
-		<h2>Document Hierarchy</h2>
+		<p:title>Document Hierarchy</p:title>
 		<p>The nesting rules mean that a document can be viewed in two ways:</p>
 		<ul>
 			<li>As a nested sequence of elements</li>
@@ -215,7 +215,7 @@
 		<p class="footnote">* This is the computer science notion of a tree — upside down</p>
 	</p:slide>
 	<p:slide xml:id="d1e529">
-		<h2>Trees</h2>
+		<p:title>Trees</p:title>
 		<p:code>
 			<art>
 				<ui>1687-1847-2013-85</ui>
@@ -232,14 +232,14 @@
 		<p><img src="images/hierarchy.svg" alt="XML Hierarchy"/></p>
 	</p:slide>
 	<p:slide xml:id="d1e568" toc="exclude">
-		<h2>Trees (cont)</h2>
+		<p:title>Trees (cont)</p:title>
 		<p><img src="images/hierarchy-numbered.svg" alt="XML Hierarchy"/></p>
 		<p class="note">“Traversing” the tree in the numbered order is the same as walking through in
 			the order of the element starts in the document. Processing systems such as XSLT use this
 			order.</p>
 	</p:slide>
 	<p:slide xml:id="d1e580">
-		<h2>Namespaces</h2>
+		<p:title>Namespaces</p:title>
 		<p>Namespaces are not complex! A namespace is a URL associated with one or more XML elements*.
 			Namespaces are mainly used to prevent ambiguity.</p>
 		<p>XML is commonly used to create mashup documents with elements from more than one source.
@@ -251,7 +251,7 @@
 		<p class="footnote">And sometimes attributes.</p>
 	</p:slide>
 	<p:slide xml:id="d1e598" toc="exclude">
-		<h2>Namespaces (cont)</h2>
+		<p:title>Namespaces (cont)</p:title>
 		<p:code>
 			<company>
 				<name>Cheap Stationery Ltd</name>
@@ -265,7 +265,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e628" toc="exclude">
-		<h2>Namespaces (cont)</h2>
+		<p:title>Namespaces (cont)</p:title>
 		<p:code>
 			<supplier>
 				<name>Cheap Stationery Ltd</name>
@@ -278,7 +278,7 @@
 		<p>There's a couple of problems there.</p>
 	</p:slide>
 	<p:slide xml:id="d1e658" toc="exclude">
-		<h2>Namespaces (cont)</h2>
+		<p:title>Namespaces (cont)</p:title>
 		<p>Introducing the namespace resolves our problem. Each set of elements has a URL associated
 			with it. A namespace applies from the point of declaration ‘inwards’</p>
 		<p:code show-ns-declarations="true">
@@ -294,7 +294,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e692" toc="exclude">
-		<h2>Namespaces (cont)</h2>
+		<p:title>Namespaces (cont)</p:title>
 		<p:code show-ns-declarations="true">
 			<supplier>
 				<name xmlns="http://www.corbas.co.uk/ns/company">Cheap Stationery Ltd</name>
@@ -306,7 +306,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e719">
-		<h2>Namespace Terminology</h2>
+		<p:title>Namespace Terminology</p:title>
 		<p>Creating a namespace as we just did is know as <em>declaration</em>.</p>
 		<p>The declaration looks like an attribute but isn't treated as one <em>if</em> the processing
 			system understands namespaces.</p>
@@ -319,7 +319,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e761">
-		<h2>Prefixed namespaces</h2>
+		<p:title>Prefixed namespaces</p:title>
 		<p>When we declare a namespace with a prefix we are only declaring that it exists, we are not
 			using it. In order to use it we have to put the prefix in front of an element name. This
 			approach lets us keep the number of declarations down to a sane level.</p>
@@ -330,7 +330,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e779">
-		<h2>Complex Namespace Example</h2>
+		<p:title>Complex Namespace Example</p:title>
 		<p:code show-ns-declarations="true">
 			<package xmlns="http://www.idpf.org/2007/opf" version="2.0">
 				<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
@@ -345,7 +345,7 @@
 		</p:code>
 	</p:slide>
 	<p:slide xml:id="d1e812">
-		<h2>Namespaces summarised</h2>
+		<p:title>Namespaces summarised</p:title>
 		<ul>
 			<li>A namespace is a URL. This URL is called the namespace name.</li>
 			<li>A URL may have a prefix. This is just a string used as shorthand.</li>
@@ -354,7 +354,7 @@
 		</ul>
 	</p:slide>
 	<p:slide xml:id="d1e839">
-		<h2>Summary</h2>
+		<p:title>Summary</p:title>
 		<p>We have discussed:</p>
 		<ul>
 			<li>XML's little history</li>

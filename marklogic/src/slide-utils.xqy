@@ -63,27 +63,3 @@ declare function su:bad-content-type($context as map:map) as item()*
 };
 
 
-
-(:
-  Load a deck from the database and simplify it to exclude slide content.
-  This is used when loading presentations or loading decks for editing.
-  We use xdmp:directory here because the search set is tiny.
-:)
-declare function su:load-and-simplify-deck($deck-id as xs:string) as element(pres:div)?
-{
-  let $deck := xdmp:directory('/decks/')/pres:div[pres:meta/pres:id = $deck-id]
-  
-  return
-   <pres:div>
-    {
-      $deck/pres:meta/*, $deck/pres:title
-    }
-    { for $slide in $deck/pres:slide
-        return 
-          <pres:slide>
-            {$slide/@*, $slide/pres:title}
-          </pres:slide>
-    }
-  </pres:div>
-
-};

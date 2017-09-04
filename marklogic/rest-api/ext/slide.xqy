@@ -1,6 +1,6 @@
 xquery version "1.0-ml";
 
-module namespace slides = "http://marklogic.com/rest-api/resource/slides";
+module namespace slides = "http://marklogic.com/rest-api/resource/slide";
 
 import module namespace su = "http://www.corbas.co.uk/ns/slides-utils"
     at "/slide-utils.xqy";
