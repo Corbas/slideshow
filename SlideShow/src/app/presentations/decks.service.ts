@@ -5,8 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
-import {AppConfig } from './../shared/app.config-t';
-import {  SLIDESHOW_CONFIG } from './../shared/app.config';
+import { AppConfig, APP_CONFIG, SLIDESHOW_CONFIG } from './../shared/app.config';
 
 const listDecksUrl: string = 'list-decks';
 
@@ -15,8 +14,8 @@ export class DecksService {
 
     private requestUrl: string;
 
-    constructor (private http: HttpClient, @Inject(SLIDESHOW_CONFIG) config: AppConfig) {
-        this.requestUrl = config.restRoot + listDecksUrl;
+    constructor (@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) {
+        this.requestUrl = this.config.restRoot + listDecksUrl;
     }
 
     listDecks(): Observable<Deck[]> {

@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { PresentationsComponent } from './presentations/presentations.component';
 import { DeckListComponent } from './presentations/decklist.component';
+import { BasicAuthInterceptor } from './shared/auth.interceptor';
+
+
+import { AppConfig, APP_CONFIG, SLIDESHOW_CONFIG } from './shared/app.config';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,14 @@ import { DeckListComponent } from './presentations/decklist.component';
     HttpClientModule,
     NgbModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    { provide: APP_CONFIG, useValue: SLIDESHOW_CONFIG },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BasicAuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,13 +7,13 @@ import { Presentation } from './presentation.model';
   templateUrl: './presentations.component.html',
   styleUrls: ['./presentations.component.css']
 })
-export class PresentationsComponent implements OnInit{
+export class PresentationsComponent implements OnInit {
 
   presentations: Presentation[];
-  constructor(private _presentation_svc: PresentationsService) {}
+  constructor(private presentationService: PresentationsService) {}
 
   _update_presentations(): void {
-    this.presentations = this._presentation_svc.getPresentations();
+    this.presentations = this.presentationService.getPresentations();
   }
 
   ngOnInit(): void {

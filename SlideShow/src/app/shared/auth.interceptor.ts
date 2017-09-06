@@ -19,16 +19,19 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 
   constructor( @Inject(SLIDESHOW_CONFIG) config: AppConfig) {
     this.token = btoa(config.username + ':' + config.password);
+    console.log('Token set to ' + this.token);
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    request = request.clone({
+    console.log('Interceptor called');
+
+    const new_request = request.clone({
       setHeaders: {
         Authorization: `Basic ${this.token}:`
       }
     });
 
-    return next.handle(request);
+    return next.handle(new_request);
   }
 }

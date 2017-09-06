@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DecksService} from './decks.service';
+import { DecksService } from './decks.service';
 import { Deck } from './deck.model';
-import { Presentation } from './presentation.model';
 
 @Component({
   selector: 'slides-decks',
@@ -10,12 +9,11 @@ import { Presentation } from './presentation.model';
 })
 export class DeckListComponent implements OnInit {
 
-  decks: Deck[];
+  presentations: Deck[];
   constructor(private deckService: DecksService) {}
 
+
   ngOnInit(): void {
-    this.deckService.listDecks()
-      .subscribe(decks => this.decks = decks);
   }
 
 }

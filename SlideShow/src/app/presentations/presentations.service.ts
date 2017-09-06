@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Presentation} from './presentation.model';
 
-const apiBaseUrl = 'http://localhost:8070';
+import { AppConfig, APP_CONFIG, SLIDESHOW_CONFIG } from './../shared/app.config';
 
+const listPresentationsUrl = 'list-presentations';
+
+@Injectable()
 export class PresentationsService {
 
+    private requestUrl: string;
     private _presentation_data: Presentation[] = [
     {
         'id': 'pres003A10',
@@ -45,6 +49,10 @@ export class PresentationsService {
             'slide': []
             }]
     }];
+
+    constructor(@Inject(APP_CONFIG) private config: AppConfig) {
+      this.requestUrl = this.config.restRoot + listPresentationsUrl;
+    }
 
 
     getPresentations(): Presentation[] {
