@@ -12,7 +12,7 @@
 	<p:title>Mark-up</p:title>
 
 	<p:slide xml:id="d1e21">
-		<h2>What is mark-up?</h2>
+		<p:title>What is mark-up?</p:title>
 		<ul>
 			<li>Annotations on a text</li>
 			<li>Distinct from the text itself in some way</li>
@@ -24,7 +24,7 @@
 	</p:slide>
 
 	<p:slide xml:id="d1e51">
-		<h2>Types of mark-up</h2>
+		<p:title>Types of mark-up</p:title>
 		<p>We can divide mark-up into three categories:</p>
 		<ul>
 			<li>presentational</li>
@@ -34,7 +34,7 @@
 	</p:slide>
 
 	<p:slide xml:id="d1e72">
-		<h2>Presentational Mark-up</h2>
+		<p:title>Presentational Mark-up</p:title>
 		<pre> 
 			Presentational Mark-up<br/>
 			---------------------- 
@@ -44,7 +44,7 @@
 	</p:slide>
 
 	<p:slide xml:id="d1e89">
-		<h2>Procedural mark-up</h2>
+		<p:title>Procedural mark-up</p:title>
 		<p:code type="text"> 
 E&lt;bold&gt;E&lt;underline&gt;Procedural Mark-upE&lt;underline&gt;E&lt;bold&gt; 
 Procedural Mark-up uses embedded codes to indicate document structure. 
@@ -57,7 +57,7 @@ bold and underlined text.</p:code>
 	</p:slide>
 
 	<p:slide xml:id="d1e107">
-		<h2>Semantic mark-up</h2>
+		<p:title>Semantic mark-up</p:title>
 		<p:code type="xml">
 			<title>Descriptive or Semantic Mark-up</title>
 			<para>Semantic mark-up attempts to indicate the function of a piece of text using tags.</para>
@@ -69,7 +69,7 @@ bold and underlined text.</p:code>
 	
 
 	<p:slide xml:id="d1e131">
-		<h2>What does that have to do with language?</h2>
+		<p:title>What does that have to do with language?</p:title>
 		<p>These groups of tags are known as tag-sets or languages.</p>
 		<p>They are languages because we can create grammars for them – artificial languages.</p>
 		<p>A procedural mark-up language is much like programming – make this bold – a semantic mark-up
@@ -82,7 +82,7 @@ bold and underlined text.</p:code>
 
 
 	<p:slide xml:id="d1e158">
-		<h2>A little history</h2>
+		<p:title>A little history</p:title>
 		<ul>
 			<li>XML is a descendant of SGML*</li>
 			<li>SGML comes from work done by Charles Goldfarb at IBM in the 1960s.</li>
@@ -99,7 +99,7 @@ bold and underlined text.</p:code>
 	</p:slide>
 	
 	<p:slide xml:id="d1e195">
-		<h2>What's so special about them?</h2>
+		<p:title>What's so special about them?</p:title>
 		<ul>
 			<li>XML and SGML are specifications that describe how you write a mark-up language</li>
 			<li>They are meta-languages</li>
@@ -113,7 +113,7 @@ bold and underlined text.</p:code>
 
 
 	<p:slide xml:id="d1e228">
-		<h2>HTML</h2>
+		<p:title>HTML</p:title>
 		<p>Where does HTML fit in?</p>
 		<ul>
 			<li>HTML (pre HTML 5) is an SGML language - defined using the SGML rules</li>
@@ -123,7 +123,7 @@ bold and underlined text.</p:code>
 	</p:slide>
 	
 	<p:slide xml:id="d1e250">
-		<h2>What’s the difference between SGML, HTML and XML?</h2>
+		<p:title>What’s the difference between SGML, HTML and XML?</p:title>
 		
 		<ul>
 			<li>XML is a limited subset of SGML</li>

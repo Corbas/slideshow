@@ -9,11 +9,12 @@ import { Deck } from './deck.model';
 })
 export class DeckListComponent implements OnInit {
 
-  presentations: Deck[];
+  decks: Deck[];
   constructor(private deckService: DecksService) {}
 
 
   ngOnInit(): void {
+    this.deckService.listDecks().subscribe(decks => this.decks = decks);
   }
 
 }

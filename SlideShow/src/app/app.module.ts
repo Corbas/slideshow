@@ -9,7 +9,7 @@ import { DeckListComponent } from './presentations/decklist.component';
 import { BasicAuthInterceptor } from './shared/auth.interceptor';
 
 
-import { AppConfig, APP_CONFIG, SLIDESHOW_CONFIG } from './shared/app.config';
+import { AppConfig, SLIDESHOW_CONFIG } from './shared/app.config';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { AppConfig, APP_CONFIG, SLIDESHOW_CONFIG } from './shared/app.config';
     NgbModule.forRoot(),
   ],
   providers: [
-    { provide: APP_CONFIG, useValue: SLIDESHOW_CONFIG },
+    { provide: AppConfig, useValue: SLIDESHOW_CONFIG },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BasicAuthInterceptor,

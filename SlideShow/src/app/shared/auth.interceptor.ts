@@ -8,8 +8,7 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 
-import {AppConfig } from './app.config-t';
-import {  SLIDESHOW_CONFIG } from './app.config';
+import {  AppConfig } from './app.config';
 
 
 @Injectable()
@@ -17,7 +16,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 
   private token: string;
 
-  constructor( @Inject(SLIDESHOW_CONFIG) config: AppConfig) {
+  constructor( @Inject(AppConfig) config: AppConfig) {
     this.token = btoa(config.username + ':' + config.password);
     console.log('Token set to ' + this.token);
   }

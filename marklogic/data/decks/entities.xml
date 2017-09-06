@@ -12,7 +12,7 @@
   
   <p:title>Entities</p:title>
   <p:slide xml:id="comp-entities">
-    <h2>Entities</h2>
+    <p:title>Entities</p:title>
     <p>There are several sorts of entity. The most common are character entities.</p>
     <p>Character entities are normally used when:</p>
     <ul>
@@ -30,7 +30,7 @@
   </p:slide>
   
   <p:slide xml:id="d1e67">
-    <h2>Aside: Hexadecimal</h2>
+    <p:title>Aside: Hexadecimal</p:title>
     <ul>
       <li>Hexadecimal is base 16</li>
       <li>Used a lot in computer science because it's logically close to binary (base
@@ -50,7 +50,7 @@
   </p:slide>
   
   <p:slide xml:id="d1e116">
-    <h2>Predefined entities</h2>
+    <p:title>Predefined entities</p:title>
     <p>XML defines five entities:</p>
     <table>
       <tr>

@@ -59,7 +59,7 @@ declare function slides:deck-as($context as map:map, $params as map:map, $format
     map:put($context, "output-status", (200, "OK")),
     if ($format eq 'application/xml') 
       then document { slides:load-deck($params) }  
-      else du:convert-decks-to-json(slides:load-deck($params))
+      else document { du:convert-decks-to-json(slides:load-deck($params))/object-node() }
 };
 
 
@@ -68,13 +68,13 @@ declare function slides:deck-as($context as map:map, $params as map:map, $format
     deck from the database. Raises errors if the parameter is missing
     or if no deck with that id exists.
 :)
-declare function slides:load-deck($params) as document-node()?
+declare function slides:load-deck($params) as element(pres:div)?
 {
     let $deck-id := map:get($params, 'deck')
-    let $deck := if ($deck-id) then  document { du:load-and-simplify-deck($deck-id) } 
+    let $deck := if ($deck-id) then  du:load-and-simplify-deck($deck-id)  
       else fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter", "The 'deck' parameter is required"))
     
-    return if ($deck) then $deck 
+    return if ($deck) then $deck
       else fn:error((), "RESTAPI-SRVEXERR", (404, "Deck not found", concat("Deck with id", $deck-id, " not found")))
 };
 

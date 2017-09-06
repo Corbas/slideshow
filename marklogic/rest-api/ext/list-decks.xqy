@@ -16,8 +16,20 @@ declare namespace rapi = "http://marklogic.com/rest-api";
 declare namespace pres = "http://www.corbas.co.uk/ns/presentations";
 
 (:
- : Return all the decks in the database.
+  : Handle CORS options requests
 :)
+declare
+%roxy:params("")
+function slides:options(
+  $context as map:map,
+  $params as map:map
+) as document-node()* {
+
+    xdmp:add-response-header("Access-Control-Allow-Origin", "*"),
+    map:put($context, 'output-types', "text/plan"),
+    map:put($context, "output-status", (200, "OK")),
+    document {'ok'}
+};
 
 (:
   Return all the decks in the database. 
@@ -40,7 +52,9 @@ function slides:get(
 
 
 declare function slides:decks-as($context, $content-type) as document-node()? {
-  
+
+    xdmp:add-response-header("Access-Control-Allow-Origin", "*"),
+    (:xdmp:add-response-header("Access-Control-Allow-Headers", "origin, x-requested-with, content-type"),:)
     map:put($context, 'output-types', $content-type),
     map:put($context, "output-status", (200, "OK")),
     if ($content-type eq 'application/xml')
@@ -61,7 +75,7 @@ declare function slides:decks-as-xml() as element(pres:decks)?
  
 };
 
-declare function slides:decks-as-json() as document-node()*
+declare function slides:decks-as-json() as array-node()
 {
   du:convert-decks-to-json(du:load-and-simplify-all-decks())
 };

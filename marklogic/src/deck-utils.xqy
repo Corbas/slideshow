@@ -73,14 +73,19 @@ declare function du:simplify-deck($deck as element(pres:div)) as element(pres:di
 };
 
 
+
+
 (:
     Given an XML document representing a deck transform it to JSON.
 :)
-declare function du:convert-decks-to-json($decks as element(pres:div)*) as document-node()*
+declare function du:convert-decks-to-json($decks as element(pres:div)*) as array-node()
 {
     let $config := json:config('custom')
     let $x := map:put($config, 'whitespace', 'ignore')
     let $x := map:put($config, 'array-element-names', (xs:QName('pres:slide'), xs:QName('pres:keyword') ))
     
-    for $deck in $decks return  document { json:transform-to-json($deck ,$config) }      
+ 
+    return  array-node { for $deck in $decks return  json:transform-to-json($deck ,$config)/object-node()/object-node() } 
+    
+          
 };

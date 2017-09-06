@@ -12,8 +12,8 @@
     <p:title>Unicode and encodings</p:title>
     
     
-    <p:slide xml:id="d1e21" toc="exclude">
-      <h2>Unicode and encodings</h2>
+    <p:slide xml:id="d1e21" >
+      <p:title>Unicode and encodings</p:title>
       <p>Encodings are one of the most generally confusing things about XML</p>
       <p>Don't worry, they're not really complicated.</p>
       <h4>Background</h4>
@@ -89,8 +89,8 @@
         255.</p>
     </p:slide>
     
-    <p:slide xml:id="d1e218" toc="exclude">
-      <h2>Unicode and encodings</h2>
+    <p:slide xml:id="d1e218" >
+      <p:title>Unicode and encodings</p:title>
       <h4>The problem</h4>
       <ul>
         <li>Older computers had a maximum of 255 characters because 1 byte = 1
@@ -104,8 +104,8 @@
       </ul>
     </p:slide>
     
-    <p:slide xml:id="d1e248" toc="exclude">
-      <h2>Unicode and encodings</h2>
+    <p:slide xml:id="d1e248" >
+      <p:title>Unicode and encodings</p:title>
       <h4>An example</h4>
       <p>The end result of this was that you needed to know which character set you were using
         before you could work out which character a number represented. This is character
@@ -138,8 +138,8 @@
       </table>
     </p:slide>
     
-    <p:slide xml:id="d1e318" toc="exclude">
-      <h2>Unicode and encodings</h2>
+    <p:slide xml:id="d1e318" >
+      <p:title>Unicode and encodings</p:title>
       <h4>The solution</h4>
       <p>The Unicode system is intended to resolve this problem. </p>
       <ul>
@@ -152,8 +152,8 @@
       </ul>
     </p:slide>
     
-    <p:slide xml:id="d1e358" toc="exclude">
-      <h2>Unicode encodings</h2>
+    <p:slide xml:id="d1e358" >
+      <p:title>Unicode encodings</p:title>
       <ul>
         <li>Latin 1, Latin 7, ASCII are all encodings</li>
         <li>Encodings define the mapping from character to number</li>

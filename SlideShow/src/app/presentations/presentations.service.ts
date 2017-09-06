@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Presentation} from './presentation.model';
-
-import { AppConfig, APP_CONFIG, SLIDESHOW_CONFIG } from './../shared/app.config';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AppConfig} from './../shared/app.config';
 
 const listPresentationsUrl = 'list-presentations';
 
@@ -50,7 +50,7 @@ export class PresentationsService {
             }]
     }];
 
-    constructor(@Inject(APP_CONFIG) private config: AppConfig) {
+    constructor(@Inject(AppConfig) private config: AppConfig, @Inject(HttpClient) private http: HttpClient) {
       this.requestUrl = this.config.restRoot + listPresentationsUrl;
     }
 

@@ -178,7 +178,7 @@
 		</blockquote>
 		<p>In other words, if it's not well-formed, it's not XML.</p>
 	</p:slide>
-	<p:slide xml:id="d1e443" toc="exclude">
+	<p:slide xml:id="d1e443" >
 		<p:title>Well-formed XML</p:title>
 		<h4>The rules</h4>
 		<ul>
@@ -231,7 +231,7 @@
 		</p:code>
 		<p><img src="images/hierarchy.svg" alt="XML Hierarchy"/></p>
 	</p:slide>
-	<p:slide xml:id="d1e568" toc="exclude">
+	<p:slide xml:id="d1e568" >
 		<p:title>Trees (cont)</p:title>
 		<p><img src="images/hierarchy-numbered.svg" alt="XML Hierarchy"/></p>
 		<p class="note">“Traversing” the tree in the numbered order is the same as walking through in
@@ -250,7 +250,7 @@
 			named contaact at that company.</p>
 		<p class="footnote">And sometimes attributes.</p>
 	</p:slide>
-	<p:slide xml:id="d1e598" toc="exclude">
+	<p:slide xml:id="d1e598" >
 		<p:title>Namespaces (cont)</p:title>
 		<p:code>
 			<company>
@@ -264,7 +264,7 @@
 			</person>
 		</p:code>
 	</p:slide>
-	<p:slide xml:id="d1e628" toc="exclude">
+	<p:slide xml:id="d1e628" >
 		<p:title>Namespaces (cont)</p:title>
 		<p:code>
 			<supplier>
@@ -277,7 +277,7 @@
 		</p:code>
 		<p>There's a couple of problems there.</p>
 	</p:slide>
-	<p:slide xml:id="d1e658" toc="exclude">
+	<p:slide xml:id="d1e658" >
 		<p:title>Namespaces (cont)</p:title>
 		<p>Introducing the namespace resolves our problem. Each set of elements has a URL associated
 			with it. A namespace applies from the point of declaration ‘inwards’</p>
@@ -293,7 +293,7 @@
 			</person>
 		</p:code>
 	</p:slide>
-	<p:slide xml:id="d1e692" toc="exclude">
+	<p:slide xml:id="d1e692" >
 		<p:title>Namespaces (cont)</p:title>
 		<p:code show-ns-declarations="true">
 			<supplier>
