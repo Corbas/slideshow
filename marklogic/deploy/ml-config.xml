@@ -465,6 +465,7 @@
       <role-name>${app-role}</role-name>
       <description>A role for users of the ${app-name} application</description>
       <role-names>
+        <role-name>rest-extension-user</role-name>
       </role-names>
       <permissions>
         <permission>
@@ -507,8 +508,7 @@
         </privilege>
         <privilege>
           <privilege-name>xdmp:xslt-invoke</privilege-name>
-        </privilege>
-        
+        </privilege>        
         <!-- START: required to run Roxy's rewriter-lib -->
         <privilege>
           <privilege-name>xdmp:get-server-field</privilege-name>
