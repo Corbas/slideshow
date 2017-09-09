@@ -27,7 +27,7 @@
                                 <td>{{deck.level}}</td>
                                 <th>Keywords</th>
                                 <td>
-                                    <!-- <button #ngFor="let kw of deck.keywords" typ="button" class="btn btn-secondary">{{kw}}</button> -->
+                                   <slides-kwlist [keywords]='deck.keywords'></slides-kwlist>
                                 </td>
                             </tr>
                         </table>

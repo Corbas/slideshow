@@ -18,20 +18,20 @@ export class PresentationsService {
         'updated': '2018-08-22',
         'decks': [{
             'id': 'markup-intro',
-            'keyword': [],
+            'keywords': [],
             'level': '',
             'author': '',
             'updated': '',
             'title': 'Mark-up',
-            'slide': []
+            'slides': []
         },   {
             'id': 'xml-syntax',
-            'keyword': [],
+            'keywords': [],
             'level': '',
             'author': '',
             'updated': '',
             'title': 'XML Components',
-            'slide': []
+            'slides': []
         }]},
         {
             'id': 'pres003A11',
@@ -41,12 +41,12 @@ export class PresentationsService {
             'updated': '2018-08-22',
             'decks': [ {
             'id': 'dtd-intro',
-            'keyword': [],
+            'keywords': [],
             'level': '',
             'author': '',
             'updated': '',
             'title': 'DTDs',
-            'slide': []
+            'slides': []
             }]
     }];
 

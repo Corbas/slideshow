@@ -7,7 +7,7 @@ import 'rxjs/add/operator/do';
 
 import { AppConfig } from './../shared/app.config';
 
-const listDecksUrl: string = 'list-decks';
+const listDecksUrl: string = 'list-decks/json';
 
 @Injectable()
 export class DecksService {
