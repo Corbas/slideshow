@@ -7,7 +7,16 @@
         "description": "Introductory XML Course, explaining the concepts of mark-up, XML, well-formedness and valiity.",
         "author": "Nic Gibson",
         "updated": "2017-08-22",
-        "decks": ["markup-intro", "xml-syntax"]           
+        "decks": [
+          {
+            "id":"markup-intro",
+            "exclude": []
+          },
+          {
+            "id":"xml-syntax",
+            "exclude": []
+          }
+        ]           
       },
       
       {
@@ -16,7 +25,12 @@
         "author": "Nic Gibson",
         "description": "A brief introduction to the simpler aspects of DTD authoring.",
         "updated": "2017-08-22",
-        "decks": [ "dtd-intro"]       
+        "decks": [
+          {
+            "id": "dtd-intro",
+            "exclude": []
+          }
+        ]
       } 
   ]
 }

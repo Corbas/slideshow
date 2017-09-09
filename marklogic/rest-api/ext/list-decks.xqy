@@ -25,7 +25,6 @@ function slides:options(
   $params as map:map
 ) as document-node()* {
 
-    xdmp:add-response-header("Access-Control-Allow-Origin", "*"),
     map:put($context, 'output-types', "text/plan"),
     map:put($context, "output-status", (200, "OK")),
     document {'ok'}
@@ -53,8 +52,6 @@ function slides:get(
 
 declare function slides:decks-as($context, $content-type) as document-node()? {
 
-    xdmp:add-response-header("Access-Control-Allow-Origin", "*"),
-    (:xdmp:add-response-header("Access-Control-Allow-Headers", "origin, x-requested-with, content-type"),:)
     map:put($context, 'output-types', $content-type),
     map:put($context, "output-status", (200, "OK")),
     if ($content-type eq 'application/xml')

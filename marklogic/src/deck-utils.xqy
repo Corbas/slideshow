@@ -85,7 +85,25 @@ declare function du:convert-decks-to-json($decks as element(pres:div)*) as array
     let $x := map:put($config, 'array-element-names', (xs:QName('pres:slide'), xs:QName('pres:keyword') ))
     
  
-    return  array-node { for $deck in $decks return  json:transform-to-json($deck ,$config)/object-node()/object-node() } 
-    
-          
+    return  array-node { 
+      
+      for $deck in $decks return
+      object-node {
+        "id"  : text { $deck/pres:id },
+        "title" : text { $deck/pres:title },
+        "level": text { $deck/pres:level },
+        "author": text { $deck/pres:author },
+        "updated": text { $deck/pres:updated },
+        "keywords": array-node {
+          for $kw in $deck/pres:keyword return text { $kw } },
+         "slides": array-node {
+          for $slide in $deck/pres:slide return 
+            object-node { 
+               "id": text { $slide/@xml:id },
+               "title": text { $slide/pres:title } }
+        }
+      }
+      
+    }
+                  
 };
