@@ -1,3 +1,4 @@
+import { combineAll } from 'rxjs/operator/combineAll';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -26,6 +27,7 @@ import { DeckDetailComponent } from './presentations/deck-detail.component';
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
+      { path:  'list-decks', component: DeckListComponent },
       { path: 'home', component: HomeComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full'}
 
