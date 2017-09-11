@@ -32,7 +32,7 @@ declare namespace pres = "http://www.corbas.co.uk/ns/presentations";
  :)
 
 (:
- :)
+:)
 declare 
 %roxy:params("deck=xs:string")
 function slides:get(
@@ -77,4 +77,5 @@ declare function slides:load-deck($params) as element(pres:div)?
     return if ($deck) then $deck
       else fn:error((), "RESTAPI-SRVEXERR", (404, "Deck not found", concat("Deck with id", $deck-id, " not found")))
 };
+
 

@@ -41,10 +41,14 @@ function slides:get(
 ) as document-node()* {
 
   let $content-type as xs:string? := su:get-format($context, $params)
+  let $deck-id as xs:string? := map:get($params, 'deck')
+ 
   
   return if ($content-type) 
     then
-      slides:decks-as($context, $content-type)
+      if ($deck-id) 
+        then slides:deck-as($context, $content-type)
+        else slides:decks-as($context, $content-type)
     else 
       su:bad-content-type($context)
 };
