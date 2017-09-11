@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><p:div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
+<?xml version="1.0" encoding="UTF-8"?>
+<p:deck xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
   
     <p:meta>
       <p:id>unicode-intro</p:id>
@@ -168,4 +169,4 @@
       <p>You <strong>don't</strong> ever see that unless something has gone wrong!</p>
     </p:slide>
     
-</p:div>
+</p:deck>
