@@ -1,6 +1,4 @@
-{
-  "presentations":
-  [  
+[  
     {
         "id": "pres003A10",
         "title": "XML Basics",
@@ -10,7 +8,7 @@
         "decks": [
           {
             "id":"markup-intro",
-            "exclude": []
+            "exclude": ["d1e21", "dummy"]
           },
           {
             "id":"xml-syntax",
@@ -33,4 +31,3 @@
         ]
       } 
   ]
-}

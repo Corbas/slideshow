@@ -25,7 +25,7 @@ function slides:get(
   let $content-type as xs:string? := su:get-format($context, $params)
   let $deck-id as xs:string? := map:get($params, 'deck')
   
-  let $decks as element(pres:deck) :=  
+  let $decks as element(pres:deck)* :=  
     for $deck in (if ($deck-id) 
       then slides:load-single-deck($deck-id)
       else slides:load-all-decks()) return slides:simplify-deck($deck)
@@ -34,7 +34,7 @@ function slides:get(
     then
       if ($deck-id) 
         then slides:single-deck-as($context, $content-type, $decks)
-        else slides:decks-as($context, $content-type, $decks)     
+        else slides:all-decks-as($context, $content-type, $decks)     
     else 
       su:bad-content-type($context)
 };
@@ -44,7 +44,7 @@ function slides:get(
 :)
 declare function slides:single-deck-as(
   $context as map:map, 
-  $content-tupe as xs:string, 
+  $content-type as xs:string, 
   $deck as element(pres:deck))
   as document-node()? {
    
@@ -61,7 +61,7 @@ declare function slides:single-deck-as(
 (:
   Structure multiple decks for a deck listing for output
 :)
-declare function slides:decks-as(
+declare function slides:all-decks-as(
   $context as map:map, 
   $content-type as xs:string,
   $decks as element(pres:deck)*) as document-node()? {
@@ -81,14 +81,13 @@ declare function slides:decks-as(
     deck from the database. Raises errors if the parameter is missing
     or if no deck with that id exists.
 :)
-declare function slides:load-single-deck($deck-id as xs:sgtring) as element(pres:deck)?
+declare function slides:load-single-deck($deck-id as xs:string) as element(pres:deck)?
 {
-    let $deck-id := map:get($params, 'deck')
     let $deck := if ($deck-id) then  xdmp:directory('/decks/')/pres:deck[pres:meta/pres:id = $deck-id]  
       else fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter", "The 'deck' parameter is required"))
     
     return if ($deck) then $deck
-      else fn:error((), "RESTAPI-SRVEXERR", (404, "Deck not found", concat("Deck with id", $deck-id, " not found")))
+      else fn:error((), "RESTAPI-SRVEXERR", (404, "Deck not found", concat("Deck with id ", $deck-id, " not found")))
 };
 
 (:
