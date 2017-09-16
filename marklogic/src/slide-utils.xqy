@@ -44,7 +44,7 @@ declare function su:get-format-as-content-type($params as map:map) as xs:string?
 declare function su:get-accepted-type($context as map:map) as xs:string?
 {
   let $accepted as xs:string* := map:get($context, 'accept-types')
-    
+      
   return 
     if ($accepted) then 
       if ($accepted = 'application/xml') then 'application/xml'

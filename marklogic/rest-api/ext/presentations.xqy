@@ -71,8 +71,6 @@ function slides:post(
   $input as document-node()*
 ) as document-node()*
 {
-  let $dummy := xdmp:log("At initial log")
-
   let $content-type as xs:string? := su:get-format($context, $params)
   let $presentation-id  as xs:string? := map:get($params, 'presentation')
   let $deck-id as xs:string? := map:get($params, 'deck')
@@ -88,7 +86,7 @@ function slides:post(
   
   (: If any are missing we have an error :)
   let $dummy := if (not($presentation-id) or not($deck-id) or not($slide-id))
-    then fn:error((), "RESTAPI-SRVEXERR", (400, "Parameter(s) missing", 
+    then fn:error((), "RESTAPI-SRVEXERR", (500, "Parameter(s) missing", 
         "The presentation, deck and slide parameters are required."))
     else ()
     
@@ -111,7 +109,8 @@ function slides:post(
     then array-node { $excludes/node()[not(. = $slide-id)] }
     else array-node { ($excludes/node(), $slide-id) }
     
-  (: Update :)
+  (: Update - TODO - put this into a separate transaction so we 
+  can simply return the changed doc :)
   let $dummy := xdmp:node-replace($excludes, $new-excludes)
   
   (: Build an 'updated' copy of the input to return :)
@@ -128,9 +127,128 @@ function slides:post(
         else $deck }
   }
   
-  
   return slides:single-presentation-as($context, $content-type, $new-presentation )
     
+};
+
+
+(:
+  Add a new presentation.
+  The input document must be a JSON document representing the new presentation. At creation
+  time we only require the title of the presentation to be present. Other fields can be omitted.
+:)
+declare 
+%roxy:params("format=xs:string?")
+%rapi:transaction-mode("update")
+function slides:put(
+  $context as map:map,
+  $params as map:map,
+  $input as document-node()*
+) as document-node()?
+{
+  let $content-type as xs:string? := su:get-format($context, $params)
+  let $data := $input/node()
+  let $type := xdmp:node-kind($data)
+
+  (: Because this call returns data, we need to know if we have a reasonable
+     content type before we do anything - updating and then finding an error
+     would be bad 
+  :)
+  let $dummy := if (not($content-type)) 
+    then su:bad-content-type($context)
+    else ()
+    
+  (: We *must* have a uploaded document :)
+  let $dummy := if (empty($input))
+    then fn:error((), "RESTAPI-SRVEXERR", (500, "Body required", 
+        "There is not presentation to create!"))
+    else ()   
+    
+  (: And that uploaded document must be of type object or element :)
+  let $dummy := if (not($type = ('element', 'object')))
+    then fn:error((), "RESTAPI-SRVEXERR", (500, "Invalid content", 
+        "Document must be a JSON object"))
+    else ()
+    
+  (: Don't use the object directly, create a new presentation based
+  on the input. We are liberal here since a presentation can be 
+  valid (in some sense) with only an id. We set the title and author
+  because an empty sequence is generated without the if and that's
+  invalid in JSON :)
+  
+  let $title := if ($type = 'element') then $data/pres:title/data() else $data/title
+  let $author := if ($type = 'element') then $data/pres:author/data() else $data/author
+  let $description := if ($type = 'element') then $data/pres:description/data() else $data/description
+  
+  let $presentation := object-node { 
+    'id':  concat('pres', generate-id($input/node())), 
+    'title': ($title, '')[1],
+    'author': ($author, '')[1],
+    'description': ($description, '')[1],
+    'updated': format-date(current-date(), '[Y0001]-[M01]-[D01]'),
+    'decks': array-node{ () } 
+   }
+   
+  (: Now we need to append that to the presentations document. We get the document
+  and overwrite the original as we are only appending to the list. :)
+  let $presentations := array-node { 
+      doc('/presentations/presentations.json')/array-node()/object-node(),
+      $presentation }
+  
+  let $dummy := xdmp:document-insert('/presentations/presentations.json', $presentations)
+    
+  return slides:single-presentation-as($context, $content-type, $presentation )
+};
+
+
+(:
+  Delete a presentation.
+  If the presentation exists it is deleted and the deleted presentation is returned.
+  If not a 404 error is raised.
+:)
+declare 
+%roxy:params("presentation=xs:string,format=xs:string?")
+function slides:delete(
+    $context as map:map,
+    $params  as map:map
+) as document-node()?
+{
+  let $content-type as xs:string? := su:get-format($context, $params)
+  let $presentation-id as xs:string? := map:get($params, 'presentation')
+  
+   (: Because this call returns data, we need to know if we have a reasonable
+     content type before we do anything - updating and then finding an error
+     would be bad 
+  :)
+  let $dummy := if (not($content-type)) 
+    then su:bad-content-type($context)
+    else ()
+    
+  (: If we have no presentation id, return an error :)
+  let $dummy := if (not($presentation-id))
+    then fn:error((), "RESTAPI-SRVEXERR", (400, "Parameter(s) missing", 
+        "The presentation is required."))
+    else ()
+
+
+  (:  Rewrite without the presentation to be deleted :)
+  let $presentations as object-node()* := slides:load-all-presentations()
+  
+  (: Get the one we are deleting :)
+  let $to-delete := $presentations[id = $presentation-id]
+  
+  (: Got it? :)
+  let $dummy := if (not($to-delete))
+    then fn:error((), "RESTAPI-SRVEXERR", (404, "Presentation not found", 
+        concat("Presentation with id ", $presentation-id, " not found")))
+    else ()
+    
+  (: Rewrite :)
+  let $remainder := array-node { $presentations[not(id = $presentation-id)] }
+  let $dummy := xdmp:document-insert('/presentations/presentations.json', $remainder)
+
+  (: Done :)
+  return slides:single-presentation-as($context, $content-type, $to-delete )
 };
 
 
