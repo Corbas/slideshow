@@ -4,15 +4,19 @@ import {HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { PresentationsComponent } from './presentations/presentations.component';
-import { DeckListComponent } from './presentations/decklist.component';
+import { DeckListComponent } from './decks/decklist.component';
 import { KeywordListComponent } from './shared/keywordlist.component';
 import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './errors/notfound.component';
 
 import { AppConfig, SLIDESHOW_CONFIG } from './shared/app.config';
-import { DeckDetailComponent } from './presentations/deck-detail.component';
+import { DeckDetailComponent } from './decks/deck-detail.component';
+import { PresentationDetailsComponent } from './presentations/presentation-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,15 +25,21 @@ import { DeckDetailComponent } from './presentations/deck-detail.component';
     DeckListComponent,
     KeywordListComponent,
     DeckDetailComponent,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent,
+    PresentationDetailsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([
-      { path:  'list-decks', component: DeckListComponent },
-      { path: 'home', component: HomeComponent},
-      { path: '', redirectTo: 'home', pathMatch: 'full'}
+      { path: 'decks', component: DeckListComponent },
+      { path: 'presentations', component: PresentationsComponent },
+      { path: 'pdetails/:id', component: PresentationDetailsComponent },
+      { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '**',  component: NotFoundComponent }
 
     ]),
     NgbModule.forRoot(),

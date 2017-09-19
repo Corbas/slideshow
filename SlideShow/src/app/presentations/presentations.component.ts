@@ -12,12 +12,8 @@ export class PresentationsComponent implements OnInit {
   presentations: Presentation[];
   constructor(private presentationService: PresentationsService) {}
 
-  _update_presentations(): void {
-    this.presentations = this.presentationService.getPresentations();
-  }
-
   ngOnInit(): void {
-    this._update_presentations();
+    this.presentationService.listPresentations().subscribe(presentations => this.presentations = presentations);
   }
 
 }

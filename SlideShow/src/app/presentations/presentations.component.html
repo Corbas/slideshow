@@ -1,34 +1,26 @@
     
     <div class="row">
-         <div class='col-lg-2'>
+         <div class='col col-lg-2'>
               
          </div>
          
-        <div class="col-lg-10">
+        <div class="col col-lg-10">
             <ngb-accordion [closeOthers]="true" activeIds="idx-1">
                 <ngb-panel *ngFor='let presentation of presentations; index as i' [title]='presentation.title' [id]='"idx" + i'>
                 <ng-template ngbPanelContent>
-                    <div class="responsive-table">
-                        <table class="table">
-                            <tr>
-                                <th>Title </th>
-                                <td>{{presentation.title}}</td>
-                                <th>Author</th>
-                                <td>{{presentation.author}}</td>
-                            </tr>
-                            <tr>
-                                <th>id</th>
-                                <td>{{presentation.id}}</td>
-                                <th>Updated</th>
-                                <td>{{presentation.updated}}</td>                                
-                            </tr>
-                            <tr>
-                                <th>Description</th>
-                                <td colspan="3">{{presentation.description}}</td>
-                            </tr>
-                        </table>
+                    <div class="row">
+                    <div class="col col-lg-8">
+                        <em>{{presentation.description}}</em>
                     </div>
-                </ng-template>
+                    <div class="col col-lg-2">
+                        <strong>Last updated</strong><br>{{presentation.updated}}
+                    </div>
+                    <div class="col col-lg-2">
+                        <button class="spacer btn btn-info btn-sm">
+                            <a [routerLink]="['/pdetails', presentation.id]">Edit…</a></button>
+                    </div>
+                </div>
+                 </ng-template>
             </ngb-panel>
             </ngb-accordion>
         </div>

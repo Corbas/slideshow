@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col col-lg-2">
+
+    </div>
+
+    <div class="col col-lg-10">
+    <div class="row" *ngIf="presentation">
+        <div class="col col-lg-4">
+            <label>ID: </label>
+        </div>
+        <div class="col col-lg-8">
+            <span>{{ presentation.id }}</span>
+        </div>        
+    </div>
+
+    <div class="row" *ngIf="presentation">
+        <div class="col col-lg-4">
+            <label>Title: </label>
+        </div>
+        <div class="col col-lg-8">
+            <input [(ngModel)]="presentation.title" placeholder="title…"/>
+        </div>        
+    </div>
+    
+     <div class="row" *ngIf="presentation">
+        <div class="col col-lg-4">
+         <label>Description: </label>
+        </div>
+        <div class="col col-lg-8">
+           <input [(ngModel)]="presentation.description" placeholder="description…"/>
+        </div>            
+    
+        
+
+    </div>
+
+    </div>
+
+</div>

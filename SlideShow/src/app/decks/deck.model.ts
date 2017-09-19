@@ -1,4 +1,4 @@
-import { SlideProxy } from './slideproxy.model';
+import { SlideProxy } from '../slides/slideproxy.model';
 
 export class Deck {
     id: string;

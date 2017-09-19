@@ -3,7 +3,6 @@ import { DecksService } from './decks.service';
 import { Deck } from './deck.model';
 
 @Component({
-  selector: 'slides-decks',
   templateUrl: './decklist.component.html',
   styleUrls: ['./decklist.component.css']
 })
