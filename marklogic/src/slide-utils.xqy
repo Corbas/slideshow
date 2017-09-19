@@ -63,3 +63,46 @@ declare function su:bad-content-type($context as map:map) as item()*
 };
 
 
+(:
+  The deck to json code is used in presentation and deck
+  modules so we keep it here
+:)
+(:
+    Given an XML document representing a deck transform it to JSON.
+:)
+declare function su:convert-deck-to-json($deck as element(pres:deck)) as object-node()
+{
+      object-node {
+        "id"  : text { $deck/pres:id },
+        "title" : text { $deck/pres:title },
+        "level": text { $deck/pres:level },
+        "author": text { $deck/pres:author },
+        "updated": text { $deck/pres:updated },
+        "keywords": array-node {
+          for $kw in $deck/pres:keyword return text { $kw } },
+         "slides": array-node {
+          for $slide in $deck/pres:slide return 
+            object-node { 
+               "id": text { $slide/@xml:id },
+               "title": text { $slide/pres:title } }
+        }
+      }                  
+};
+
+
+
+
+(:
+    Extract the deck id from the parameters and fetch the
+    deck from the database. Raises errors if the parameter is missing
+    or if no deck with that id exists. This function is also used in
+    multiple modules.
+:)
+declare function su:load-single-deck($deck-id as xs:string) as element(pres:deck)?
+{
+    let $deck := if ($deck-id) then  xdmp:directory('/decks/')/pres:deck[pres:meta/pres:id = $deck-id]  
+      else fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter", "The 'deck' parameter is required"))
+    
+    return if ($deck) then $deck
+      else fn:error((), "RESTAPI-SRVEXERR", (404, "Deck not found", concat("Deck with id ", $deck-id, " not found")))
+};

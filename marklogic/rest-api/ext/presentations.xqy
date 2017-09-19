@@ -298,7 +298,7 @@ declare function slides:load-single-presentation($presentation-id as xs:string) 
       document('/presentations/presentations.json')/array-node()/object-node()[id = $presentation-id]
     
     return 
-      if ($pres) then $pres
+      if ($pres) then slides:merge-presentation($pres)
       else fn:error((), "RESTAPI-SRVEXERR", (404, "Presentation not found", 
         concat("Presentations with id ", $presentation-id, " not found")))
 };
@@ -329,9 +329,19 @@ declare function slides:presentation-as-xml($presentation as object-node()) as e
       { 
         for $deck in $presentation/decks return 
           <pres:deck id="{$deck/id}">
-          {  
+          { 
+            for $title in $deck/title return
+              <pres:title>{$title/data()}</pres:title>,
+              
             for $slide in $deck/exclude return
-              <pres:exclude>{$slide/data()}</pres:exclude>
+              <pres:exclude>{$slide/data()}</pres:exclude>,
+              
+            for $slide in $deck/slides return
+              <pres:slide>
+                <pres:title>{$slide/title/data()}</pres:title>
+                <pres:id>{$slide/id/data()}</pres:id>
+              </pres:slide>
+
           }
           </pres:deck>
        }
@@ -340,3 +350,21 @@ declare function slides:presentation-as-xml($presentation as object-node()) as e
 };
 
 
+(: Merge decks for a presentation into that presentation :)
+declare function slides:merge-presentation($presentation as object-node()) as object-node()
+{ 
+  let $decks := 
+    for $deck in $presentation/decks return su:convert-deck-to-json(su:load-single-deck($deck/id))
+    
+  return object-node {
+    "id": $presentation/id,
+    "title": $presentation/title,
+    "author": $presentation/author,
+    "updated": $presentation/updated,  
+    "decks":  
+      array-node 
+      { 
+        $decks
+      }    
+    }
+};
