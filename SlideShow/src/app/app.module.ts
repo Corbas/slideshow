@@ -17,6 +17,7 @@ import { NotFoundComponent } from './errors/notfound.component';
 import { AppConfig, SLIDESHOW_CONFIG } from './shared/app.config';
 import { DeckDetailComponent } from './decks/deck-detail.component';
 import { PresentationDetailsComponent } from './presentations/presentation-detail.component';
+import { DeckLinksComponent } from './decks/deck-link.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PresentationDetailsComponent } from './presentations/presentation-detai
     DeckDetailComponent,
     HomeComponent,
     NotFoundComponent,
-    PresentationDetailsComponent
+    PresentationDetailsComponent,
+    DeckLinksComponent
   ],
   imports: [
     BrowserModule,

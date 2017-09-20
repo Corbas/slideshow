@@ -3,8 +3,8 @@
 
     </div>
 
-    <div class="col col-lg-10">
-    <div class="row" *ngIf="presentation">
+    <div class="col col-lg-10" *ngIf="presentation">
+    <div class="row">
         <div class="col col-lg-4">
             <label>ID: </label>
         </div>
@@ -13,7 +13,7 @@
         </div>        
     </div>
 
-    <div class="row" *ngIf="presentation">
+    <div class="row">
         <div class="col col-lg-4">
             <label>Title: </label>
         </div>
@@ -22,15 +22,16 @@
         </div>        
     </div>
     
-     <div class="row" *ngIf="presentation">
+     <div class="row">
         <div class="col col-lg-4">
          <label>Description: </label>
         </div>
         <div class="col col-lg-8">
+           <!-- why is this not generating the description? -->
            <input [(ngModel)]="presentation.description" placeholder="description…"/>
         </div>            
     
-        
+    <slides-deck-link-list></slides-deck-link-list>
 
     </div>
 

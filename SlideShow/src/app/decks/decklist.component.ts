@@ -13,7 +13,12 @@ export class DeckListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.deckService.listDecks().subscribe(decks => this.decks = decks);
+    this.deckService.listDecks().subscribe(decks => this.setDecks(decks));
   }
 
+
+  setDecks(decks: Deck[]) {
+    this.decks = decks;
+    /* console.log(JSON.stringify(decks)); */
+  }
 }

@@ -35,7 +35,7 @@ export class PresentationDetailsComponent implements OnInit {
 
     setPresentation(presentation: Presentation) {
         this.presentation = presentation;
-        console.log(JSON.stringify(presentation));
+        /* console.log(JSON.stringify(presentation)); */
     }
 }
 

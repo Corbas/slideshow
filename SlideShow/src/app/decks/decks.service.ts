@@ -16,22 +16,23 @@ export class DecksService {
 
     private requestUrl: string;
     private getRequestUrl: string;
+    private headers: HttpHeaders;
 
   constructor(
         @Inject(AppConfig) private config: AppConfig,
         @Inject(HttpClient) private http: HttpClient) {
         this.requestUrl = this.config.restRoot + decksPath;
+        this.headers = new HttpHeaders({'Accept': 'application/json'});
     }
 
     listDecks(): Observable<Deck[]> {
-        return this.http.get<Deck[]>(this.requestUrl);
+        return this.http.get<Deck[]>(this.requestUrl, { headers: this.headers});
     }
 
     getDeck(id: string): Observable<Deck> {
 
-        const headers: HttpHeaders = new HttpHeaders({'Accept': 'application/json'});
         const thisUrl: string = this.requestUrl + '/' + id;
 
-        return this.http.get<Deck>(thisUrl, { headers: headers });
+        return this.http.get<Deck>(thisUrl, { headers: this.headers });
     }
 }
