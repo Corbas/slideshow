@@ -3,7 +3,7 @@ xquery version "1.0-ml";
 module namespace su = "http://www.corbas.co.uk/ns/slides-utils";
 
 declare namespace pres = "http://www.corbas.co.uk/ns/presentations";
-
+ 
 (:
   Get the content type for return. If it isn't xml or json this 
   will return an empty sequence. If it is, it will return the 
@@ -72,14 +72,16 @@ declare function su:bad-content-type($context as map:map) as item()*
 :)
 declare function su:convert-deck-to-json($deck as element(pres:deck)) as object-node()
 {
-      object-node {
-        "id"  : text { $deck/pres:id },
-        "title" : text { $deck/pres:title },
-        "level": text { $deck/pres:level },
-        "author": text { $deck/pres:author },
-        "updated": text { $deck/pres:updated },
+    let $x := xdmp:log(concat('XXXX: ', $deck/pres:meta/pres:id))
+    
+    return object-node {
+        "id"  : text { $deck/pres:meta/pres:id },
+        "title" : text { $deck/pres:title } ,
+         "level": text { $deck/pres:meta/pres:level },
+        "author": text { $deck/pres:meta/pres:author },
+        "updated": text { $deck/pres:meta/pres:updated },
         "keywords": array-node {
-          for $kw in $deck/pres:keyword return text { $kw } },
+          for $kw in $deck/pres:meta/pres:keyword return text { $kw } },
          "slides": array-node {
           for $slide in $deck/pres:slide return 
             object-node { 
@@ -100,6 +102,8 @@ declare function su:convert-deck-to-json($deck as element(pres:deck)) as object-
 :)
 declare function su:load-single-deck($deck-id as xs:string) as element(pres:deck)?
 {
+    let $dummy := xdmp:log(concat(' Deck ID is ', $deck-id))
+    
     let $deck := if ($deck-id) then  xdmp:directory('/decks/')/pres:deck[pres:meta/pres:id = $deck-id]  
       else fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter", "The 'deck' parameter is required"))
     

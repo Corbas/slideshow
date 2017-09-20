@@ -332,10 +332,7 @@ declare function slides:presentation-as-xml($presentation as object-node()) as e
           { 
             for $title in $deck/title return
               <pres:title>{$title/data()}</pres:title>,
-              
-            for $slide in $deck/exclude return
-              <pres:exclude>{$slide/data()}</pres:exclude>,
-              
+                            
             for $slide in $deck/slides return
               <pres:slide>
                 <pres:title>{$slide/title/data()}</pres:title>

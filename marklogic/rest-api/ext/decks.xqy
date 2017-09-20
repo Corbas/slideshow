@@ -94,15 +94,19 @@ declare function slides:load-all-decks() as element(pres:deck)*
 declare function slides:simplify-deck($deck as element(pres:deck)) as element(pres:deck)
 {
  <pres:deck>
+    <pres:meta>
     {
       $deck/pres:meta/pres:id, 
       $deck/pres:meta/pres:keyword,
       $deck/pres:meta/pres:level,
       $deck/pres:meta/pres:author,
-      $deck/pres:meta/pres:updated,
-      $deck/pres:title
-    }
-    { for $slide in $deck/pres:slide
+      $deck/pres:meta/pres:updated
+    }    
+    </pres:meta>
+      
+    { 
+      $deck/pres:title,
+      for $slide in $deck/pres:slide
         return 
           <pres:slide>
             {$slide/@*, $slide/pres:title}
