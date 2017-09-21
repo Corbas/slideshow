@@ -1,6 +1,6 @@
 xquery version "1.0-ml";
 
-module namespace slides = "http://marklogic.com/rest-api/resource/presentations";
+module namespace presentations = "http://marklogic.com/rest-api/resource/presentations";
 
 import module namespace json = "http://marklogic.com/xdmp/json"
     at "/MarkLogic/json/json.xqy";
@@ -25,7 +25,7 @@ declare namespace pres = "http://www.corbas.co.uk/ns/presentations";
 :)
 declare 
 %roxy:params("presentation=xs:string?,format=xs:string?")
-function slides:get(
+function presentations:get(
   $context as map:map,
   $params  as map:map
 ) as document-node()*
@@ -36,24 +36,24 @@ function slides:get(
   
    let $presentations as object-node()* :=   
       if ($presentation-id) 
-      then slides:load-single-presentation($presentation-id)
-      else slides:load-all-presentations()
+      then presentations:load-single-presentation($presentation-id)
+      else presentations:load-all-presentations()
 
     return if ($content-type) 
     then
       if ($presentation-id) 
-        then slides:single-presentation-as($context, $content-type, $presentations)
-        else slides:all-presentations-as($context, $content-type, $presentations)     
+        then presentations:single-presentation-as($context, $content-type, $presentations)
+        else presentations:all-presentations-as($context, $content-type, $presentations)     
     else 
       su:bad-content-type($context)
 
 };
 
 (:
-  Update a slide's visibility in a presentation. Given the ids of the presentation
-  and deck, the slide id is added to the excludes array if not present and removed
-  if it is present. No checking is done on the slide id as no particular damage is 
-  done if it is not correct (this should change in future).
+  Update a presentation.
+  
+  Updates presentation data, presentation decks or slide visibility depending on
+  parameters.
   
   There isn't any particularly obvious thing to return from this call. In order
   to be reasonable about this we treat it as a call to get the presentation 
@@ -65,7 +65,7 @@ function slides:get(
 declare 
 %roxy:params("presentation=xs:string,deck=xs:string,slide=xs:string,format=xs:string?")
 %rapi:transaction-mode("update")
-function slides:post(
+function presentations:post(
   $context as map:map,
   $params as map:map,
   $input as document-node()*
@@ -84,52 +84,23 @@ function slides:post(
     then su:bad-content-type($context)
     else ()
   
-  (: If any are missing we have an error :)
-  let $dummy := if (not($presentation-id) or not($deck-id) or not($slide-id))
+  
+  let $dummy := if (not($presentation-id) )
     then fn:error((), "RESTAPI-SRVEXERR", (500, "Parameter(s) missing", 
-        "The presentation, deck and slide parameters are required."))
+        "The presentation parameter is required."))
     else ()
     
-  let $presentation as object-node() := slides:load-single-presentation($presentation-id)
+  let $presentation as object-node() := presentations:load-single-presentation($presentation-id)
   
-  (: find the deck within that presentation :)
-  let $deck as object-node()? := $presentation/decks[id = $deck-id]
-
-  (: It's an error if that deck is not present :)
-  let $dummy := if (not($deck))
-    then fn:error((), "RESTAPI-SRVEXERR", (404, "Deck not found.", 
-        concat("The presentation with id ", $presentation-id, " does not contain the deck with id ", $deck-id)))
-    else ()  
-  
-  (: Now check for the presence of the slide. We append it to the array and update if not present and
-     remove it and update if it is :)
-  let $excludes := $deck/array-node('exclude')
-  
-  let $new-excludes := if ($slide-id = $excludes/node()) 
-    then array-node { $excludes/node()[not(. = $slide-id)] }
-    else array-node { ($excludes/node(), $slide-id) }
-    
-  (: Update - TODO - put this into a separate transaction so we 
-  can simply return the changed doc :)
-  let $dummy := xdmp:node-replace($excludes, $new-excludes)
-  
-  (: Build an 'updated' copy of the input to return :)
-  let $new-presentation := object-node {
-    'id': $presentation/id,
-    'title': $presentation/title,
-    'description': $presentation/description,
-    'author': $presentation/author,
-    'updated': $presentation/updated,
-    'decks': array-node {
-    for $deck in $presentation/decks 
-      return if ($deck/id = $deck-id) 
-        then object-node { 'id': $deck/id, 'exclude': $new-excludes }
-        else $deck }
-  }
-  
-  return slides:single-presentation-as($context, $content-type, $new-presentation )
-    
+  (: The number of parameters defines what we are doing :)
+  return 
+    if ($deck-id and $slide-id) 
+      then presentations:update-slide-in-presentation($context, $content-type, $presentation, $deck-id, $slide-id)
+      else if ($deck-id)
+            then presentations:update-deck-in-presentation($context, $content-type, $presentation, $deck-id)
+            else presentations:update-presentation($context, $content-type, $presentation, $input)
 };
+
 
 
 (:
@@ -140,7 +111,7 @@ function slides:post(
 declare 
 %roxy:params("format=xs:string?")
 %rapi:transaction-mode("update")
-function slides:put(
+function presentations:put(
   $context as map:map,
   $params as map:map,
   $input as document-node()*
@@ -197,7 +168,7 @@ function slides:put(
   
   let $dummy := xdmp:document-insert('/presentations/presentations.json', $presentations)
     
-  return slides:single-presentation-as($context, $content-type, $presentation )
+  return presentations:single-presentation-as($context, $content-type, $presentation )
 };
 
 
@@ -208,7 +179,7 @@ function slides:put(
 :)
 declare 
 %roxy:params("presentation=xs:string,format=xs:string?")
-function slides:delete(
+function presentations:delete(
     $context as map:map,
     $params  as map:map
 ) as document-node()?
@@ -232,7 +203,7 @@ function slides:delete(
 
 
   (:  Rewrite without the presentation to be deleted :)
-  let $presentations as object-node()* := slides:load-all-presentations()
+  let $presentations as object-node()* := presentations:load-all-presentations()
   
   (: Get the one we are deleting :)
   let $to-delete := $presentations[id = $presentation-id]
@@ -248,14 +219,131 @@ function slides:delete(
   let $dummy := xdmp:document-insert('/presentations/presentations.json', $remainder)
 
   (: Done :)
-  return slides:single-presentation-as($context, $content-type, $to-delete )
+  return presentations:single-presentation-as($context, $content-type, $to-delete )
+};
+
+
+
+
+(: 
+  Update the presence of a deck in a presentation. If already present, remove it
+  and if not add it.
+:)
+declare 
+%rapi:transaction-mode("update")
+function presentations:update-deck-in-presentation( 
+  $context-as map:map,
+  $content-type as xs:string, 
+  $presentation as object-node(),
+  $deck-id as xs:string) 
+  as document-node()
+{
+ (: find the deck within that presentation :)
+  let $decks as array-node() := $presentation/array-node('decks')
+  let $deck := $decks/object-node()[id = $deck-id]
+
+  let $new-decks := 
+    array-node {  
+      if ($deck) 
+      then $decks/object-node()[not(id = $deck-id)]
+      else ($decks/object-node(), object-node { "id": $deck-id, "exclude": array-node{()}})
+    } 
+
+  (: Update - TODO - put this into a separate transaction so we 
+  can simply return the changed doc :)
+  let $dummy := xdmp:node-replace($decks, $new-decks)
+
+  
+  (: Build an 'updated' copy of the input to return :)
+  let $new-presentation := object-node {
+    'id': $presentation/id,
+    'title': $presentation/title,
+    'description': $presentation/description,
+    'author': $presentation/author,
+    'updated': $presentation/updated,
+    'decks': $new-decks
+  }
+
+
+  return presentations:single-presentation-as($context, $content-type, $new-presentation )
+};
+
+
+declare
+%rapi:transaction-mode("update")
+function presentations:update-presentation(
+  $context as map:map,
+  $content-type as xs:string,
+  $presentation as document-node(), 
+  $new-presentation as document-node())
+as document-node()
+{
+  presentations:single-presentation-as($context, $content-type, $presentation )
+};
+
+
+(: 
+  Update a slide's visibility in a presentation. Given the ids of the presentation
+  and deck, the slide id is added to the excludes array if not present and removed
+  if it is present. No checking is done on the slide id as no particular damage is 
+  done if it is not correct (this should change in future).
+  
+:)
+declare 
+%rapi:transaction-mode("update")
+function presentations:update-slide-in-presentation( 
+  $context-as map:map
+  $content-type as xs:string, 
+  $presentation as object-node(),
+  $deck-id as xs:string, 
+  $slide-id as xs:string) 
+  as document-node()
+{
+
+  (: find the deck within that presentation :)
+  let $deck as object-node()? := $presentation/decks[id = $deck-id]
+
+  (: It's an error if that deck is not present :)
+  let $dummy := if (not($deck))
+    then fn:error((), "RESTAPI-SRVEXERR", (404, "Deck not found.", 
+        concat("The presentation with id ", $presentation/id, " does not contain the deck with id ", $deck-id)))
+    else ()  
+  
+  (: Now check for the presence of the slide. We append it to the array and update if not present and
+     remove it and update if it is :)
+  let $excludes := $deck/array-node('exclude')
+  
+  let $new-excludes := if ($slide-id = $excludes/node()) 
+    then array-node { $excludes/node()[not(. = $slide-id)] }
+    else array-node { ($excludes/node(), $slide-id) }
+    
+  (: Update - TODO - put this into a separate transaction so we 
+  can simply return the changed doc :)
+  let $dummy := xdmp:node-replace($excludes, $new-excludes)
+  
+  (: Build an 'updated' copy of the input to return :)
+  let $new-presentation := object-node {
+    'id': $presentation/id,
+    'title': $presentation/title,
+    'description': $presentation/description,
+    'author': $presentation/author,
+    'updated': $presentation/updated,
+    'decks': array-node {
+    for $deck in $presentation/decks 
+      return if ($deck/id = $deck-id) 
+        then object-node { 'id': $deck/id, 'exclude': $new-excludes }
+        else $deck }
+  }
+  
+  return presentations:single-presentation-as($context, $content-type, $new-presentation )
+
 };
 
 
 (:
   Choose whether to return a single presentation as XML or JSON
 :)
-declare function slides:single-presentation-as(
+declare function presentations:single-presentation-as(
   $context as map:map, 
   $format as xs:string, 
   $presentation as object-node()) as document-node()*
@@ -264,14 +352,14 @@ declare function slides:single-presentation-as(
     map:put($context, "output-status", (200, "OK")),
     if ($format eq 'application/json') 
       then document { $presentation } 
-      else document { slides:presentation-as-xml($presentation) } 
+      else document { presentations:presentation-as-xml($presentation) } 
 };
 
 (:
   Choose whether to return the presentations info as XML or JSON
   (the document in the DB is natively JSON) but we default to returning XML
 :)
-declare function slides:all-presentations-as(
+declare function presentations:all-presentations-as(
   $context as map:map, 
   $format as xs:string, 
   $presentations as object-node()*) as document-node()*
@@ -283,7 +371,7 @@ declare function slides:all-presentations-as(
       else document { 
         <pres:presentations>
         {
-          for $pres in $presentations return slides:presentation-as-xml($pres) 
+          for $pres in $presentations return presentations:presentation-as-xml($pres) 
         }
         </pres:presentations> }   
 };
@@ -292,13 +380,13 @@ declare function slides:all-presentations-as(
 (:
   Load a single presentation from the presentations document
 :)
-declare function slides:load-single-presentation($presentation-id as xs:string) as object-node()
+declare function presentations:load-single-presentation($presentation-id as xs:string) as object-node()
 {
     let $pres as object-node() := 
-      document('/presentations/presentations.json')/array-node()/object-node()[id = $presentation-id]
+      doc('/presentations/presentations.json')/array-node()/object-node()[id = $presentation-id]
     
     return 
-      if ($pres) then slides:merge-presentation($pres)
+      if ($pres) then presentations:merge-presentation($pres)
       else fn:error((), "RESTAPI-SRVEXERR", (404, "Presentation not found", 
         concat("Presentations with id ", $presentation-id, " not found")))
 };
@@ -308,7 +396,7 @@ declare function slides:load-single-presentation($presentation-id as xs:string) 
   Load all the documents from the input and return as a sequence of nodes
   rather than an array (in order to make the rest of the code work consistently)
 :)
-declare function slides:load-all-presentations() as object-node()*
+declare function presentations:load-all-presentations() as object-node()*
 {
    document('/presentations/presentations.json')/array-node()/object-node()
 };
@@ -317,7 +405,7 @@ declare function slides:load-all-presentations() as object-node()*
   Return the JSON document as XML. It needs a little reformatting
   to be as we want it.
 :)
-declare function slides:presentation-as-xml($presentation as object-node()) as element(pres:presentation)
+declare function presentations:presentation-as-xml($presentation as object-node()) as element(pres:presentation)
 {
 
   <pres:presentation id="{$presentation/id}">       
@@ -348,7 +436,7 @@ declare function slides:presentation-as-xml($presentation as object-node()) as e
 
 
 (: Merge decks for a presentation into that presentation :)
-declare function slides:merge-presentation($presentation as object-node()) as object-node()
+declare function presentations:merge-presentation($presentation as object-node()) as object-node()
 { 
   let $decks := 
     for $deck in $presentation/decks return su:convert-deck-to-json(su:load-single-deck($deck/id))
@@ -358,6 +446,7 @@ declare function slides:merge-presentation($presentation as object-node()) as ob
     "title": $presentation/title,
     "author": $presentation/author,
     "updated": $presentation/updated,  
+    "description": $presentation/description,
     "decks":  
       array-node 
       { 
