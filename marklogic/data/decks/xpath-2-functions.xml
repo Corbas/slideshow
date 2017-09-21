@@ -10,6 +10,8 @@
 		<p:updated>2017-09-02</p:updated>
 	</p:meta>
 	
+	<p:title>XPath 2 Functions</p:title>
+	
 	<p:slide xml:id="d1e28">
 		<p:title>New Functions</p:title>
 		<h4 xmlns="http://www.w3.org/1999/xhtml">String Functions</h4>
