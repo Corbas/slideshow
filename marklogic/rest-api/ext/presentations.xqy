@@ -292,7 +292,7 @@ as document-node()
 declare 
 %rapi:transaction-mode("update")
 function presentations:update-slide-in-presentation( 
-  $context-as map:map
+  $context-as map:map,
   $content-type as xs:string, 
   $presentation as object-node(),
   $deck-id as xs:string, 
