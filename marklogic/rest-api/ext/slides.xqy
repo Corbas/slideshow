@@ -1,6 +1,6 @@
 xquery version "1.0-ml";
 
-module namespace slides = "http://marklogic.com/rest-api/resource/slide";
+module namespace slides = "http://marklogic.com/rest-api/resource/slides";
 
 import module namespace su = "http://www.corbas.co.uk/ns/slides-utils"
     at "/slide-utils.xqy";
@@ -26,18 +26,9 @@ function slides:get(
   $params  as map:map
 ) as document-node()*
 {
-  map:put($context, "output-types", "application/xml"),
+  map:put($context, "output-types", "text/html"),
   map:put($context, "output-status", (200, "OK")),
   slides:transform-slide(slides:get-slide($params))
-};
-
-
-(:
-  Return true if the required parameters are found. False if not.
-:)
-declare function slides:params-present($params as map:map) as xs:boolean
-{
-  map:contains($params, 'deck') and (map:contains($params, 'slide') or map:contains($params, 'index'))
 };
 
 
@@ -68,36 +59,47 @@ declare function slides:get-slide-by-index($params as map:map) as element(pres:s
   let $deck := map:get($params, 'deck')
   let $index := map:get($params, 'index')
   
-  return (xdmp:directory('/decks/')/pres:div[pres:meta/pres:id[. = $deck]]//pres:slide)[position() = xs:integer($index)]  
+  (: Fail if we don't have both params :)
+  let $dummy := if (not($deck and $index))
+    then fn:error((), "RESTAPI-SRVEXERR", (500, "Missing parameter(s)", 
+      'Both the deck and index parameters are required'))
+    else ()
+ 
+  (: this errors if the deck isn't found :) 
+  let $deck := su:load-single-deck($deck)
+ 
+  (: the intermediate layer ensures this is an integer - that might be wise here
+  too :)
+  let $slide := $deck//pres:slide[position() = xs:integer($index)]
+  
+  return if ($slide)
+    then $slide
+    else fn:error((), "RESTAPI-SRVEXERR", (404, "slide not found", concat("slide with index ", $index, " not found")))  
 };
 
 
 (:
-  Load a slide from the deck by index (number of slide in the deck).
+  Load a slide from the deck by id.
   We could do this via search but leave that until there are enough decks to make it worthwhile
 :)
 declare function slides:get-slide-by-id($params as map:map) as element(pres:slide)?
 {
   let $deck := map:get($params, 'deck')
-  let $id := map:get($params, 'id')
+  let $id := map:get($params, 'slide')
   
-  return (xdmp:directory('/decks/')/pres:div[pres:meta/pres:id[. = $deck]]//pres:slide)[(@id, @xml:id) = $id]
-};
-
-
-(:
-  If the parameters aren't both present return an error
-:)
-declare function slides:bad-params($context as map:map) as item()*
-{
-  fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter(s)", "The 'deck' and 'slide/index' parameters are required"))
-};
-
-
-(:
-  If the slide isn't found return an error
-:)
-declare function slides:missing-slide($context as map:map) as item()*
-{
-    fn:error((), "RESTAPI-SRVEXERR", (404, "Slide not found", "The requested slide was not found"))
+   (: Fail if we don't have both params :)
+  let $dummy := if (not($deck and $id))
+    then fn:error((), "RESTAPI-SRVEXERR", (500, "Missing parameter(s)", 
+      'Both the deck and slide parameters are required'))
+    else ()
+ 
+  (: this errors if the deck isn't found :) 
+  let $deck := su:load-single-deck($deck)
+ 
+  let $slide := $deck//pres:slide[(@id, @xml:id) = $id]
+  
+  return if ($slide)
+    then $slide
+    else fn:error((), "RESTAPI-SRVEXERR", (404, "slide not found", concat("slide with id ", $id, " not found")))  
+ 
 };

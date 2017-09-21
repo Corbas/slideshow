@@ -72,9 +72,7 @@ declare function su:bad-content-type($context as map:map) as item()*
 :)
 declare function su:convert-deck-to-json($deck as element(pres:deck)) as object-node()
 {
-    let $x := xdmp:log(concat('XXXX: ', $deck/pres:meta/pres:id))
-    
-    return object-node {
+    object-node {
         "id"  : text { $deck/pres:meta/pres:id },
         "title" : text { $deck/pres:title } ,
          "level": text { $deck/pres:meta/pres:level },
@@ -102,8 +100,6 @@ declare function su:convert-deck-to-json($deck as element(pres:deck)) as object-
 :)
 declare function su:load-single-deck($deck-id as xs:string) as element(pres:deck)?
 {
-    let $dummy := xdmp:log(concat(' Deck ID is ', $deck-id))
-    
     let $deck := if ($deck-id) then  xdmp:directory('/decks/')/pres:deck[pres:meta/pres:id = $deck-id]  
       else fn:error((), "RESTAPI-SRVEXERR", (400, "Missing parameter", "The 'deck' parameter is required"))
     

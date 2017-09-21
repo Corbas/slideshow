@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="347" height="198" viewBox="0, 0, 347, 198">
+  <g id="Layer_1">
+    <g>
+      <text transform="matrix(1, 0, 0, 1, 105.186, 8)">
+        <tspan x="-19.186" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;data&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 141.184, 22)">
+        <tspan x="-27.184" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;country&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 164.517, 36)">
+        <tspan x="-22.517" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;name&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 205.21, 36)">
+        <tspan x="-19.177" y="4" font-family="Helvetica" font-size="12" fill="#000000">Algeria</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 247.57, 36)">
+        <tspan x="-24.184" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/name&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 159.519, 50)">
+        <tspan x="-17.519" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;gdp&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 196.559, 50)">
+        <tspan x="-20.521" y="4" font-family="Helvetica" font-size="12" fill="#000000">274500</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 235.266, 50)">
+        <tspan x="-19.186" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/gdp&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 177.199, 64)">
+        <tspan x="-35.199" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;population&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 238.594, 64)">
+        <tspan x="-27.195" y="4" font-family="Helvetica" font-size="12" fill="#000000">38087812</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 301.655, 64)">
+        <tspan x="-36.866" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/population&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 161.517, 78)">
+        <tspan x="-19.517" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;area&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 203.892, 78)">
+        <tspan x="-23.858" y="4" font-family="Helvetica" font-size="12" fill="#000000">2381741</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 247.934, 78)">
+        <tspan x="-21.184" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/area&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 142.851, 92)">
+        <tspan x="-28.851" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/country&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 141.184, 106)">
+        <tspan x="-27.184" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;country&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 164.517, 120)">
+        <tspan x="-22.517" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;name&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 205.216, 120)">
+        <tspan x="-19.183" y="4" font-family="Helvetica" font-size="12" fill="#000000">Angola</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 247.582, 120)">
+        <tspan x="-24.184" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/name&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 159.519, 134)">
+        <tspan x="-17.519" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;gdp&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 196.559, 134)">
+        <tspan x="-20.521" y="4" font-family="Helvetica" font-size="12" fill="#000000">126200</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 235.266, 134)">
+        <tspan x="-19.186" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/gdp&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 177.199, 148)">
+        <tspan x="-35.199" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;population&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 238.594, 148)">
+        <tspan x="-27.195" y="4" font-family="Helvetica" font-size="12" fill="#000000">18565269</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 301.655, 148)">
+        <tspan x="-36.866" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/population&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 161.517, 162)">
+        <tspan x="-19.517" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;area&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 203.892, 162)">
+        <tspan x="-23.858" y="4" font-family="Helvetica" font-size="12" fill="#000000">1246700</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 247.934, 162)">
+        <tspan x="-21.184" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/area&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 142.851, 176)">
+        <tspan x="-28.851" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/country&gt;</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 106.853, 190)">
+        <tspan x="-20.853" y="4" font-family="Helvetica" font-size="12" fill="#000096">&lt;/data&gt;</tspan>
+      </text>
+    </g>
+    <path d="M114,17 L167.333,17 L167.333,29 L114,29 z" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M114,17 L167.333,17 L167.333,29 L114,29 z" fill="#FF0708" fill-opacity="0.51"/>
+    <path d="M83,1 L125,1 L125,17 L83,17 z" fill="#00FFFD" fill-opacity="0.51"/>
+    <path d="M83,1 L125,1 L125,17 L83,17 z" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M114,102.667 L167.333,102.667 L167.333,114.667 L114,114.667 z" fill="#FF0708" fill-opacity="0.51"/>
+    <path d="M114,102.667 L167.333,102.667 L167.333,114.667 L114,114.667 z" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,24 +1,24 @@
-<div class="responsive-table" *ngIf="deck">
-    <table class="table">
-        <tr>
-            <th>Title </th>
-            <td>{{deck.title}}</td>
-            <th>Author</th>
-            <td>{{deck.author}}</td>
-        </tr>
-        <tr>
-            <th>ID</th>
-            <td>{{deck.id}}</td>
-            <th>Updated</th>
-            <td>{{deck.updated}}</td>                                
-        </tr>
-        <tr>
-            <th>Level</th>
-            <td>{{deck.level}}</td>
-            <th>Keywords</th>
-            <td>
-               <slides-kwlist [keywords]='deck.keywords'></slides-kwlist>
-            </td>
-        </tr>
-    </table>
+<div class="row" *ngIf="deck">
+    <div class="col col-lg-12">
+            <div class="jumbotron">
+                <h2>{{deck.title}}</h2>
+                <hr>
+                <div class="responsive-table">
+                        <table class="table">
+                            <tr>
+                                <td>{{deck.id}}</td>
+                                <td>{{deck.author}}</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-info btn-sm">{{deck.level}}</button></td>
+                                <td>
+                                   <slides-kwlist [keywords]='deck.keywords'></slides-kwlist>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            </div>
+    </div>
 </div>
+
+<slides-slide-list  *ngIf="deck" [deck]="deck.id" [slides]="deck.slides"></slides-slide-list>

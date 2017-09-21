@@ -1,0 +1,8 @@
+<div class="row" *ngFor="let slide of slides">
+    <div class="col col-lg-6">
+        <p>{{slide.title}}</p>
+    </div> 
+    <div class="col col-lg-6">
+        <slides-slide-preview [slide]="slide.id" [deck]="deck"></slides-slide-preview>
+    </div>   
+</div>

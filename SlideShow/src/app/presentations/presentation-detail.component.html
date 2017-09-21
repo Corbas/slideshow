@@ -27,14 +27,29 @@
          <label>Description: </label>
         </div>
         <div class="col col-lg-8">
-           <!-- why is this not generating the description? -->
            <input [(ngModel)]="presentation.description" placeholder="description…"/>
         </div>            
-    
-    <slides-deck-link-list></slides-deck-link-list>
 
     </div>
 
+    <div class="row">
+         <div class="col col-lg-6">
+             <button (click)="save()" class="btn btn-info">Save</button>
+         </div>
+        
+        <div class="col col-lg-6">
+            <button (click)="delete()" class="btn btn-danger">Delete</button>
+        </div>
     </div>
+
+    <div class="row" style="margin-top: 2rem">
+        <div class="col col-lg-6">
+            <h4>Decks in Presentation</h4>
+                           <slides-deck-view [deck]="deck"  *ngFor="let deck of presentation.decks"></slides-deck-view>
+
+        </div>
+    </div>
+
+</div>
 
 </div>

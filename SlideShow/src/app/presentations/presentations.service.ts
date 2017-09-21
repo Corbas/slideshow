@@ -34,4 +34,13 @@ export class PresentationsService {
 
         return this.http.get<Presentation>(thisUrl, { headers: headers });
     }
+
+    savePresentation(presentation: Presentation): Observable<Presentation> {
+        const headers: HttpHeaders = new HttpHeaders({'Accept': 'application/json'});
+        headers.append('Content-Type', 'application/json');
+        const thisUrl: string = this.requestUrl + '/' + presentation.id;
+
+        return this.http.post<Presentation>(thisUrl, JSON.stringify(presentation), { headers: headers });
+
+    }
 }

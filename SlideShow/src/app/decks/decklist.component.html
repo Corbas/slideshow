@@ -8,30 +8,7 @@
             <ngb-accordion [closeOthers]="true" activeIds="idx-1">
                 <ngb-panel *ngFor='let deck of decks; index as i' [title]='deck.title' [id]='"idx" + i'>
                 <ng-template ngbPanelContent>
-                    <div class="responsive-table">
-                        <table class="table">
-                            <tr>
-                                <th>Title </th>
-                                <td>{{deck.title}}</td>
-                                <th>Author</th>
-                                <td>{{deck.author}}</td>
-                            </tr>
-                            <tr>
-                                <th>ID</th>
-                                <td>{{deck.id}}</td>
-                                <th>Updated</th>
-                                <td>{{deck.updated}}</td>                                
-                            </tr>
-                            <tr>
-                                <th>Level</th>
-                                <td>{{deck.level}}</td>
-                                <th>Keywords</th>
-                                <td>
-                                   <slides-kwlist [keywords]='deck.keywords'></slides-kwlist>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    <slides-deck-view [deck]='deck'></slides-deck-view>
                 </ng-template>
             </ngb-panel>
             </ngb-accordion>

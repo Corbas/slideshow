@@ -7,6 +7,7 @@
 	exclude-result-prefixes="xs xdmp xsl p xd cfn" version="2.0">
 	
 	<xsl:import href="verbatim-base.xsl"/>
+	<xsl:output method="xhtml" omit-xml-declaration="yes"/>
 
 	<xd:doc>
 		<xd:desc>

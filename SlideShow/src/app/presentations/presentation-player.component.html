@@ -1,0 +1,14 @@
+<ngb-carousel>
+
+        <ng-template ngbSlide>
+
+            <h2>{{title}}</h2>
+            <h3>{{author}}</h3>
+
+        </ng-template>
+
+        <ng-template ngbSlide *ngFor="let slide of slides">
+            <slides-slide-preview [slide]="slide.id"></slides-slide-preview>
+        </ng-template>
+        
+</ngb-carousel>

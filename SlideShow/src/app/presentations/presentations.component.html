@@ -13,11 +13,12 @@
                         <em>{{presentation.description}}</em>
                     </div>
                     <div class="col col-lg-2">
-                        <strong>Last updated</strong><br>{{presentation.updated}}
+                            <button class="spacer btn btn-info btn-sm">
+                                    <a [routerLink]="['/play', presentation.id]">Play…</a></button>
                     </div>
                     <div class="col col-lg-2">
                         <button class="spacer btn btn-info btn-sm">
-                            <a [routerLink]="['/pdetails', presentation.id]">Details…</a></button>
+                            <a [routerLink]="['/pdetails', presentation.id]">Edit…</a></button>
                     </div>
                 </div>
                  </ng-template>

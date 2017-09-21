@@ -63,7 +63,7 @@ function presentations:get(
   NOTE: how do we sanitise inputs properly in ML REST extensions? 
 :)
 declare 
-%roxy:params("presentation=xs:string,deck=xs:string,slide=xs:string,format=xs:string?")
+%roxy:params("presentation=xs:string,deck=xs:string?,slide=xs:string?,format=xs:string?")
 %rapi:transaction-mode("update")
 function presentations:post(
   $context as map:map,
@@ -76,6 +76,10 @@ function presentations:post(
   let $deck-id as xs:string? := map:get($params, 'deck')
   let $slide-id as xs:string? := map:get($params, 'slide')
   
+  
+  let $dummy := xdmp:log(concat("XXXX: ", xdmp:node-kind(xdmp:unquote($input/node()))))
+  
+   
   (: Because this call returns data, we need to know if we have a reasonable
      content type before we do anything - updating and then finding an error
      would be bad 
@@ -84,21 +88,33 @@ function presentations:post(
     then su:bad-content-type($context)
     else ()
   
-  
+ 
   let $dummy := if (not($presentation-id) )
     then fn:error((), "RESTAPI-SRVEXERR", (500, "Parameter(s) missing", 
         "The presentation parameter is required."))
     else ()
     
-  let $presentation as object-node() := presentations:load-single-presentation($presentation-id)
+    let $presentation as object-node() := 
+      doc('/presentations/presentations.json')/array-node()/object-node()[id = $presentation-id]
+    
+    let $dummy := if (not($presentation)) 
+      then fn:error((), "RESTAPI-SRVEXERR", (404, "Presentation not found", 
+        concat("Presentations with id ", $presentation-id, " not found")))
+      else ()
   
-  (: The number of parameters defines what we are doing :)
-  return 
+  
+  (: The number of parameters defines what we are doing :) 
+  let $new-presentation := 
     if ($deck-id and $slide-id) 
       then presentations:update-slide-in-presentation($context, $content-type, $presentation, $deck-id, $slide-id)
       else if ($deck-id)
             then presentations:update-deck-in-presentation($context, $content-type, $presentation, $deck-id)
-            else presentations:update-presentation($context, $content-type, $presentation, $input)
+            else  presentations:update-presentation($context, $content-type, $presentation, xdmp:unquote($input))
+    
+  let $dummy := xdmp:node-replace($presentation, $new-presentation)
+  
+  return presentations:single-presentation-as($context, $content-type, presentations:merge-presentation($new-presentation)) 
+   
 };
 
 
@@ -227,17 +243,19 @@ function presentations:delete(
 
 (: 
   Update the presence of a deck in a presentation. If already present, remove it
-  and if not add it.
+  and if not add it. Returns the updated presentation to be stored.
 :)
 declare 
-%rapi:transaction-mode("update")
 function presentations:update-deck-in-presentation( 
-  $context-as map:map,
+  $context as map:map,
   $content-type as xs:string, 
   $presentation as object-node(),
   $deck-id as xs:string) 
-  as document-node()
+  as object-node()
 {
+
+  let $dummy := xdmp:log("XXX: updating deck")
+  
  (: find the deck within that presentation :)
   let $decks as array-node() := $presentation/array-node('decks')
   let $deck := $decks/object-node()[id = $deck-id]
@@ -249,13 +267,11 @@ function presentations:update-deck-in-presentation(
       else ($decks/object-node(), object-node { "id": $deck-id, "exclude": array-node{()}})
     } 
 
-  (: Update - TODO - put this into a separate transaction so we 
-  can simply return the changed doc :)
-  let $dummy := xdmp:node-replace($decks, $new-decks)
-
-  
+   
   (: Build an 'updated' copy of the input to return :)
-  let $new-presentation := object-node {
+  return 
+  object-node 
+  {
     'id': $presentation/id,
     'title': $presentation/title,
     'description': $presentation/description,
@@ -264,21 +280,31 @@ function presentations:update-deck-in-presentation(
     'decks': $new-decks
   }
 
-
-  return presentations:single-presentation-as($context, $content-type, $new-presentation )
 };
 
 
+(:
+  Update presentation title and description
+:)
 declare
-%rapi:transaction-mode("update")
 function presentations:update-presentation(
   $context as map:map,
   $content-type as xs:string,
-  $presentation as document-node(), 
-  $new-presentation as document-node())
-as document-node()
+  $presentation as object-node(), 
+  $updates as document-node())
+as object-node()
 {
-  presentations:single-presentation-as($context, $content-type, $presentation )
+
+  (: We only actually allow the title and description to be update here :) 
+    object-node {
+      "id": $presentation/id,
+      "title":  ($updates/object-node()/title, $presentation/title)[1],
+      "description": ($updates/object-node()/description, $presentation/description)[1],
+      "updated": $presentation/updated,
+      "author": $presentation/author,
+      "decks": array-node { $presentation/decks }
+    }
+   
 };
 
 
@@ -287,19 +313,21 @@ as document-node()
   and deck, the slide id is added to the excludes array if not present and removed
   if it is present. No checking is done on the slide id as no particular damage is 
   done if it is not correct (this should change in future).
+  Returns the updated presentation to be stored.
   
 :)
 declare 
-%rapi:transaction-mode("update")
 function presentations:update-slide-in-presentation( 
-  $context-as map:map,
+  $context as map:map,
   $content-type as xs:string, 
   $presentation as object-node(),
   $deck-id as xs:string, 
   $slide-id as xs:string) 
-  as document-node()
+  as object-node()
 {
 
+  let $dummy:= xdmp:log("XXX: updating slide")
+  
   (: find the deck within that presentation :)
   let $deck as object-node()? := $presentation/decks[id = $deck-id]
 
@@ -317,12 +345,7 @@ function presentations:update-slide-in-presentation(
     then array-node { $excludes/node()[not(. = $slide-id)] }
     else array-node { ($excludes/node(), $slide-id) }
     
-  (: Update - TODO - put this into a separate transaction so we 
-  can simply return the changed doc :)
-  let $dummy := xdmp:node-replace($excludes, $new-excludes)
-  
-  (: Build an 'updated' copy of the input to return :)
-  let $new-presentation := object-node {
+  return object-node {
     'id': $presentation/id,
     'title': $presentation/title,
     'description': $presentation/description,
@@ -335,8 +358,6 @@ function presentations:update-slide-in-presentation(
         else $deck }
   }
   
-  return presentations:single-presentation-as($context, $content-type, $new-presentation )
-
 };
 
 
