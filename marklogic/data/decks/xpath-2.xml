@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+	<p:meta>
+		<p:id>xpath-2</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>XPath</p:keyword>
+		<p:level>Intermediate</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>
+	</p:meta>
+	
+	<p:title>XPath 2.0</p:title>
+
+
+	<p:slide xml:id="further-xpath">
+		<p:title>What's Changed?</p:title>
+		<ul>
+			<li>XPath 2.0 is greatly extended over XPath 1.0. </li>
+			<li>It was created because XQuery also needed an XPath implentation. The specification
+				was, therefore, separated from XSLT.</li>
+
+		</ul>
+		<h4>XPath 2.0 includes new control statements:</h4>
+		<table class="keyword-listing">
+			<tbody>
+				<tr>
+					<td>for</td>
+					<td>if/then/else</td>
+				</tr>
+				<tr>
+					<td>every</td>
+					<td>some</td>
+				</tr>
+			</tbody>
+		</table>
+		<h4>New operators:</h4>
+		<table class="keyword-listing">
+
+			<tbody>
+				<tr>
+					<td>every</td>
+					<td>some</td>
+				</tr>
+				<tr>
+					<td>&lt;&lt;</td>
+					<td>&gt;&gt;</td>
+				</tr>
+				<tr>
+					<td>is</td>
+					<td/>
+				</tr>
+			</tbody>
+		</table>
+	</p:slide>
+
+	<p:slide toc="exclude">
+		<p:title>Aside: comments</p:title>
+		<ul>
+			<li>XPath 2.0 has comments.</li>
+			<li>Not the same as XSLT comments</li>
+			<li>Syntax different to that of other languagues (except XQuery)</li>
+			<li>Comments are surrounded by <strong>(:</strong> and <strong>:)</strong></li>
+		</ul>
+		<p:code>
+			<xsl:variable name="commented"
+				select="//para (: collect paras :) | //section (: and sections :)"/>
+		</p:code>
+	</p:slide>
+
+		<p:slide>
+			<p:title>Control Statements</p:title>
+			<ul>
+				<li>XPath 2 has flow control</li>
+				<li>Conditionals:</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="latest" select="if (@date1 gt @date2) then @date1 else @date2"/>
+			</p:code>
+			<ul>
+				<li>Loops</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="prices"
+					select="for $x in //lineitems return $x/@price * $x/@quantity"/>
+			</p:code>
+			<ul>
+				<li>Ranges</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="one-to-ten" select="for $x in 1 to 10 return $x"/>
+			</p:code>
+			<ul>
+				<li>The loops above return sequences.</li>
+				<li>Loops do not change the context node (this is wrong):</li>
+			</ul>
+			<p:code class="bad">
+				<xsl:variable name="prices" select="for $x in //lineitems return @price * @quantity"
+				/>
+			</p:code>
+		</p:slide>
+
+		<p:notes><p>We could have a loop that returns (if ...)</p></p:notes>
+
+		<p:slide>
+			<p:title>Quantified Expressions</p:title>
+			<ul>
+				<li><code>some</code> and <code>every</code> allow sequences to be tested</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="all-positive" select="every $x in //balance satisfies $x gt 0"/>
+				<xsl:variable name="some-positive" select="some $x in //balance satisfies $x gt 0"/>
+			</p:code>
+			<ul>
+				<li><code>some</code> evaluates to true if at least one item in a sequence evaluates
+					to true for the expression</li>
+				<li><code>every</code> evaluates to true if all the items in a sequence evaluate to
+					true for the expression</li>
+			</ul>
+		</p:slide>
+
+
+
+		<p:slide>
+			<p:title>Data Types</p:title>
+			<ul>
+				<li>XSLT/XPath 1.0 had very limited data types: <ul>
+						<li>Trees</li>
+						<li>Node sets</li>
+						<li>Strings</li>
+						<li>Numbers</li>
+					</ul>
+				</li>
+				<li>XPath 2.0 takes advantage of the XML Schema datatypes*: <ul>
+						<li>Integers (xs:int, xs:integer)</li>
+						<li>Floats (xs:double, xs:decimal)</li>
+						<li>Dates (xs:date, xs:datetime, xs:duration)</li>
+						<li>URLs (xs:anyURI)</li>
+						<li>Strings (xs:string, xs:token, xs:Name, xs:NCName)</li>
+						<li>Booleans (xs:boolean)</li>
+						<li>…</li>
+					</ul>
+				</li>
+
+			</ul>
+			<p class="footnote">* If you have a schema aware processor</p>
+		</p:slide>
+
+		<p:slide toc="exclude">
+			<p:title>Data Types (cont)</p:title>
+			<ul>
+				<li>Data types can be converted by treating the type as a function</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="asDate" select="@data cast as xs:date"/>
+				<xsl:variable name="asInteger" select="xs:integer(@data)"/>
+			</p:code>
+			<ul>
+				<li>That could go wrong</li>
+				<li>You can test with</li>
+			</ul>
+			<p:code>
+				<xsl:if test="if @data castable as xs:date"> … </xsl:if>
+				<xsl:if test="if @data instance of xs:date"> … </xsl:if>
+			</p:code>
+			<p><code>instance of</code> checks if a value is typed and is of that type or a
+				descendant type (only works when schema validated)</p>
+			<p><code>castable as</code> checks if a cast would work based on the atomized value of
+				the item.</p>
+		</p:slide>
+
+
+	<p:notes><p>Could be an exercise part here - casting data if possible</p></p:notes>
+
+		<p:slide>
+			<p:title>New Operators</p:title>
+			<ul>
+				<li>XPath 2 has several new operators.</li>
+				<li>Some operators have slightly changed</li>
+			</ul>
+			<h4>Identity and Ordering Operators</h4>
+			<ul>
+				<li>&lt;&lt;</li>
+				<li>&gt;&gt;</li>
+				<li>is</li>
+			</ul>
+			<h4>Comparison Operators</h4>
+			<table class="keyword-listing">
+				<tbody>
+					<tr>
+						<td>=</td>
+						<td>eq</td>
+					</tr>
+					<tr>
+						<td>&lt;</td>
+						<td>lt</td>
+					</tr>
+					<tr>
+						<td>&gt;</td>
+						<td>gt</td>
+					</tr>
+					<tr>
+						<td>&lt;=</td>
+						<td>le</td>
+					</tr>
+					<tr>
+						<td>&gt;=</td>
+						<td>ge</td>
+					</tr>
+				</tbody>
+			</table>
+		</p:slide>
+
+		<p:slide>
+			<p:title>Identity and Ordering Operators</p:title>
+			<ul>
+				<li><code>&lt;&lt;</code> and <code>&gt;&gt;</code> and ordering operators.</li>
+				<li>They evaluate to true or false depending on the relative order of nodes</li>
+				<li>Given a variable <code>$node</code>, we can find all sibling nodes between it
+					and the current node with*:</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="before-current" select="preceding-sibling::*[. >> $node]"/>
+			</p:code>
+			<ul>
+				<li>The following converts all Word bookmarks (indicated by a start node and and end
+					node) within a paragraph into DocBook <code>phrase</code> elements</li>
+			</ul>
+			<p:code>
+				<xsl:template
+					match="bookmarkStart[not(following-sibling::node()[1][self::bookmarkEnd])]">
+					<xsl:variable name="end-marker"
+						select="(following-sibling::*[self::bookmarkEnd])[1]"/>
+					<phrase xml:id="{@name}">
+						<xsl:apply-templates select="following-sibling::*[ . &lt;&lt; $end-marker]"
+						/>
+					</phrase>
+				</xsl:template>
+			</p:code>
+			<p class="footnote">Assuming that <code>$node</code> is after the context node.</p>
+		</p:slide>
+
+		<p:slide toc="exclude">
+			<p:title>Identity and Ordering Operators (cont)</p:title>
+			<ul>
+				<li>This <code>is</code> operator compares two nodes and evaluates to true if they
+					are the same node!</li>
+				<li>Cleary you would use this with variables!</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="required" select="para[last()]"/>
+				<!-- much code -->
+				<xsl:apply-templates select="//para[. is $required]"/>
+			</p:code>
+		</p:slide>
+
+		<p:slide>
+			<p:title>Comparison Operators</p:title>
+			<p>XPath 2.0 has two sets of comparison operators</p>
+			<h4>General Comparisons</h4>
+			
+			<ul>
+				<li>&lt;</li>
+				<li>&lt;=</li>
+				<li>&gt;</li>
+				<li>&gt;=</li>
+				<li>=</li>
+			</ul>
+			<h4>Value Comparisons</h4>
+			
+			<ul>
+				<li>lt</li>
+				<li>le</li>
+				<li>gt</li>
+				<li>ge</li>
+				<li>eq</li>
+			</ul>
+		</p:slide>
+
+		<p:slide>
+			<p:title>General Comparisons</p:title>
+			<ul>
+				<li>Either or both operand may be a sequence</li>
+				<li>Type comparison is flexible</li>
+				<li>All values on each side are compared</li>
+				<li>If any comparison is true then they all are</li>
+			</ul>
+			<p:code>
+				<xsl:variable name="op1" select="1"/>
+				<xsl:variable name="op2" select="24"/>
+				<xsl:variable name="op3" select="(1, 7, 9)"/>
+				<xsl:variable name="op4" select="(2, 4, 12)"/>
+				<xsl:variable name="res1" select="$op1 &lt; $op2"/>
+				<!-- true -->
+				<xsl:variable name="res2" select="$op1 = $o3"/>
+				<!-- true -->
+				<xsl:variable name="res3" select="$op3 > $op4"/>
+				<!-- true -->
+			</p:code>
+		</p:slide>
+
+		<p:slide>
+			<p:title>Value Comprisons</p:title>
+			<ul>
+				<li>Value comparisons were introduced for XQuery</li>
+				<li>Only compare atomic values.</li>
+				<li>Types must be compatible.</li>
+				<li>Run time errors will occur if they are not.</li>
+			</ul>
+		</p:slide>
+
+		<p:slide>
+			<p:title>Other New Operators</p:title>
+			<h4>except</h4>
+			<ul>
+				<li>The <code>except</code> operator allows XPath statements to easily remove nodes
+					or sequences from processing</li>
+			</ul>
+			<p:code>
+				<xsl:template match="code[@type = ('xml', 'xhtml') or not(@type)][parent::slide]">
+					<xsl:variable name="title" select="*[1][self::p:title]"/>
+					<div class="{string-join(('code-sample verbatim-default', @class), ' ')}">
+						<xsl:apply-templates select="$title"/>
+						<xsl:apply-templates select="* except $title" mode="verbatim"/>
+					</div>
+				</xsl:template>
+			</p:code>
+		</p:slide>
+
+		<p:slide toc="exclude">
+			<p:title>Other New Operators (cont)</p:title>
+			<h4>intersect</h4>
+			<ul>
+				<li>The <code>intersect</code> operator allows the easy generation of the
+					intersection of two sequences.</li>
+				<li>This was <em>challenging</em> in XSLT 1.0</li>
+
+			</ul>
+			<p:code>
+				<xsl:variable name="s1" select="('a', 'b', 'c', 'd')"/>
+				<xsl:variable name="s1" select="('c', 'd', 'e', 'f')"/>
+				<xsl:variable name="inter" select="s1 intersect s2"/>
+				<result><xsl:value-of select="string-join($inter, ', ')"/></result>
+			</p:code>
+		</p:slide>
+		
+		
+
+	
+
+</p:deck>

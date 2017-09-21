@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:deck xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
+
+	<p:meta>
+		<p:id>xpath-functions</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>XPath</p:keyword>
+		<p:keyword>Functions</p:keyword>
+		<p:level>Intermediate</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>
+	</p:meta>
+	
+	<p:slide>
+		<p:title>New Functions</p:title>
+		<h4>String Functions</h4>
+		<ul>
+			<li>matches</li>
+			<li>replace</li>
+			<li>tokenize</li>
+			<li>lower-case</li>
+			<li>upper-case</li>
+		</ul>
+	</p:slide>
+
+	<p:slide>
+		<p:title>matches</p:title>
+
+		<p>This function uses regular expressions (see discussion of
+			<code>xsl:analyze-string</code>).</p>
+		<p><code>matches</code> returns true if the input string matches the pattern</p>
+		<p:code>
+			<xsl:choose>
+				<!-- starts with digits -->
+				<xsl:when test="matches(. , '^\d+\s+')">
+					<xsl:apply-templates select="." mode="digital"/>
+				</xsl:when>
+				<!-- starts with letters (case insensitive) -->
+				<xsl:when test="matches(., '[a-z]+', 'i')">
+					<xsl:apply-templates select="." mode="alpha"/>
+				</xsl:when>
+			</xsl:choose>
+		</p:code>
+		<p class="note">Don't do this at home, bad style</p>
+
+	</p:slide>
+	
+	<p:slide>
+		<p:title>matches (cont) — flags</p:title>
+		<h4>Flags</h4>
+		<table>
+			<thead>
+				<tr>
+					<td>Flag</td>
+					<td>Explanation</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><em>i</em></td>
+					<td>Case-insensitive matching</td>
+				</tr>
+				<tr>
+					<td><em>s</em></td>
+					<td>Single line mode (makes '.' match newlines)</td>
+				</tr>
+				<tr>
+					<td><em>m</em></td>
+					<td>Multi line mode (makes '^' match after newlines as well as end of string and
+						'$' match before newlines)</td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</p:slide>
+
+	<p:slide>
+		<p:title>replace</p:title>
+		<p><code>replace</code> replaces all occurrences of the pattern specified with the string
+			specified. </p>
+		<p>All the flags for <code>match</code> can be used here.</p>
+
+		<p:code>
+			<xsl:variable name="numeric-price" select="replace(@price, ',', '')"/>
+			<xsl:variable name="valid-filename" select="replace(@docname, '[^\w\.-]', '_')"/>
+		</p:code>
+	</p:slide>
+
+	<p:slide>
+		<p:title>New Functions (cont)</p:title>
+		<h4>Sequence Functions</h4>
+		<ul>
+			<li>distinct-values</li>
+			<li>index-of</li>
+			<li>exists</li>
+			<li>empty</li>
+			<li/>
+		</ul>
+	</p:slide>
+
+	<p:slide>
+		<p:title>distinct-values</p:title>
+
+		<p><code>distinct-values</code> takes a single sequence as a parameter and returns new
+			sequence containing on the unique values from the input sequence. Before the inputs are
+			processed they are <em>atomized</em> — converted to values.</p>
+
+		<p:code>
+			<xsl:variable name="regions" select="distinct-values(//region)"/>
+			<xsl:variable name="income-per-region"
+				select="round(sum(//gdp[. castable as xs:integer]) div count($regions), 2)"/>
+		</p:code>
+	</p:slide>
+
+	<p:slide>
+		<p:title>index-of</p:title>
+		<p><code>index-of</code> returns the position of a value in a sequence.</p>
+		<p:code>
+			<calendar xmlns="http://www.corbas.co.uk/ns/example">
+				<event month="Jan" year="2013" date="31"/>
+			</calendar>
+		</p:code>
+		<p:code>
+			<xsl:template match="event">
+				<xsl:variable name="months"
+					select="('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')"
+				/>
+				<xsl:variable name="month-number" select="index-of($months, @month)"/>
+				<event date="string-join((@year, $month-number, @day), '-')"/>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+	
+	<p:slide>
+		<p:title>exists/empty</p:title>
+		
+		<p>The <code>exists</code> function returns <code>true()</code> if a sequence has any members
+		and <code>false()</code> if not. The <code>empty</code> function is the exact opposite</p>
+		
+		<p:code>
+			<xsl:variable name="has-items" select="if (exists($seq)) then true() else false()"/>
+			<xsl:variable name="has-no-items" select="if (empty($seq) then true() else false()"/>
+		</p:code>
+	</p:slide>
+	
+	<p:slide>
+		<p:title>Summary</p:title>
+		
+		<p>We've looked at XPath 2 and what it adds to the language:</p>
+		<ul>
+			<li>Sequences</li>
+			<li>Control flow</li>
+			<li>Data types</li>
+			<li>Functions and more functions</li>
+		</ul>
+	</p:slide>
+	
+
+</p:deck>

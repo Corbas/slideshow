@@ -230,11 +230,11 @@
 				<bm>…</bm>
 			</art>
 		</p:code>
-		<p><img src="images/hierarchy.svg" alt="XML Hierarchy"/></p>
+		<p><img src="http://localhost:4200/assets/images/hierarchy.svg" alt="XML Hierarchy"/></p>
 	</p:slide>
 	<p:slide xml:id="d1e568" >
 		<p:title>Trees (cont)</p:title>
-		<p><img src="images/hierarchy-numbered.svg" alt="XML Hierarchy"/></p>
+		<p><img src="http://localhost:4200/assets/images/hierarchy-numbered.svg" alt="XML Hierarchy"/></p>
 		<p class="note">“Traversing” the tree in the numbered order is the same as walking through in
 			the order of the element starts in the document. Processing systems such as XSLT use this
 			order.</p>

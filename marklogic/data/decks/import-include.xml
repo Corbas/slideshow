@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:deck xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations"
+ xmlns:lnuk-fn="http://www.lexisnexis.com/namespace/uk/xsl/functions"
+ xmlns:CA="http://www.lexisnexis.com/namespace/digest/ca"
+ xmlns:lnuk-data="http://www.lexisnexis.com/namespace/uk/data">
+
+
+	<p:meta>
+		<p:id>xslt-import</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>XSLT</p:keyword>
+		<p:keyword>Modularity</p:keyword>
+		<p:level>Intermediate</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>
+	</p:meta>
+	
+	<p:title>Modularity and Reuse</p:title>
+
+	<p:slide xml:id="modularity-reuse">
+		<p:title>Import and Include</p:title>
+		<p>XSLT offers two statements for building libraries:</p>
+		<ul>
+			<li>
+				<code>xsl:import</code>
+			</li>
+			<li>
+				<code>xsl:include</code>
+			</li>
+		</ul>
+
+		<p>It is almost always better to use <code>xsl:import</code></p>
+	</p:slide>
+
+	<p:slide>
+		<p:title>xsl:include</p:title>
+
+		<p><code>xsl:include</code> loads another stylesheet as a library.</p>
+		<p>Templates in the included library have the same precedence as those in the including
+			file.</p>
+		<p><code>xsl:include</code> can be placed anywhere that <code>xsl:template</code> can
+			be.</p>
+
+		<p:code show-ns-declarations="true">
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+				<xsl:template match="para"> … </xsl:template>
+				<xsl:include href="library.xsl"/>
+			</xsl:stylesheet>
+		</p:code>
+	</p:slide>
+
+
+	<p:slide>
+		<p:title>xsl:import</p:title>
+
+		<p><code>xsl:import</code> loads another stylesheet as a library.</p>
+		<p>Templates in the imported library have lower precedence those in the including file.</p>
+		<p><code>xsl:import</code> statements must be the first children of
+				<code>xsl:stylesheet</code>.</p>
+
+
+		<p:code show-ns-declarations="true">
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+				<xsl:import href="library.xsl"/>
+				<xsl:template match="para"> … </xsl:template>
+
+			</xsl:stylesheet>
+		</p:code>
+
+	</p:slide>
+
+
+
+	<p:slide>
+		<p:title>
+			<code>xsl:next-match</code>
+		</p:title>
+		<ul>
+			<li><code>xsl:next-match</code> provides a way to fall back to common functionality</li>
+			<li>Replaces <code>xsl:apply-imports</code> in many ways</li>
+			<li>Falls back to the next best match</li>
+		</ul>
+		<p:code>
+			<xsl:template match="para[@number]">
+				<p>Number: <xsl:apply-templates select="@number"/></p>
+				<xsl:next-match/>
+			</xsl:template>
+			<xsl:template match="para">
+				<p>
+					<xsl:apply-templates/>
+				</p>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+
+
+
+</p:deck>

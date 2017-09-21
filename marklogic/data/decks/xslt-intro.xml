@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:deck xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://www.corbas.co.uk/ns/presentations">
+
+	<p:meta>
+		<p:id>xslt-overview</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>XSLT</p:keyword>
+		<p:level>Intermediate</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>
+	</p:meta>
+	
+	
+	<p:title>XSLT</p:title>
+
+	<p:slide xml:id="xslt-intro">
+		<p:title>XSLT Overview</p:title>
+		<ul>
+			<li>Standards</li>
+			<li>Stylesheets and Templates</li>
+			<li>Document Trees and Built in Processing</li>
+			<li>Matching Templates</li>
+		</ul>
+	</p:slide>
+
+	<p:slide>
+		<p:title>Standards</p:title>
+		<h3>XSLT 1.0</h3>
+		<p>XSLT 1.0 published in 1999</p>
+		<h3>XSLT 2.0</h3>
+		<p>The standard was split into three parts to support XQuery's use of XPath:</p>
+		<ul>
+			<li>XSLT 2.0: January 2007</li>
+			<li>XPath 2.0. Data Model: (most recent update) December 2010</li>
+			<li>XPath 2.0: (most recent update) December 2010</li>
+		</ul>
+	</p:slide>
+
+
+	<p:slide>
+		<p:title>Stylesheets and Templates</p:title>
+		<p>The fundamental components of a stylesheet are <code>xsl:template</code> elements. The
+			root of all XSLT files is the <code>xsl:stylesheet</code> element.</p>
+		<p:code>
+			<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/xhtml">
+				<xsl:template match="foo">
+					<bar xmlns="">
+						<xsl:apply-templates/>
+					</bar>
+				</xsl:template>
+			</xsl:stylesheet>
+		</p:code>
+	</p:slide>
+
+	<p:slide toc="exclude">
+		<p:title>Terminology</p:title>
+		<ul>
+			<li>Stylesheets use templates to process <em>nodes</em></li>
+		</ul>
+	</p:slide>
+
+	<p:notes>
+		<p>Mention that nodes are elements, text, processing instructions, comments but not
+			attributes</p>
+	</p:notes>
+
+		<p:slide>
+			<p:title>Stylesheet processing</p:title>
+			<ul>
+				<li>There is a built-in processing sequence</li>
+				<li>The XSLT engine effectively begins processing by executing</li>
+
+			</ul>
+			<p:code>
+				<xsl:apply-templates select="/"/>
+			</p:code>
+			<ul>
+				<li>There are built-in templates that process the content if no user-defined
+					templates are provided.</li>
+			</ul>
+		</p:slide>
+
+		<p:slide>
+			<p:title>Trees and Processing Order</p:title>
+			<p:code>
+				<metadata xmlns="http://www.corbas.co.uk/ns/example">
+					<taxonomy-grp>
+						<taxonomy>
+							<taxonomy-term>Criminal Procedure</taxonomy-term>
+							<taxonomy>
+								<taxonomy-term>Prosecution and Pre-trial Procedure</taxonomy-term>
+							</taxonomy>
+						</taxonomy>
+					</taxonomy-grp>
+					<important value="false"/>
+					<publish-date day="10" month="3" year="2011"/>
+				</metadata>
+			</p:code>
+		</p:slide>
+
+		<p:slide toc="exclude">
+			<p:title>Trees and Processing Order (cont)</p:title>
+			<p><img src="http://localhost:4200/assets/images/xml-tree-01.svg" alt="XML Tree Sample"/></p>
+		</p:slide>
+
+		<p:slide toc="exclude">
+			<p:title>Trees and Processing Order (cont)</p:title>
+			<ul>
+				<li>Documents are processed in 'document order' by default</li>
+				<li>Reading the tree from top to bottom, left to right represents that order</li>
+			</ul>
+		</p:slide>
+
+		<p:slide toc="exclude">
+			<p:title>Trees and Processing Order (cont)</p:title>
+			<p><img src="http://localhost:4200/assets/images/xml-tree-with-arrows.svg" alt="XML Tree Processing Order"/></p>
+		</p:slide>
+
+		<p:slide>
+			<p:title>Matching Templates</p:title>
+			<ul>
+				<li><code>xsl:template</code> elements may have a <code>match</code> attribute</li>
+				<li><code>match</code> attributes allow the developer to control processing for some
+					set of elements</li>
+			</ul>
+			<p:code>
+				<xsl:template match="core:postalcode"
+					xmlns:core="http://www.lexisnexis.com/namespace/sslrp/core">
+					<postalcode>
+						<xsl:apply-templates/>
+					</postalcode>
+				</xsl:template>
+			</p:code>
+			<ul>
+				<li>The <code>match</code> attribute can be arbitrarily complex.</li>
+				<li>Built-in processing stops unless you call <code>xsl:apply-templates</code></li>
+				<li><code>xsl:apply-templates</code> without a <code>select</code> attribute is
+					equal:</li>
+			</ul>
+			<p:code>
+				<xsl:apply-templates select="node()"/>
+			</p:code>
+		</p:slide>
+
+	
+		
+
+	<p:slide>
+		<p:title>Built in templates</p:title>
+		<p>The default processing pathway of XSLT is defined by the built in templates.</p>
+		<p>Remember, the built in templates do the following:</p>
+		<dl>
+			<dt>Elements</dt>
+			<dd>Process all child nodes (not attributes)</dd>
+			<dt>Comments and Processing instructions</dt>
+			<dd>Suppressed</dd>
+			<dt>Text</dt>
+			<dd>Output the text</dd>
+		</dl>
+	</p:slide>
+
+	<p:slide>
+		<p:title>What are the built in templates?</p:title>
+		<p:code>
+			<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/xhtml">
+				<xsl:template match="*">
+					<xsl:apply-templates/>
+				</xsl:template> <xsl:template match="text()|@*">
+					<xsl:value-of select="."/>
+				</xsl:template> <xsl:template match="comment()|processing-instruction()"/>
+			</xsl:stylesheet>
+		</p:code>
+		<p class="footnote"><em>roughly!</em></p>
+	</p:slide>
+
+	<p:slide>
+		<p:title>Built-ins Demo</p:title>
+		<ul>
+			<li>In Oxygen, create a new stylesheet but don't add any templates.</li>
+			<li>Open country-data.xml</li>
+			<li>Open the Oxygen debugger</li>
+			<li>Make sure your new stylesheet and country-data.xml are selected</li>
+			<li>Hit the run button</li>
+			<li>What happens?</li>
+		</ul>
+	</p:slide>
+
+	<p:slide>
+		<p:title>Good Practices</p:title>
+		<ul>
+			<li>Use a lot of small templates (match on predicates if need be)</li>
+			<li>Remember the built-ins. They help you write less code.</li>
+		</ul>
+	</p:slide>
+
+	<p:slide>
+		<p:title>Named Templates</p:title>
+		<ul>
+			<li>Named templates are like subroutines in mainstream programming languages.</li>
+			<li>Use them sparingly.</li>
+			<li>Useful when you have blocks of output repeated through parts of multiple
+				templates.</li>
+		</ul>
+		<p:code>
+			<xsl:template name="pgrp" xmlns="">
+				<pgrp>
+					<xsl:call-template name="para"/>
+				</pgrp>
+			</xsl:template>
+		</p:code>
+		
+		<p><strong>Named templates do not change the context node.</strong></p>
+	</p:slide>
+
+	<p:slide>
+		<p:title>Modes</p:title>
+		<ul>
+			<li>Modes allow the developer to create multiple templates for a single match.</li>
+			<li>Named templates can often be implemented using modes.</li>
+			<li>We will discuss them more later</li>
+		</ul>
+		<p:code type="xml">
+			<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/xhtml"> <xsl:template
+					match="part">
+					<xsl:apply-templates select="." mode="meta"/>
+					<xsl:apply-templates select="." mode="content"/>
+				</xsl:template> <xsl:template match="part|chapter|section" mode="meta">
+					<metadata><xsl:apply-templates select="meta"/></metadata>
+				</xsl:template> <xsl:template match="chapter/*|part/*|section/*" mode="meta"/>
+				<xsl:template match="title" mode="meta">
+					<meta name="title"><xsl:apply-templates/></meta>
+				</xsl:template> <xsl:template match="part" mode="content">
+					<body>
+						<xsl:apply-templates/>
+					</body>
+				</xsl:template> </xsl:stylesheet>
+		</p:code>
+	</p:slide>
+
+	<p:slide>
+		<p:title><code>xsl:param/xsl:with-param</code></p:title>
+		
+		<p><code>xsl:param</code> allows parameters to stylesheets and templates to be defined with
+			optional default values. <code>xsl:with-param</code> passes parameters to templates.</p>
+		
+		<p:code type="xml">
+			<xsl:template name="para-intro">
+				<xsl:param name="para"/> 
+				<!-- or <xsl:param name="para" select="."/ -->
+				<p><span class="number"><xsl:value-of select="$para/@number"/></span></p>
+			</xsl:template>
+			
+			<xsl:template match="para">
+				<xsl:call-template name="para-intro">
+					<xsl:with-param name="para" select="."/>
+				</xsl:call-template>
+				<p><xsl:apply-templates/></p>
+			</xsl:template>
+		</p:code>
+		
+	</p:slide>
+	
+	<p:slide>
+		<p:title><code>xsl:value-of</code></p:title>
+		<p><code>xsl:value-of</code> outputs the value of a node!</p>
+		<p><em>You should usually avoid it</em> unless you actually need it.</p>
+		<p>You need it to:</p>
+		<ul>
+			<li>Output the value of a variable</li>
+			<li>Output the result of a calculation</li>
+		</ul>
+		<p>Otherwise try to use the built-in templates.</p>
+	</p:slide>
+	
+	<p:slide  toc="exclude">
+		<p:title><code>xsl:value-of</code> anti-pattern</p:title>
+		<p>Given:</p>
+		<p:code>
+			<para>This is a some <italic>italicised</italic> text.</para>
+		</p:code>
+		<p>It's tempting to write:</p>
+		<p:code>
+			<xsl:template match="italic">
+				<em><xsl:value-of select="."/></em>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+	
+	<p:slide  toc="exclude">
+		<p:title><code>xsl:value-of</code> anti-pattern (cont)</p:title>
+		<p>Until this happens:</p>
+		<p:code>
+			<para>This is a some <italic><bold>italicised</bold></italic> text.</para>
+		</p:code>
+		
+		<p>Better to write</p>
+		<p:code>
+			<xsl:template match="italic">
+				<em><xsl:apply-templates/></em>
+			</xsl:template>
+		</p:code>
+		
+	</p:slide>
+	
+	<p:slide>
+		<p:title><code>xsl:variable</code></p:title>
+		<p><code>xsl:variable</code> is used to store information during processing. Unlike
+			a variable in a procedural programming language, it cannot change once set. Use variables
+			liberally as they make your code more readable</p>
+		
+		<p:code type="xml">
+			<xsl:template match="country">
+				<xsl:variable name="gdp-per-head" select="round(gdp div population)"/>
+				<h1><xsl:apply-templates select="@name"/></h1>
+				<p><em>GDP per head</em> <xsl:value-of select="$gdp-per-head"/></p>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+	
+
+	
+	<p:slide>
+		<p:title><code>xsl:copy</code></p:title>
+		<p><code>xsl:copy</code> makes a <em>shallow</em> copy of the context node. For an element, 
+			this creates a new element with no attributes or content but otherwise identical to the
+			context node.</p>
+		
+		<p:code type="xml">
+			<xsl:template match="para">
+				<xsl:copy>
+					<xsl:apply-templates select="@*|node()"/>
+				</xsl:copy>
+			</xsl:template>
+		</p:code>
+		
+	</p:slide>
+	
+	<p:slide>
+		<p:title><code>xsl:copy-of</code></p:title>
+		<p><code>xsl:copy-of</code> makes a deep copy of the nodes defined by the
+			<code>select</code> attribute. This can be useful when the input and output
+			are the same for a large part of a document (tables, for example)</p>
+		
+		<p:code type="xml">
+			<xsl:template match="chapter">
+				<xsl:copy-of select=".//para"/>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+	
+	
+	
+	<p:slide>
+		<p:title><code>xsl:output</code></p:title>
+		
+		<p><code>xsl:output</code> allows you to control the results to some degree. You can use the
+			following attributes:</p>
+		
+		<table>
+			<tr>
+				<td>indent</td>
+				<td><em>yes</em> or <em>no</em> — allows control of simple indentint</td>
+			</tr>
+			<tr>
+				<td>encoding</td>
+				<td>Control what output encoding to use. The default is UTF-8</td>
+			</tr>
+			<tr>
+				<td>method</td>
+				<td>Either <em>xml, html or text</em> — in html mode, html syntax is output; in text mode
+					all markup is stripped; xml mode is what you would expect.</td>
+			</tr>
+			<tr>
+				<td>…</td>
+				<td>There are other, less common attributes, too.</td>
+			</tr>
+		</table>
+		
+	</p:slide>
+	
+
+
+</p:deck>
