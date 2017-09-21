@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:deck xmlns="http://www.w3.org/1999/xhtml"
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations"
- xmlns:lnuk-fn="http://www.lexisnexis.com/namespace/uk/xsl/functions"
- xmlns:CA="http://www.lexisnexis.com/namespace/digest/ca"
- xmlns:lnuk-data="http://www.lexisnexis.com/namespace/uk/data">
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
 
 
 	<p:meta>
@@ -20,8 +15,8 @@
 
 	<p:slide xml:id="modularity-reuse">
 		<p:title>Import and Include</p:title>
-		<p>XSLT offers two statements for building libraries:</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">XSLT offers two statements for building libraries:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>
 				<code>xsl:import</code>
 			</li>
@@ -30,16 +25,16 @@
 			</li>
 		</ul>
 
-		<p>It is almost always better to use <code>xsl:import</code></p>
+		<p xmlns="http://www.w3.org/1999/xhtml">It is almost always better to use <code>xsl:import</code></p>
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e60">
 		<p:title>xsl:include</p:title>
 
-		<p><code>xsl:include</code> loads another stylesheet as a library.</p>
-		<p>Templates in the included library have the same precedence as those in the including
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:include</code> loads another stylesheet as a library.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Templates in the included library have the same precedence as those in the including
 			file.</p>
-		<p><code>xsl:include</code> can be placed anywhere that <code>xsl:template</code> can
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:include</code> can be placed anywhere that <code>xsl:template</code> can
 			be.</p>
 
 		<p:code show-ns-declarations="true">
@@ -51,12 +46,12 @@
 	</p:slide>
 
 
-	<p:slide>
+	<p:slide xml:id="d1e93">
 		<p:title>xsl:import</p:title>
 
-		<p><code>xsl:import</code> loads another stylesheet as a library.</p>
-		<p>Templates in the imported library have lower precedence those in the including file.</p>
-		<p><code>xsl:import</code> statements must be the first children of
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:import</code> loads another stylesheet as a library.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Templates in the imported library have lower precedence those in the including file.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:import</code> statements must be the first children of
 				<code>xsl:stylesheet</code>.</p>
 
 
@@ -72,22 +67,22 @@
 
 
 
-	<p:slide>
+	<p:slide xml:id="d1e127">
 		<p:title>
-			<code>xsl:next-match</code>
+			<code xmlns="http://www.w3.org/1999/xhtml">xsl:next-match</code>
 		</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>xsl:next-match</code> provides a way to fall back to common functionality</li>
 			<li>Replaces <code>xsl:apply-imports</code> in many ways</li>
 			<li>Falls back to the next best match</li>
 		</ul>
 		<p:code>
-			<xsl:template match="para[@number]">
-				<p>Number: <xsl:apply-templates select="@number"/></p>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="para[@number]">
+				<p xmlns="http://www.w3.org/1999/xhtml">Number: <xsl:apply-templates select="@number"/></p>
 				<xsl:next-match/>
 			</xsl:template>
-			<xsl:template match="para">
-				<p>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="para">
+				<p xmlns="http://www.w3.org/1999/xhtml">
 					<xsl:apply-templates/>
 				</p>
 			</xsl:template>

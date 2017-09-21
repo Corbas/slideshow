@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:deck xmlns="http://www.w3.org/1999/xhtml"
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
 
 	<p:meta>
 		<p:id>xpath-intro</p:id>
@@ -14,9 +12,9 @@
 	<p:title>Introduction to XPath</p:title>
 
 
-	<p:slide>
+	<p:slide xml:id="d1e28">
 		<p:title>What is XPath</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>A language for identify content in XML</li>
 			<li>'Hosted' in another language (e.g. XSLT, <em>Schematron</em>, XQuery)</li>
 			<li>Designed to look like paths/URLs</li>
@@ -24,20 +22,20 @@
 	</p:slide>
 
 
-	<p:slide>
+	<p:slide xml:id="d1e49">
 		<p:title>XPath statements</p:title>
-		<p>An XPath statement selects (or matches) content in an XML document. Each XPath statement is
+		<p xmlns="http://www.w3.org/1999/xhtml">An XPath statement selects (or matches) content in an XML document. Each XPath statement is
 			made up of on or more <em>location steps</em> separated by slashes.</p>
-		<p>An initial <code>/</code> at the start of an XPath statement represents the <em>document
+		<p xmlns="http://www.w3.org/1999/xhtml">An initial <code>/</code> at the start of an XPath statement represents the <em>document
 				node</em> — the entire document. Statements that start at the root are known as
 		<em>absolute</em> paths and those which start at the current node are know as 
 		<em>relative</em> paths.</p>
 
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e76">
 		<p:title>XPath Examples</p:title>
-		<table>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<thead>
 				<tr>
 					<th>Statement</th>
@@ -67,35 +65,35 @@
 		</table>
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e154">
 		<p:title>Demo: oXygen and XPath</p:title>
-		<h3>Demo: oXygen and XPath</h3>
+		<h3 xmlns="http://www.w3.org/1999/xhtml">Demo: oXygen and XPath</h3>
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e163">
 		<p:title>The anatomy of an XPath statement</p:title>
-		<p>Location Steps can contain three parts.</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">Location Steps can contain three parts.</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>An optional <em>axis</em></li>
 			<li>A <em>node test</em>*</li>
 			<li>An optional <em>predicate</em></li>
 		</ul>
 
-		<p class="footnote">All our statements so far are just node tests</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">All our statements so far are just node tests</p>
 	</p:slide>
 	
 
 
-	<p:slide>
+	<p:slide xml:id="d1e194">
 		<p:title>Axes</p:title>
-		<p>An axis describes the direction you want XPath to look in when you specify an node test.
+		<p xmlns="http://www.w3.org/1999/xhtml">An axis describes the direction you want XPath to look in when you specify an node test.
 			You specify an axis as:</p>
 		<p:code type="text"> axis::node-test </p:code>
-		<p>XSLT has 13 axes. By default XPath statements operate from parent to child using the
+		<p xmlns="http://www.w3.org/1999/xhtml">XSLT has 13 axes. By default XPath statements operate from parent to child using the
 				<code>child</code> axis.</p>
 
 
-		<table>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<thead>
 				<tr>
 					<th>Shorthand</th>
@@ -121,10 +119,10 @@
 
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e265">
 		<p:title>Axes (cont)</p:title>
-		<p>The XPath axes are:</p>
-		<table>
+		<p xmlns="http://www.w3.org/1999/xhtml">The XPath axes are:</p>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<tbody>
 				<tr>
 					<td>child</td>
@@ -134,12 +132,12 @@
 				<tr>
 					<td>self</td>
 					<td>parent</td>
-					<td>&#160;</td>
+					<td> </td>
 				</tr>
 				<tr>
 					<td>descendant</td>
 					<td>descendant-or-self</td>
-					<td>&#160;</td>
+					<td> </td>
 				</tr>
 				<tr>
 					<td>ancestor</td>
@@ -148,34 +146,34 @@
 				<tr>
 					<td>following</td>
 					<td>preceding</td>
-					<td>&#160;</td>
+					<td> </td>
 
 				</tr>
 				
 				<tr>
 					<td>attribute</td>
 					<td><em>namespace</em>*</td>
-					<td>&#160;</td>
+					<td> </td>
 				</tr>
 
 			</tbody>
 
 		</table>
 
-		<p class="footnote">* The <code>namespace</code> axis is deprecated in XPath 2.0. We won't
+		<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">* The <code>namespace</code> axis is deprecated in XPath 2.0. We won't
 		bother with it — it's not useful.</p>
 	</p:slide>
 	
-	<p:slide>
+	<p:slide xml:id="d1e358">
 		<p:title>Abbreviations and wildcards</p:title>
 		
-		<h4>Wildcards</h4>
-		<p>The <code>*</code> character means "any node in the default type for the axis". Apart from
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Wildcards</h4>
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>*</code> character means "any node in the default type for the axis". Apart from
 			
 		the <code>attribute</code> and <code>namespace</code> axes the default type is <em>element</em>.</p>
-		<h4>Abbreviations</h4>
-		<p>Some axes have abbreviations:</p>
-		<table>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Abbreviations</h4>
+		<p xmlns="http://www.w3.org/1999/xhtml">Some axes have abbreviations:</p>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<tbody>
 				<tr>
 					<td>.</td>
@@ -203,14 +201,14 @@
 	
 
 
-	<p:slide>
-		<p:title><code>child</code> Axis</p:title>
+	<p:slide xml:id="d1e450">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">child</code> Axis</p:title>
 
-		<p>The <code>child</code> axis is the default axis and the simplest axis. For any node the
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>child</code> axis is the default axis and the simplest axis. For any node the
 			child axis contains all of that node's child nodes (<em>remember that an attribute isn't
 				a node</em>)</p>
 
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>child::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/child-axis.svg" alt="child axis"/></td>
@@ -220,13 +218,13 @@
 	
 	</p:slide>
 
-	<p:slide>
-		<p:title><code>preceding-sibling</code> Axis</p:title>
+	<p:slide xml:id="d1e481">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">preceding-sibling</code> Axis</p:title>
 		
-		<p>The <code>preceding-sibling</code> axis contains all the nodes that have the same
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>preceding-sibling</code> axis contains all the nodes that have the same
 		parent as the current node but occur before it.</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>preceding-sibling::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/preceding-sibling.svg" alt="child axis"/></td>
@@ -236,13 +234,13 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>following-sibling</code> Axis</p:title>
+	<p:slide xml:id="d1e508">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">following-sibling</code> Axis</p:title>
 		
-		<p>The <code>following-sibling</code> axis contains all the nodes that have the same
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>following-sibling</code> axis contains all the nodes that have the same
 			parent as the current node but occur after it document order.</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>following-sibling::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/following-sibling.svg" alt="child axis"/></td>
@@ -252,14 +250,14 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>self</code> Axis</p:title>
+	<p:slide xml:id="d1e535">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">self</code> Axis</p:title>
 		
-		<p>The <code>self</code> axis only contains the context node. We usually use it
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>self</code> axis only contains the context node. We usually use it
 		in select statements to test the type of the current node (we'll discuss
 		this later).</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>self::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/self.svg" alt="child axis"/></td>
@@ -269,14 +267,14 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>parent</code> Axis</p:title>
+	<p:slide xml:id="d1e562">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">parent</code> Axis</p:title>
 		
-		<p>The <code>parent</code> axis only contains the parent of the context node. We usually use it
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>parent</code> axis only contains the parent of the context node. We usually use it
 			in select statements to test the type of the parent node (we'll discuss
 			this later).</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>parent::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/parent.svg" alt="child axis"/></td>
@@ -287,13 +285,13 @@
 	</p:slide>
 	
 	
-	<p:slide>
-		<p:title><code>descendant</code> Axis</p:title>
+	<p:slide xml:id="d1e589">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">descendant</code> Axis</p:title>
 		
-		<p>The <code>descendant</code> axis contains all the nodes which are descended
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>descendant</code> axis contains all the nodes which are descended
 			from the current node.</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>descendant::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/descendant.svg" alt="child axis"/></td>
@@ -304,13 +302,13 @@
 	</p:slide>
 	
 	
-	<p:slide>
-		<p:title><code>descendant-or-self</code> Axis</p:title>
+	<p:slide xml:id="d1e616">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">descendant-or-self</code> Axis</p:title>
 		
-		<p>The <code>descendant-or-self</code> axis contains all the nodes which are descended
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>descendant-or-self</code> axis contains all the nodes which are descended
 			from the context node plus the context node</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>descendant-or-self::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/descendant-or-self.svg" alt="child axis"/></td>
@@ -320,13 +318,13 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>ancestor</code> Axis</p:title>
+	<p:slide xml:id="d1e644">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">ancestor</code> Axis</p:title>
 		
-		<p>The <code>ancestor</code> axis contains all the nodes from which the
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>ancestor</code> axis contains all the nodes from which the
 		context node descends in reverse order (parent first).</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>ancestor::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/ancestor.svg" alt="child axis"/></td>
@@ -336,12 +334,12 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>ancestor-or-self</code> Axis</p:title>
-		<p>The <code>ancestor-or-self</code> axis contains all the nodes from which the
+	<p:slide xml:id="d1e671">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">ancestor-or-self</code> Axis</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>ancestor-or-self</code> axis contains all the nodes from which the
 			context node descends in reverse order plus the context node (self::* first).</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>ancestor-or-self::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/ancestor-or-self.svg" alt="child axis"/></td>
@@ -351,12 +349,12 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>preceding</code> Axis</p:title>
-		<p>The <code>preceding</code> axis contains all the nodes that have
+	<p:slide xml:id="d1e698">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">preceding</code> Axis</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>preceding</code> axis contains all the nodes that have
 			already been fully traversed in document order.</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>preceding::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/preceding.svg" alt="child axis"/></td>
@@ -366,13 +364,13 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>following</code> Axis</p:title>
-		<p>The <code>following</code> axis contains all nodes which not yet
+	<p:slide xml:id="d1e725">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">following</code> Axis</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>following</code> axis contains all nodes which not yet
 			been traversed at all (any node which follows this one in
 			document order).</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>following::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/following.svg" alt="child axis"/></td>
@@ -382,11 +380,11 @@
 		
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>attribute</code> Axis</p:title>
-		<p>The <code>attribute</code> axis all the attribute nodes!</p>
+	<p:slide xml:id="d1e752">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">attribute</code> Axis</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>attribute</code> axis all the attribute nodes!</p>
 		
-		<table class="image-example">
+		<table xmlns="http://www.w3.org/1999/xhtml" class="image-example">
 			<tr>			
 				<td><code>.//attribute::*</code></td>
 				<td><img src="http://localhost:4200/assets/images/axes/attribute.svg" alt="child axis"/></td>
@@ -399,9 +397,9 @@
 	
 	
 	
-	<p:slide>
+	<p:slide xml:id="d1e779">
 		<p:title>Predicates</p:title>
-		<p>Predicates are like filters. They limit the set of nodes returned. All
+		<p xmlns="http://www.w3.org/1999/xhtml">Predicates are like filters. They limit the set of nodes returned. All
 			XPath statements can be seen as stating "find me all the elements where
 		this is true". Predicates allow greater flexibility.</p>
 		
@@ -411,39 +409,39 @@
 			.//country[starts-with(@name, 'A')]
 		</p:code>
 		
-		<p>Predicates are placed inside square brackets and refer to the node test immediately following. They
+		<p xmlns="http://www.w3.org/1999/xhtml">Predicates are placed inside square brackets and refer to the node test immediately following. They
 		can use XPath functions as well as simple node tests and logical tests.</p>
 	
 		
 	</p:slide>
 	
-	<p:slide>
+	<p:slide xml:id="d1e795">
 		<p:title>Position</p:title>
 		
-		<p>Use the <code>position()</code> function to locate nodes by position. The following selects
+		<p xmlns="http://www.w3.org/1999/xhtml">Use the <code>position()</code> function to locate nodes by position. The following selects
 		just the first paragraph of each chapter.</p>
 		
 		<p:code type="text">
 			chapter/para[position() = 1]
 		</p:code>
 		
-		<p>This can be abbreviated to:</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">This can be abbreviated to:</p>
 		
 		<p:code type="text">
 			chapter/para[1]
 		</p:code>
 		
-		<p>You can use the <code>last()</code> function to find the last member of a set</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">You can use the <code>last()</code> function to find the last member of a set</p>
 		
 		<p:code type="text">
 			chapter/para[last()]
 		</p:code>
 	</p:slide>
 	
-	<p:slide>
+	<p:slide xml:id="d1e826">
 		<p:title>Basic operators</p:title>
-		<p>All of the normal maths operators you know work</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">All of the normal maths operators you know work</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>x <em>+</em> y</code></li>
 			<li><code>x <em>*</em> y</code></li>
 			<li><code>x <em>-</em> y</code></li>
@@ -451,12 +449,12 @@
 		</ul>
 	</p:slide>
 	
-	<p:slide>
+	<p:slide xml:id="d1e869">
 		<p:title>XPath functions</p:title>
-		<p>XPath contains a large number of functions. We're only going to discuss a few right now.
+		<p xmlns="http://www.w3.org/1999/xhtml">XPath contains a large number of functions. We're only going to discuss a few right now.
 		</p>
 		
-		<table>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 				<tr>
 					<td>
 						<ul>
@@ -490,9 +488,9 @@
 	</p:slide>
 	
 	
-	<p:slide>
-		<p:title><code>number()</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e941">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">number()</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>The <code>number()</code> function forces its argument to be a number. </li>
 			<li>Returns <strong>NaN</strong> when not possible</li>
 			<li>Rarely needed - if you use a value as a number, XPath usually converts for
@@ -502,18 +500,18 @@
 		<p:code type="text">number('January')</p:code>
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>count()</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e972">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">count()</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Given a node set returns the number of nodes in it</li>
 		</ul>
 		<p:code type="text">count(//p:slide)</p:code>
 		<p:code type="text">count(//chapter[para])</p:code>
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>sum()</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e991">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">sum()</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Adds up the numeric values of a set of nodes</li>
 			<li>Calls <code>number()</code> on each value if needed.</li>
 			<li>If any value evaluates to <strong>NaN</strong> then the whole sum does</li>
@@ -521,17 +519,17 @@
 		<p:code type="text">sum(//price)</p:code>
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>concat()</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e1020">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">concat()</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Given two or more strings, concatenates them:</li>
 		</ul>
 		<p:code type="text">concat(given-name, ' ', family-name)</p:code>
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>starts-with()</code> / <code>contains()</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e1036">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">starts-with()</code> / <code xmlns="http://www.w3.org/1999/xhtml">contains()</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>starts-with</code> returns <code>true()</code> if the first string starts with the second</li>
 			<li><code>contains</code> returns <code>true()</code> if the first string contains the second</li>
 		</ul>
@@ -541,9 +539,9 @@
 		<p:code type="text">contains('carton', 'milk')</p:code>
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>substring-before()</code> / <code>substring-after()</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e1074">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">substring-before()</code> / <code xmlns="http://www.w3.org/1999/xhtml">substring-after()</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>substring-before</code> returns that part of string one which occurs <em>before</em> the <em>first</em> occurrence of string two</li>
 			<li><code>substring-after</code> returns that part of string one which occurs <em>after</em> the <em>first</em> occurrence of string two</li>
 		</ul>
@@ -552,24 +550,24 @@
 		<p:code type="text">substring-after("Hello World", '&amp;#x20;')</p:code>
 	</p:slide>
 	
-	<p:slide>
-		<p:title><code>normalize-space()</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e1115">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">normalize-space()</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>normalize-space()</code> removes leading and trailing whitespace characters from a string 
 				and reduces repeated internal whitespace to a single space</li>
 		</ul>
-		<p:code type='text'>normalize-space(' abc   def ')</p:code>
+		<p:code type="text">normalize-space(' abc   def ')</p:code>
 		
-		<p>This would result in '<strong>abc def</strong>'.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">This would result in '<strong>abc def</strong>'.</p>
 	</p:slide>
 	
 	
 	
 
-	<p:slide>
+	<p:slide xml:id="d1e1139">
 		<p:title>Summary</p:title>
-		<p>We have looked at:</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">We have looked at:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>XPath Location Steps</li>
 			<li>Axes</li>
 			<li>Predicates</li>

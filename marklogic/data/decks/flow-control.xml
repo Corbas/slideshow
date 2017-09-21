@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../xml/slides/schemas/slides.rnc" type="application/relax-ng-compact-syntax"?>
-<p:presentation xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:p="http://www.corbas.co.uk/ns/presentations" xml:id="flow-control">
+<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../../xml/slides/schemas/slides.rnc" type="application/relax-ng-compact-syntax"?><p:presentation xmlns:p="http://www.corbas.co.uk/ns/presentations" xml:id="flow-control">
 
 	<p:meta>
 		<p:id>xslt-flow-control</p:id>
@@ -15,10 +11,10 @@
 	
 	<p:title>Flow control in XSLT</p:title>
 
-	<p:slide toc="exclude">
+	<p:slide xml:id="d1e29" toc="exclude">
 		<p:title>Flow control in XSLT</p:title>
-		<p>XSLT has three statements for flow control:</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">XSLT has three statements for flow control:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>xsl:if</code></li>
 			<li><code>xsl:for-each</code></li>
 			<li><code>xsl:choose</code> with two child elements: <ul>
@@ -27,27 +23,27 @@
 				</ul>
 			</li>
 		</ul>
-		<p>None of these is required and you will generally write better XSLT if you avoid them but sometimes
+		<p xmlns="http://www.w3.org/1999/xhtml">None of these is required and you will generally write better XSLT if you avoid them but sometimes
 			they make your code simpler.</p>
 	</p:slide>
 
-	<p:slide>
-		<p:title><code>xsl:if</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e68">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:if</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>xsl:if</code> allows you to make one-decisions. The code inside the
 					<code>xsl:if</code> statement is evaluated when the <code>test</code> attribute
 				evaluates to a true value.</li>
 			<li><em>There is no <code>xsl:else</code></em>!</li>
 		</ul>
 		<p:code>
-			<xsl:if test="…">
+			<xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="…">
 				<!-- do something -->
 			</xsl:if>
 		</p:code>
 	</p:slide>
-	<p:slide toc="exclude">
-		<p:title><code>xsl:if</code> (cont)</p:title>
-		<p>For example, you might want to convert the following to a different format where any
+	<p:slide xml:id="d1e104" toc="exclude">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:if</code> (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">For example, you might want to convert the following to a different format where any
 				<code>reading</code> elements must be wrapped up in <code>data</code> elements.</p>
 		<p:code>
 			<measurements xmlns="urn:x-corbas:ns:examples">
@@ -68,15 +64,15 @@
 			</measurements></p:code>
 	</p:slide>
 
-	<p:slide toc="exclude">
-		<p:title><code>xsl:if</code> (cont)</p:title>
-		<p>The simplest way of implementing this kind of requirement is to use
+	<p:slide xml:id="d1e160" toc="exclude">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:if</code> (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The simplest way of implementing this kind of requirement is to use
 			<code>xsl:if</code>:</p>
 		<p:code>
-			<xsl:template match="measurements">
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="measurements">
 				<xsl:copy-of select="pressure"/>
 				<xsl:if test="reading">
-					<data>
+					<data xmlns="http://www.w3.org/1999/xhtml">
 						<xsl:copy-of select="reading"/>
 					</data>
 				</xsl:if>
@@ -84,15 +80,15 @@
 		</p:code>
 	</p:slide>
 
-	<p:slide  toc="exclude">
-		<p:title>Avoiding <code>xsl:if</code></p:title>
-		<p>In most cases you can avoid <code>xsl:if</code> altogether. If we need to convert
+	<p:slide xml:id="d1e190" toc="exclude">
+		<p:title>Avoiding <code xmlns="http://www.w3.org/1999/xhtml">xsl:if</code></p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">In most cases you can avoid <code>xsl:if</code> altogether. If we need to convert
 				<code>xml:id</code> attributes to <code>id</code> attributes when converting to
 			HTML. We only want to create the id on output when the input has it</p>
 		<p:code show-ns-declarations="true">
 			<section xmlns="http://docbook.org/ns/docbook">
 				<para xml:id="para001">"Do you know, Mr. Passepartout, that this pretended tour in
-					eighty days may conceal some secret errand&#x2060;—&#x2060;perhaps a diplomatic
+					eighty days may conceal some secret errand⁠—⁠perhaps a diplomatic
 					mission?"</para>
 				<para>"Faith, Monsieur Fix, I assure you I know nothing about it, nor would I give
 					half a crown to find out."</para>
@@ -101,7 +97,7 @@
 		<p:code show-ns-declarations="true">
 			<section xmlns="http://www.w3.org/1999/xhtml">
 				<p id="para001">"Do you know, Mr. Passepartout, that this pretended tour in eighty
-					days may conceal some secret errand&#x2060;—&#x2060;perhaps a diplomatic
+					days may conceal some secret errand⁠—⁠perhaps a diplomatic
 					mission?"</p>
 				<p>"Faith, Monsieur Fix, I assure you I know nothing about it, nor would I give half
 					a crown to find out."</p>
@@ -109,91 +105,90 @@
 		</p:code>
 	</p:slide>
 
-	<p:slide toc="exclude">
-		<p:title>Avoiding <code>xsl:if</code> (cont)</p:title>
-		<p>This could easily be implemented using <code>xsl:if</code> but we could lose generality: </p>
+	<p:slide xml:id="d1e234" toc="exclude">
+		<p:title>Avoiding <code xmlns="http://www.w3.org/1999/xhtml">xsl:if</code> (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">This could easily be implemented using <code>xsl:if</code> but we could lose generality: </p>
 		<p:code>
-			<xsl:template xmlns:db="http://docbook.org/ns/docbook" match="db:para">
-				<p>
-					<xsl:if test="@xml:id"><xsl:attribute name="id"><xsl:value-of select="@xml:id"
-							/></xsl:attribute></xsl:if>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:para">
+				<p xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:if test="@xml:id"><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></xsl:if>
 					<xsl:apply-templates/>
 				</p>
 			</xsl:template>
 		</p:code>
-		<p>This works but we would need to be put that code everywhere we might have an id.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">This works but we would need to be put that code everywhere we might have an id.</p>
 	</p:slide>
 
-	<p:slide toc="exclude">
-		<p:title>Avoiding <code>xsl:if</code> (cont)</p:title>
-		<ul>
+	<p:slide xml:id="d1e267" toc="exclude">
+		<p:title>Avoiding <code xmlns="http://www.w3.org/1999/xhtml">xsl:if</code> (cont)</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><em>It is almost always possible to replace <code>xsl:if</code> with an
 						<code>xsl:apply-templates</code> in this kind of circumstance</em>. </li>
 			<li>This leads to smaller, less complex templates (which are easier to maintain and
 				reuse) and some potential reuse with the new template:</li>
 		</ul>
 		<p:code>
-			<xsl:template match="db:para">
-				<p>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:para">
+				<p xmlns="http://www.w3.org/1999/xhtml">
 					<xsl:apply-templates select="@xml:id|node()"/>
 				</p>
 			</xsl:template>
-			<xsl:template match="@xml:id">
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="@xml:id">
 				<xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
 			</xsl:template>
 		</p:code>
-		<p>Now, if we want to apply this transformation to any other element, all we need to do is
+		<p xmlns="http://www.w3.org/1999/xhtml">Now, if we want to apply this transformation to any other element, all we need to do is
 			select the <code>xml:id</code> attribute. </p>
 	</p:slide>
 
-	<p:slide toc="exclude">
+	<p:slide xml:id="d1e316" toc="exclude">
 		<p:title>Tip</p:title>
-		<p><strong>Remember:</strong>
+		<p xmlns="http://www.w3.org/1999/xhtml"><strong>Remember:</strong>
 			<code>xsl:apply-templates</code> doesn't do anything if there is nothing to select so
 			you don't need to check for the presence of something before you process it.</p>
 	</p:slide>
 
-	<p:slide>
-		<p:title><code>xsl:for-each</code></p:title>
-		<p><code>xsl:for-each</code> operates like a 'for' loop in any language that can process
+	<p:slide xml:id="d1e330">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:for-each</code></p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:for-each</code> operates like a 'for' loop in any language that can process
 			lists.</p>
-		<p>Along with <code>xsl:apply-templates</code>. <code>xsl:for-each</code>
+		<p xmlns="http://www.w3.org/1999/xhtml">Along with <code>xsl:apply-templates</code>. <code>xsl:for-each</code>
 			<em>sets the context node</em> to be the currently selected element.</p>
 		<p:code>
-			<xsl:template match="db:section">
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:section">
 				<xsl:for-each select="db:para">
-					<p><xsl:apply-templates/></p>
+					<p xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></p>
 				</xsl:for-each>
 			</xsl:template>
 		</p:code>
-		<p>It is very tempting to use <code>xsl:for-each</code> extensively. Try not to - nested
+		<p xmlns="http://www.w3.org/1999/xhtml">It is very tempting to use <code>xsl:for-each</code> extensively. Try not to - nested
 				<code>xsl:for-each</code> loops tend to get very hard to maintain.</p>
 	</p:slide>
 
 
 
-	<p:slide toc="exclude">
-		<p:title>Avoiding <code>xsl:for-each</code></p:title>
-		<p>It is almost always better to use <code>xsl:apply-templates</code> than
+	<p:slide xml:id="d1e376" toc="exclude">
+		<p:title>Avoiding <code xmlns="http://www.w3.org/1999/xhtml">xsl:for-each</code></p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">It is almost always better to use <code>xsl:apply-templates</code> than
 				<code>xsl:for-each</code>.</p>
-		<p>The <code>select</code> element matches that used in <code>xsl:apply-templates</code>. By
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>select</code> element matches that used in <code>xsl:apply-templates</code>. By
 			splitting the template up we can get something much more reusable and maintainable:</p>
 		<p:code>
-			<xsl:template match="db:section">
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:section">
 				<xsl:apply-templates/>
 			</xsl:template>
-			<xsl:template match="db:para">
-				<p><xsl:apply-templates/></p>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:para">
+				<p xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></p>
 			</xsl:template>
 		</p:code>
-		<p>Both of those templates are now much more likely to be reusable.</p>
-		<p>For very simple sets of elements with no possibility of nested content,
+		<p xmlns="http://www.w3.org/1999/xhtml">Both of those templates are now much more likely to be reusable.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">For very simple sets of elements with no possibility of nested content,
 				<code>xsl:for-each</code> can sometimes give you simpler code.</p>
 	</p:slide>
 
-	<p:slide>
-		<p:title><code>xsl:choose</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e426">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:choose</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>xsl:choose</code> provides a switch/case statement for XSLT. It could be used
 				to provide a if/else type statement. <code>xsl:choose</code> has two child elements
 				— <code>xsl:when</code> and the optional <code>xsl:otherwise</code>.</li>
@@ -204,7 +199,7 @@
 				case.</li>
 		</ul>
 		<p:code>
-			<xsl:choose>
+			<xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:when test="…">…</xsl:when>
 				<xsl:when test="…">…</xsl:when>
 				<xsl:otherwise>…</xsl:otherwise>
@@ -212,101 +207,99 @@
 		</p:code>
 	</p:slide>
 
-	<p:slide toc="exclude">
-		<p:title><code>xsl:choose</code> (cont)</p:title>
-		<p>We could use <code>xsl:choose</code> to define the output based on some data value in the
+	<p:slide xml:id="d1e489" toc="exclude">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:choose</code> (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">We could use <code>xsl:choose</code> to define the output based on some data value in the
 			input. We can use it to decide the type of mark-up the emphasised parts of a
 			paragraph:</p>
 		<p:code>
-			<db:para>My organisation believes in <db:emphasis role="italic"
-					>synchronised</db:emphasis> third-generation projections. We need to get
+			<db:para xmlns:db="http://docbook.org/ns/docbook">My organisation believes in <db:emphasis role="italic">synchronised</db:emphasis> third-generation projections. We need to get
 					<db:emphasis role="bold">on-message</db:emphasis> about our four-dimensional
 				monitored concepts.</db:para>
 		</p:code>
 		<p:code>
-			<p>My organisation believes in <em>synchronised</em> third-generation projections. We
+			<p xmlns="http://www.w3.org/1999/xhtml">My organisation believes in <em>synchronised</em> third-generation projections. We
 				need to get <strong>on-message</strong> about our four-dimensional monitored
 				concepts.</p>
 		</p:code>
 	</p:slide>
 
-	<p:slide toc="exclude">
-		<p:title><code>xsl:choose</code> (cont)</p:title>
-		<p>We could convert that using <code>xsl:choose</code>:</p>
+	<p:slide xml:id="d1e527" toc="exclude">
+		<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:choose</code> (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">We could convert that using <code>xsl:choose</code>:</p>
 		<p:code>
-			<xsl:template match="db:emphasis">
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:emphasis">
 				<xsl:choose>
 					<xsl:when test="@role = 'italic'">
-						<em><xsl:apply-templates/></em>
+						<em xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></em>
 					</xsl:when>
 					<xsl:when test="@role = 'bold'">
-						<strong><xsl:apply-templates/></strong>
+						<strong xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></strong>
 					</xsl:when>
 				</xsl:choose>
 			</xsl:template>
 		</p:code>
-		<p><strong>Question:</strong> why do we use <code>xsl:apply-templates</code> not
+		<p xmlns="http://www.w3.org/1999/xhtml"><strong>Question:</strong> why do we use <code>xsl:apply-templates</code> not
 				<code>xsl:value-of</code>?</p>
 	</p:slide>
 
-	<p:slide toc="exclude">
-		<p:title>Why we don't use <code>xsl:choose</code></p:title>
-		<ul>
+	<p:slide xml:id="d1e573" toc="exclude">
+		<p:title>Why we don't use <code xmlns="http://www.w3.org/1999/xhtml">xsl:choose</code></p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li><code>xsl:choose</code> can be replaced with <code>xsl:apply-templates</code> when
 				we're dealing with values from data.</li>
 			<li>This lets us break up the code into templates which are more maintable.</li>
 		</ul>
-		<p>Suppose a new version of the document arrives with added emphasis:</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Suppose a new version of the document arrives with added emphasis:</p>
 		<p:code>
-			<db:para>My organisation believes in <db:emphasis role="italic"
-					>synchronised</db:emphasis> third-generation projections. We need to get
+			<db:para xmlns:db="http://docbook.org/ns/docbook">My organisation believes in <db:emphasis role="italic">synchronised</db:emphasis> third-generation projections. We need to get
 					<db:emphasis role="bold">on-message</db:emphasis> about our four-dimensional
-					<emphasis role="underline">monitored</emphasis> concepts.</db:para>
+					<emphasis xmlns="http://www.w3.org/1999/xhtml" role="underline">monitored</emphasis> concepts.</db:para>
 		</p:code>
 		
-		<p>What do we do?</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">What do we do?</p>
 	</p:slide>
 	
-	<p:slide toc="exclude">
-		<p:title>Why we don't use <code>xsl:choose</code></p:title>
-		<p>If we were using <code>xsl:choose</code> we would have to edit it:</p>
+	<p:slide xml:id="d1e616" toc="exclude">
+		<p:title>Why we don't use <code xmlns="http://www.w3.org/1999/xhtml">xsl:choose</code></p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">If we were using <code>xsl:choose</code> we would have to edit it:</p>
 		<p:code>
-			<xsl:template match="db:emphasis">
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:emphasis">
 				<xsl:choose>
 					<xsl:when test="@role = 'italic'">
-						<em><xsl:apply-templates/></em>
+						<em xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></em>
 					</xsl:when>
 					<xsl:when test="@role = 'bold'">
-						<strong><xsl:apply-templates/></strong>
+						<strong xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></strong>
 					</xsl:when>
 					<!-- need to add this -->
 					<xsl:when test="@role = 'underline'">
-						<span class="underline"><xsl:apply-templates/></span>
+						<span xmlns="http://www.w3.org/1999/xhtml" class="underline"><xsl:apply-templates/></span>
 					</xsl:when>
 				</xsl:choose>
 			</xsl:template>
 		</p:code>	
 	</p:slide>
 	
-	<p:slide toc="exclude">
-		<p:title>Why we don't use <code>xsl:choose</code></p:title>
-		<p>Of course, we did this right the first time around:</p>
+	<p:slide xml:id="d1e660" toc="exclude">
+		<p:title>Why we don't use <code xmlns="http://www.w3.org/1999/xhtml">xsl:choose</code></p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Of course, we did this right the first time around:</p>
 		<p:code>
-			<xsl:template match="db:emphasis[@role='italic']">
-				<em><xsl:apply-templates/></em>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:emphasis[@role='italic']">
+				<em xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></em>
 			</xsl:template>
-			<xsl:template match="db:emphasis[@role='bold']">
-				<strong><xsl:apply-templates/></strong>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:emphasis[@role='bold']">
+				<strong xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></strong>
 			</xsl:template>
 		</p:code>
-		<p>Now, we just need to add:</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Now, we just need to add:</p>
 		<p:code>
-			<xsl:template match="db:emphasis[@role='underline']">
-				<span class="underline"><xsl:apply-templates/></span>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="db:emphasis[@role='underline']">
+				<span xmlns="http://www.w3.org/1999/xhtml" class="underline"><xsl:apply-templates/></span>
 			</xsl:template>
 		</p:code>
 		
-		<p>It's always better to add a template than to change a working one.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">It's always better to add a template than to change a working one.</p>
 	</p:slide>
 
 </p:presentation>

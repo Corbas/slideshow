@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:deck xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
   
     <p:meta>
       <p:id>unicode-intro</p:id>
@@ -13,19 +12,19 @@
     <p:title>Unicode and encodings</p:title>
     
     
-    <p:slide xml:id="d1e21" >
+    <p:slide xml:id="d1e21">
       <p:title>Unicode and encodings</p:title>
-      <p>Encodings are one of the most generally confusing things about XML</p>
-      <p>Don't worry, they're not really complicated.</p>
-      <h4>Background</h4>
-      <ul>
+      <p xmlns="http://www.w3.org/1999/xhtml">Encodings are one of the most generally confusing things about XML</p>
+      <p xmlns="http://www.w3.org/1999/xhtml">Don't worry, they're not really complicated.</p>
+      <h4 xmlns="http://www.w3.org/1999/xhtml">Background</h4>
+      <ul xmlns="http://www.w3.org/1999/xhtml">
         <li>Computers store all information as numbers</li>
         <li>Characters of text are stored as numbers</li>
         <li>Older computers stored information in bytes</li>
         <li>A byte is 8 bits</li>
         <li>A bit is an off switch — binary — base 2</li>
       </ul>
-      <table>
+      <table xmlns="http://www.w3.org/1999/xhtml">
         <tr>
           <th>Decimal</th>
           <td>128</td>
@@ -85,15 +84,15 @@
           <td>1</td>
         </tr>
       </table>
-      <p/>
-      <p>Each bit represents a power of 2. The largest number we can store in a byte is
+      <p xmlns="http://www.w3.org/1999/xhtml"/>
+      <p xmlns="http://www.w3.org/1999/xhtml">Each bit represents a power of 2. The largest number we can store in a byte is
         255.</p>
     </p:slide>
     
-    <p:slide xml:id="d1e218" >
+    <p:slide xml:id="d1e218">
       <p:title>Unicode and encodings</p:title>
-      <h4>The problem</h4>
-      <ul>
+      <h4 xmlns="http://www.w3.org/1999/xhtml">The problem</h4>
+      <ul xmlns="http://www.w3.org/1999/xhtml">
         <li>Older computers had a maximum of 255 characters because 1 byte = 1
           character.</li>
         <li>ASCII (merican Standard Code for Information Interchange) is the oldest standard
@@ -105,13 +104,13 @@
       </ul>
     </p:slide>
     
-    <p:slide xml:id="d1e248" >
+    <p:slide xml:id="d1e248">
       <p:title>Unicode and encodings</p:title>
-      <h4>An example</h4>
-      <p>The end result of this was that you needed to know which character set you were using
+      <h4 xmlns="http://www.w3.org/1999/xhtml">An example</h4>
+      <p xmlns="http://www.w3.org/1999/xhtml">The end result of this was that you needed to know which character set you were using
         before you could work out which character a number represented. This is character
         number 230 in a few character sets:</p>
-      <table>
+      <table xmlns="http://www.w3.org/1999/xhtml">
         <thead>
           <tr>
             <td>Character Set</td>
@@ -139,11 +138,11 @@
       </table>
     </p:slide>
     
-    <p:slide xml:id="d1e318" >
+    <p:slide xml:id="d1e318">
       <p:title>Unicode and encodings</p:title>
-      <h4>The solution</h4>
-      <p>The Unicode system is intended to resolve this problem. </p>
-      <ul>
+      <h4 xmlns="http://www.w3.org/1999/xhtml">The solution</h4>
+      <p xmlns="http://www.w3.org/1999/xhtml">The Unicode system is intended to resolve this problem. </p>
+      <ul xmlns="http://www.w3.org/1999/xhtml">
         <li>Started in 1987</li>
         <li>Version 1.0 published in 1991</li>
         <li>Currently at version 6.2</li>
@@ -153,20 +152,20 @@
       </ul>
     </p:slide>
     
-    <p:slide xml:id="d1e358" >
+    <p:slide xml:id="d1e358">
       <p:title>Unicode encodings</p:title>
-      <ul>
+      <ul xmlns="http://www.w3.org/1999/xhtml">
         <li>Latin 1, Latin 7, ASCII are all encodings</li>
         <li>Encodings define the mapping from character to number</li>
         <li>Unicode has encodings too — UTF-8, UTF-16, UCS2</li>
         <li>XML is defined in terms of Unicode, defaulting to UTF-8</li>
       </ul>
-      <h4>UTF-8</h4>
-      <p>UTF-8 is a mechanism for encoding characters efficiently. All the ASCII characters
+      <h4 xmlns="http://www.w3.org/1999/xhtml">UTF-8</h4>
+      <p xmlns="http://www.w3.org/1999/xhtml">UTF-8 is a mechanism for encoding characters efficiently. All the ASCII characters
         are stored (encoded) as a single byte. Beyond that the numbers are converted to a
         special format that allows them to be transmitted across a network efficiently.
         UTF-8 uses up to 4 bytes per character.</p>
-      <p>You <strong>don't</strong> ever see that unless something has gone wrong!</p>
+      <p xmlns="http://www.w3.org/1999/xhtml">You <strong>don't</strong> ever see that unless something has gone wrong!</p>
     </p:slide>
     
 </p:deck>

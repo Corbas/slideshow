@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:deck xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
 
 	<p:meta>
 		<p:id>dtd-intro</p:id>
@@ -15,23 +14,23 @@
 
 	<p:slide xml:id="d1e24">
 		<p:title>DTDs</p:title>
-		<p>Document Type Definitions (DTDs) are <em>very</em> old technology.</p>
-		<p>DTDs were first introduced with SGML in the early 1970s.</p>
-		<p>When XML was created in the late 90s they were the best approach available.</p>
-		<p>The basics of DTD authoring can be learned in around an hour and everything in a day.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Document Type Definitions (DTDs) are <em>very</em> old technology.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">DTDs were first introduced with SGML in the early 1970s.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">When XML was created in the late 90s they were the best approach available.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The basics of DTD authoring can be learned in around an hour and everything in a day.</p>
 	</p:slide>
 
 	<p:slide xml:id="d1e45">
 		<p:title>Advantages and disadvantages</p:title>
-		<h3>Advantages</h3>
-		<ul>
+		<h3 xmlns="http://www.w3.org/1999/xhtml">Advantages</h3>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>They've been around a while</li>
 			<li>Relative simplicity</li>
 			<li>Ubiquity</li>
 		</ul>
 		
-		<h3>Disadvantages</h3>
-		<ul>
+		<h3 xmlns="http://www.w3.org/1999/xhtml">Disadvantages</h3>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Limited expressiveness</li>
 			<li>No support for namespaces</li>
 			<li>Not written in XML</li>
@@ -40,9 +39,9 @@
 
 	<p:slide xml:id="d1e81">
 		<p:title>Definition vs Declaration</p:title>
-		<p>A Document Type Declaration (annoyingly, also DTD) relates an XML document to its Document Type Definition.</p>
-		<p>The declaration appears immediately before the root element</p>
-		<p>May contain either PUBLIC or SYSTEM identifiers</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">A Document Type Declaration (annoyingly, also DTD) relates an XML document to its Document Type Definition.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The declaration appears immediately before the root element</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">May contain either PUBLIC or SYSTEM identifiers</p>
 	</p:slide>
 
 	<p:slide xml:id="d1e97">
@@ -53,9 +52,9 @@
 
 	<p:slide xml:id="d1e106">
 		<p:title>System identifiers</p:title>
-		<p>DTDs with SYSTEM identifiers are the simpler of the two forms</p>
-		<p>The declaration breaks down into:</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">DTDs with SYSTEM identifiers are the simpler of the two forms</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The declaration breaks down into:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>DOCTYPE</li>
 			<li>
 				<em>Root element name</em>
@@ -70,17 +69,17 @@
 
 	<p:slide xml:id="d1e142">
 		<p:title>Public identifiers</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Intended to be used for look-up systems</li>
 			<li>Allow a local lookup for the DTD</li>
 		</ul>
-		<p> </p>
+		<p xmlns="http://www.w3.org/1999/xhtml"> </p>
 		<p:code type="text">&lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.docbook.org/xml/4.5/docbookx.dtd"&gt;</p:code>
 	</p:slide>
 
 	<p:slide xml:id="d1e163">
 		<p:title>Why use DTDs?</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>DTDs are quite limited but very suitable for text processing.</li>
 			<li>DTDs only know about text data and a few specialised data types — no numbers, no dates.</li>
 			<li>DTDs cannot specify that (e.g.) “an abstract contains no more than four paragraphs”. If the business rules require that then Schematron is a
@@ -96,21 +95,21 @@
 
 	<p:slide xml:id="d1e196">
 		<p:title>What is a DTD?</p:title>
-		<p>A grammar for an XML language</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">A grammar for an XML language</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Usually abbreviated to <em>DTD</em>s</li>
 			<li>Not written in XML</li>
 			<li>Original schema language for XML</li>
 		</ul>
-		<h2>Document Type Definitions</h2>
-		<ul> </ul>
+		<h2 xmlns="http://www.w3.org/1999/xhtml">Document Type Definitions</h2>
+		<ul xmlns="http://www.w3.org/1999/xhtml"> </ul>
 	</p:slide>
 
 	<p:slide xml:id="d1e226">
 		<p:title>What do they do?</p:title>
-		<p>Define the structural relationship between <em>elements</em>
+		<p xmlns="http://www.w3.org/1999/xhtml">Define the structural relationship between <em>elements</em>
 		</p>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Define where <em>text</em> may appear</li>
 			<li>Define the <em>attributes</em> associated with elements</li>
 			<li>Define <em>entities</em>
@@ -130,7 +129,7 @@
 
 	<p:slide xml:id="d1e269">
 		<p:title>Text in a DTD</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Text in a DTD is PCDATA</li>
 			<li>The data type keyword is <code>#PCDATA</code>
 			</li>
@@ -140,15 +139,15 @@
 
 	<p:slide xml:id="d1e290">
 		<p:title>Element Definition</p:title>
-		<p>DTDs define elements as:</p>
-		<div class="code-sample verbatim-default">   </div>
+		<p xmlns="http://www.w3.org/1999/xhtml">DTDs define elements as:</p>
+		<div xmlns="http://www.w3.org/1999/xhtml" class="code-sample verbatim-default">   </div>
 		<p:code type="text"> &lt;!ELEMENT name (definition)&gt; &lt;!-- for example --&gt; &lt;!ELEMENT para (#PCDATA)&gt; </p:code>
 	</p:slide>
 
 	<p:slide xml:id="d1e305">
 		<p:title>Quantifiers</p:title>
-		<p> The number of times an element may occur is defined using: </p>
-		<table>
+		<p xmlns="http://www.w3.org/1999/xhtml"> The number of times an element may occur is defined using: </p>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<tbody>
 				<tr>
 					<th>Quantifier</th>
@@ -181,13 +180,13 @@
 
 	<p:slide xml:id="d1e368">
 		<p:title>Sequencing</p:title>
-		<p>The way elements are sequenced can be controlled: </p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The way elements are sequenced can be controlled: </p>
 		<p:code type="text">&lt;!ELEMENT section (para | list | table)+&gt; </p:code>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Elements can be grouped and treated as one</li>
 			<li> We can use quantifiers on the groups </li>
 		</ul>
-		<table>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<tbody>
 				<tr>
 					<th>Quantifier</th>
@@ -209,19 +208,19 @@
 
 	<p:slide xml:id="d1e425">
 		<p:title>Empty content models</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>We can define elements as empty <ul>
 					<li>they can have no content at all</li>
 				</ul>
 			</li>
 		</ul>
-		<p> </p>
+		<p xmlns="http://www.w3.org/1999/xhtml"> </p>
 		<p:code type="text">&lt;!ELEMENT img EMPTY&gt;</p:code>
 	</p:slide>
 
 	<p:slide xml:id="d1e450">
 		<p:title>ANY</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>The ANY keyword allows <ul>
 					<li>any number of </li>
 					<li>elements defined in the DTD</li>
@@ -233,7 +232,7 @@
 
 	<p:slide xml:id="d1e474">
 		<p:title>Grouping</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>DTD components may be grouped</li>
 			<li>Use parentheses to group:</li>
 		</ul>
@@ -242,10 +241,10 @@
 
 	<p:slide xml:id="d1e492">
 		<p:title>Elements have attributes</p:title>
-		<p>DTDs define attributes using the <code>ATTLIST</code> syntax</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">DTDs define attributes using the <code>ATTLIST</code> syntax</p>
 		<p:code type="text">&lt;!ATTLIST document version CDATA #REQUIRED language (en | fr | de | it | sp) "en"&gt; </p:code>
-		<p>Additional keywords are used to specify</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">Additional keywords are used to specify</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Type</li>
 			<li>Defaults</li>
 			<li>Occurrence</li>
@@ -253,7 +252,7 @@
 	</p:slide>
 	<p:slide xml:id="d1e522">
 		<p:title>Attributes can have types</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>CDATA</li>
 			<li>A sequence of values</li>
 			<li>ID/IDREF/IDREFS</li>
@@ -261,11 +260,11 @@
 			<li>ENTITY/ENTITIES</li>
 			<li>NOTATION</li>
 		</ul>
-		<p>Nothing <em>specific</em> like numbers/dates/etc</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Nothing <em>specific</em> like numbers/dates/etc</p>
 	</p:slide>
 	<p:slide xml:id="d1e556">
 		<p:title>CDATA and choices</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>CDATA attributes are simple text <ul>
 					<li>Similar requirements to element's PCDATA</li>
 					<li>When we use a choice —  <code>(en | fr | de | it | sp)</code> — the data itself is CDATA</li>
@@ -276,7 +275,7 @@
 	</p:slide>
 	<p:slide xml:id="d1e583">
 		<p:title>NMTOKEN/NMTOKENS</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>The value of an NMTOKEN typed attribute must be a valid XML name token</li>
 			<li>NMTOKENS requires a whitespace separated list of NMTOKEN values</li>
 		</ul>
@@ -291,7 +290,7 @@
 	</p:slide>
 	<p:slide xml:id="d1e611">
 		<p:title>ID or IDREF/IDREFS</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>ID typed attributes indicate that the validator must check that <ul>
 					<li>the value is an Name (almost the same as an NMTOKEN) </li>
 					<li>it is unique with the document</li>
@@ -310,7 +309,7 @@
 	</p:slide>
 	<p:slide xml:id="d1e650">
 		<p:title>ENTITY/ENTITIES</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>ENTITY typed attributes must have the valid of the <em>name</em> of an entity defined in the DTD</li>
 			<li>ENTITIES typed attributes must be a whitespace separated list of ENTITY values</li>
 		</ul>
@@ -321,7 +320,7 @@
 
 	<p:slide xml:id="d1e671">
 		<p:title>Attribute Occurrence</p:title>
-		<table>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<tbody>
 				<tr>
 					<th>Keyword</th>
@@ -347,7 +346,7 @@
 
 	<p:slide xml:id="d1e726">
 		<p:title>Attribute Occurrence (examples)</p:title>
-		<table>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<tr>
 				<td colspan="2"><code>&lt;!ATTLIST listitem marker ENTITY #IMPLIED&gt;</code></td>
 			</tr>
@@ -388,8 +387,8 @@
 
 	<p:slide xml:id="d1e828">
 		<p:title>Entities</p:title>
-		<p>There are three types of entity:</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">There are three types of entity:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Character entities</li>
 			<li>General entities <ul>
 					<li>Internal </li>
@@ -406,59 +405,59 @@
 
 	<p:slide xml:id="d1e867">
 		<p:title>Character entities</p:title>
-		<p>A character entity is simply the numeric code for a character</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">A character entity is simply the numeric code for a character</p>
 		<p:code type="text"> &amp;#x20AC; (€) &amp;#8364; (€)</p:code>
 	</p:slide>
 
 	<p:slide xml:id="d1e879">
 		<p:title>General entities</p:title>
-		<p>General entities are used in documents (not DTDS). They are defined in DTDs. We have three types of general entity</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">General entities are used in documents (not DTDS). They are defined in DTDs. We have three types of general entity</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Internal</li>
 			<li>External (parsed)</li>
 			<li>External (unparsed)*</li>
 		</ul>
-		<p> </p>
-		<p>* <em>when we discuss notations</em></p>
+		<p xmlns="http://www.w3.org/1999/xhtml"> </p>
+		<p xmlns="http://www.w3.org/1999/xhtml">* <em>when we discuss notations</em></p>
 	</p:slide>
 
 	<p:slide xml:id="d1e908">
 		<p:title>Internal general entities</p:title>
 		<p:code type="text"> &lt;!ENTITY pound "£"&gt; &lt;!ENTITY copyright "© 2011-2016 Corbas Consulting Ltd"&gt; </p:code>
-		<h4>Entity references</h4>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Entity references</h4>
 		<p:code type="xml">
-			<para>This cost &amp;pound;250,000.00</para>
-			<para>Slides copyright &amp;copyright;</para>
+			<para xmlns="http://www.w3.org/1999/xhtml">This cost &amp;pound;250,000.00</para>
+			<para xmlns="http://www.w3.org/1999/xhtml">Slides copyright &amp;copyright;</para>
 			<!-- Resolve to: -->
-			<para>This cost £250,000.00</para>
-			<para>Slides copyright © 2011-2016 Corbas Consulting Ltd</para>
+			<para xmlns="http://www.w3.org/1999/xhtml">This cost £250,000.00</para>
+			<para xmlns="http://www.w3.org/1999/xhtml">Slides copyright © 2011-2016 Corbas Consulting Ltd</para>
 		</p:code>
-		<p>Defined as <code>&lt;!ENTITY <em>name "value"</em>&gt;</code></p>
-		<p>Referenced as <code>&amp;name;</code></p>
-		<p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Defined as <code>&lt;!ENTITY <em>name "value"</em>&gt;</code></p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Referenced as <code>&amp;name;</code></p>
+		<p xmlns="http://www.w3.org/1999/xhtml">
 			<span>You can define markup this way but it's not a particularly good idea.</span>
 		</p>
 	</p:slide>
 
 	<p:slide xml:id="d1e957">
 		<p:title>External parsed entities</p:title>
-		<p>Defined as <code>&lt;!ENTITY <em>name  SYSTEM "filename"</em>&gt;</code>
+		<p xmlns="http://www.w3.org/1999/xhtml">Defined as <code>&lt;!ENTITY <em>name  SYSTEM "filename"</em>&gt;</code>
 		</p>
-		<p>Referenced as <code>&amp;name;</code>
+		<p xmlns="http://www.w3.org/1999/xhtml">Referenced as <code>&amp;name;</code>
 		</p>
 		<p:code type="text"> &lt;!ENTITY copyright SYSTEM "copyright.mod"&gt; &lt;!-- In copyright.mod --&gt; © 2011-2016 Corbas Consulting Ltd </p:code>
 		<p:code type="xml">
 			<!-- Referenced as -->
-			<para>Slides copyright &amp;copyright;</para>
+			<para xmlns="http://www.w3.org/1999/xhtml">Slides copyright &amp;copyright;</para>
 			<!-- Resolves to -->
-			<para>Slides copyright ©2011-2016 Corbas Consulting Ltd</para>
+			<para xmlns="http://www.w3.org/1999/xhtml">Slides copyright ©2011-2016 Corbas Consulting Ltd</para>
 		</p:code>
-		<p>External entities often contain well-formed fragments of XML.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">External entities often contain well-formed fragments of XML.</p>
 	</p:slide>
 
 	<p:slide xml:id="d1e998">
 		<p:title>Notations</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Notations are relatively uncommon</li>
 			<li>They represent a definition of an external data type</li>
 			<li>Both <strong>PUBLIC</strong> &amp; <strong>SYSTEM </strong>notations can be defined</li>
@@ -471,16 +470,16 @@
 &lt;!-- system identifier only --&gt; 
 &lt;!NOTATION JPEG SYSTEM "image/jpeg"&gt; 
 		</p:code>
-		<p>The system identifier gives information an application can use to work out how to process the content</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The system identifier gives information an application can use to work out how to process the content</p>
 	</p:slide>
 
 	<p:slide xml:id="d1e1029">
 		<p:title>Unparsed external entities</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>We can discuss these now</li>
 		</ul>
 		<p:code type="text">&lt;!ENTITY entityName SYSTEM "uri" NDATA type&gt; </p:code>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>The NDATA type references a defined notation</li>
 			<li>The referenced URI is not parsed but the type is referenced</li>
 		</ul>
@@ -488,22 +487,22 @@
 
 	<p:slide xml:id="d1e1053">
 		<p:title>Parameter entities</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Parameter entities are used to split up a DTD into parts</li>
 			<li>Internal &amp; external entities (“general” entities) function in XML; parameter entities function in DTDs</li>
 			<li>Parameter entities can also be internal or external.</li>
 		</ul>
-		<p>Defined as</p>        
+		<p xmlns="http://www.w3.org/1999/xhtml">Defined as</p>        
 		<p:code type="dtd">&lt;!ENTITY name % SYSTEM "filename"&gt;</p:code>
-		<p>or</p>          
+		<p xmlns="http://www.w3.org/1999/xhtml">or</p>          
 		<p:code>&lt;!ENTITY name % "DTD content"</p:code>
-		<p>Referenced as <code>%name;</code>
+		<p xmlns="http://www.w3.org/1999/xhtml">Referenced as <code>%name;</code>
 		</p>
 		
 	</p:slide>
 	<p:slide xml:id="d1e1090">
 		<p:title>Internal parameter entities</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Define parts of a DTD for reuse</li>
 			<li>Use to define shared content models</li>
 		</ul>
@@ -512,7 +511,7 @@
 	</p:slide>
 	<p:slide xml:id="d1e1108">
 		<p:title>External parameter entities</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>External parameter entities reference external</li>
 			<li>Can be used to build modular DTDS</li>
 		</ul>
@@ -529,7 +528,7 @@
 	
 	<p:slide xml:id="d1e1126">
 		<p:title>Reuse in DTDs</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Modules allow reuse</li>
 			<li>You can override a definition by redefining <em>before</em> it <ul>
 					<li>the first definition wins</li>
@@ -558,7 +557,7 @@
 
 	<p:slide xml:id="d1e1159">
 		<p:title>Documentation in DTDs</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>We only have comments</li>
 			<li>Structure them well</li>
 			<li>Consider an introductory block</li>
@@ -568,7 +567,7 @@
 	
 	<p:slide xml:id="d1e1181">
 		<p:title>Summary</p:title>
-		<ul>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>We have discussed <ul>
 					<li>basic DTD syntax</li>
 					<li>content models</li>

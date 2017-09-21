@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:deck xmlns="http://www.w3.org/1999/xhtml"
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
 
 	<p:meta>
 		<p:id>xpath-functions</p:id>
@@ -12,10 +10,10 @@
 		<p:updated>2017-09-02</p:updated>
 	</p:meta>
 	
-	<p:slide>
+	<p:slide xml:id="d1e28">
 		<p:title>New Functions</p:title>
-		<h4>String Functions</h4>
-		<ul>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">String Functions</h4>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>matches</li>
 			<li>replace</li>
 			<li>tokenize</li>
@@ -24,14 +22,14 @@
 		</ul>
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e55">
 		<p:title>matches</p:title>
 
-		<p>This function uses regular expressions (see discussion of
+		<p xmlns="http://www.w3.org/1999/xhtml">This function uses regular expressions (see discussion of
 			<code>xsl:analyze-string</code>).</p>
-		<p><code>matches</code> returns true if the input string matches the pattern</p>
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>matches</code> returns true if the input string matches the pattern</p>
 		<p:code>
-			<xsl:choose>
+			<xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<!-- starts with digits -->
 				<xsl:when test="matches(. , '^\d+\s+')">
 					<xsl:apply-templates select="." mode="digital"/>
@@ -42,14 +40,14 @@
 				</xsl:when>
 			</xsl:choose>
 		</p:code>
-		<p class="note">Don't do this at home, bad style</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="note">Don't do this at home, bad style</p>
 
 	</p:slide>
 	
-	<p:slide>
+	<p:slide xml:id="d1e95">
 		<p:title>matches (cont) — flags</p:title>
-		<h4>Flags</h4>
-		<table>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Flags</h4>
+		<table xmlns="http://www.w3.org/1999/xhtml">
 			<thead>
 				<tr>
 					<td>Flag</td>
@@ -75,22 +73,22 @@
 		
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e152">
 		<p:title>replace</p:title>
-		<p><code>replace</code> replaces all occurrences of the pattern specified with the string
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>replace</code> replaces all occurrences of the pattern specified with the string
 			specified. </p>
-		<p>All the flags for <code>match</code> can be used here.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">All the flags for <code>match</code> can be used here.</p>
 
 		<p:code>
-			<xsl:variable name="numeric-price" select="replace(@price, ',', '')"/>
-			<xsl:variable name="valid-filename" select="replace(@docname, '[^\w\.-]', '_')"/>
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="numeric-price" select="replace(@price, ',', '')"/>
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="valid-filename" select="replace(@docname, '[^\w\.-]', '_')"/>
 		</p:code>
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e177">
 		<p:title>New Functions (cont)</p:title>
-		<h4>Sequence Functions</h4>
-		<ul>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Sequence Functions</h4>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>distinct-values</li>
 			<li>index-of</li>
 			<li>exists</li>
@@ -99,56 +97,53 @@
 		</ul>
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e203">
 		<p:title>distinct-values</p:title>
 
-		<p><code>distinct-values</code> takes a single sequence as a parameter and returns new
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>distinct-values</code> takes a single sequence as a parameter and returns new
 			sequence containing on the unique values from the input sequence. Before the inputs are
 			processed they are <em>atomized</em> — converted to values.</p>
 
 		<p:code>
-			<xsl:variable name="regions" select="distinct-values(//region)"/>
-			<xsl:variable name="income-per-region"
-				select="round(sum(//gdp[. castable as xs:integer]) div count($regions), 2)"/>
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="regions" select="distinct-values(//region)"/>
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="income-per-region" select="round(sum(//gdp[. castable as xs:integer]) div count($regions), 2)"/>
 		</p:code>
 	</p:slide>
 
-	<p:slide>
+	<p:slide xml:id="d1e224">
 		<p:title>index-of</p:title>
-		<p><code>index-of</code> returns the position of a value in a sequence.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>index-of</code> returns the position of a value in a sequence.</p>
 		<p:code>
 			<calendar xmlns="http://www.corbas.co.uk/ns/example">
 				<event month="Jan" year="2013" date="31"/>
 			</calendar>
 		</p:code>
 		<p:code>
-			<xsl:template match="event">
-				<xsl:variable name="months"
-					select="('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')"
-				/>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="event">
+				<xsl:variable name="months" select="('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')"/>
 				<xsl:variable name="month-number" select="index-of($months, @month)"/>
-				<event date="string-join((@year, $month-number, @day), '-')"/>
+				<event xmlns="http://www.w3.org/1999/xhtml" date="string-join((@year, $month-number, @day), '-')"/>
 			</xsl:template>
 		</p:code>
 	</p:slide>
 	
-	<p:slide>
+	<p:slide xml:id="d1e255">
 		<p:title>exists/empty</p:title>
 		
-		<p>The <code>exists</code> function returns <code>true()</code> if a sequence has any members
+		<p xmlns="http://www.w3.org/1999/xhtml">The <code>exists</code> function returns <code>true()</code> if a sequence has any members
 		and <code>false()</code> if not. The <code>empty</code> function is the exact opposite</p>
 		
 		<p:code>
-			<xsl:variable name="has-items" select="if (exists($seq)) then true() else false()"/>
-			<xsl:variable name="has-no-items" select="if (empty($seq) then true() else false()"/>
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="has-items" select="if (exists($seq)) then true() else false()"/>
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="has-no-items" select="if (empty($seq) then true() else false()"/>
 		</p:code>
 	</p:slide>
 	
-	<p:slide>
+	<p:slide xml:id="d1e283">
 		<p:title>Summary</p:title>
 		
-		<p>We've looked at XPath 2 and what it adds to the language:</p>
-		<ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">We've looked at XPath 2 and what it adds to the language:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
 			<li>Sequences</li>
 			<li>Control flow</li>
 			<li>Data types</li>

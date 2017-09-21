@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:deck xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:p="http://www.corbas.co.uk/ns/presentations">
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
 
   <p:meta>
     <p:id>xml-schema</p:id>
@@ -12,31 +10,31 @@
   </p:meta>
   <p:title>XML Schema</p:title>
 
-  <p:slide>
+  <p:slide xml:id="d1e28">
     <p:title>XML Schema</p:title>
-    <p>XML Schema is the <em>official</em> replacement for DTDs.</p>
-    <p>Adds</p>
-    <ul>
+    <p xmlns="http://www.w3.org/1999/xhtml">XML Schema is the <em>official</em> replacement for DTDs.</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">Adds</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>Counting</li>
       <li>Data Types</li>
       <li>Namespaces</li>
       <li>XML</li>
     </ul>
-    <p>XML Schema is very suitable for data rich content but can be used for documents</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">XML Schema is very suitable for data rich content but can be used for documents</p>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e61">
     <p:title>The schema</p:title>
-    <p>The root element is <em>always</em> schema.</p>
-    <p>The namespace is always <code>http://www.w3.org/2001/XMLSchema</code></p>
+    <p xmlns="http://www.w3.org/1999/xhtml">The root element is <em>always</em> schema.</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">The namespace is always <code>http://www.w3.org/2001/XMLSchema</code></p>
     <p:code type="xml">
       <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"> … </xs:schema>
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e84">
     <p:title>Simple and content</p:title>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>XML schema has a concept of simple and complex content</li>
       <li>Simple <em>element</em> content is <em>very</em> simple: <ul>
           <li>text content</li>
@@ -47,36 +45,36 @@
     </ul>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e118">
     <p:title>Simple element definitions</p:title>
-    <p>Element definitions list the allowed contents of an element. They look like:</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">Element definitions list the allowed contents of an element. They look like:</p>
     <p:code type="xml">
-      <xs:element name="title" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="title"/>
     </p:code>
-    <p>This is an element with no attributes and unconstrained text content</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">This is an element with no attributes and unconstrained text content</p>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e135">
     <p:title>Constraining text</p:title>
-    <p>We can use data types to further define what we mean by simple text content</p>
-    <p:code xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="title">
+    <p xmlns="http://www.w3.org/1999/xhtml">We can use data types to further define what we mean by simple text content</p>
+    <p:code>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="title">
         <xs:simpleType>
           <xs:restriction base="xs:string">
             <xs:minLength value="10"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="date" type="xs:date"/>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="date" type="xs:date"/>
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e160">
     <p:title>Simple Types</p:title>
-    <p>The <code>xs:simpleType</code> element lets us define constraints on text. It can be a local
+    <p xmlns="http://www.w3.org/1999/xhtml">The <code>xs:simpleType</code> element lets us define constraints on text. It can be a local
       definition or we can define it as a name type in the schema</p>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:simpleType name="titleText">
+    <p:code type="xml">
+      <xs:simpleType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="titleText">
         <xs:restriction base="xs:string">
           <xs:minLength value="10"/>
         </xs:restriction>
@@ -84,28 +82,28 @@
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e183">
     <p:title>Referencing types</p:title>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>Name types can be used just like built-ins:</li>
     </ul>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:simpleType name="titleText">
+    <p:code type="xml">
+      <xs:simpleType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="titleText">
         <xs:restriction base="xs:string">
           <xs:minLength value="10"/>
         </xs:restriction>
       </xs:simpleType>
-      <xs:element name="subtitle" type="titleText"/>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="subtitle" type="titleText"/>
     </p:code>
   </p:slide>
 
 
-  <p:slide>
+  <p:slide xml:id="d1e208">
     <p:title>Attributes</p:title>
-    <p>Attributes are always simple types, they are based on the standard XML schema types</p>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:attribute name="pub-date" type="xs:integer"/>
-      <xs:attribute name="type">
+    <p xmlns="http://www.w3.org/1999/xhtml">Attributes are always simple types, they are based on the standard XML schema types</p>
+    <p:code type="xml">
+      <xs:attribute xmlns:xs="http://www.w3.org/2001/XMLSchema" name="pub-date" type="xs:integer"/>
+      <xs:attribute xmlns:xs="http://www.w3.org/2001/XMLSchema" name="type">
         <xs:simpleType>
           <xs:restriction base="xs:string">
             <xs:enumeration value="bold"/>
@@ -117,11 +115,11 @@
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e237">
     <p:title>Groups of attributes</p:title>
-    <p>Attribute sets define the attributes for an element. The look like:</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">Attribute sets define the attributes for an element. The look like:</p>
     <p:code type="xml">
-      <xs:attributeGroup name="authorAttributes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:attributeGroup xmlns:xs="http://www.w3.org/2001/XMLSchema" name="authorAttributes">
         <xs:attribute name="Corresponding" type="xs:boolean"/>
         <xs:attribute name="AffiliationIDS" type="xs:IDREFS"/>
         <xs:attribute name="CorrespondingAffiliationID" type="xs:IDREF"/>
@@ -132,12 +130,12 @@
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e266">
     <p:title>Complex elements</p:title>
-    <p>If we want to define an element with more than just text content then we need to use complex
+    <p xmlns="http://www.w3.org/1999/xhtml">If we want to define an element with more than just text content then we need to use complex
       types:</p>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="document">
+    <p:code type="xml">
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="document">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="title"/>
@@ -148,15 +146,15 @@
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e291">
     <p:title>Sequences and choices</p:title>
-    <p>We can define choices and sequences as in DTDs</p>
-    <ul>
+    <p xmlns="http://www.w3.org/1999/xhtml">We can define choices and sequences as in DTDs</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>xs:choice</li>
       <li>xs:sequence</li>
     </ul>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="article">
+    <p:code type="xml">
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="article">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="title"/>
@@ -171,25 +169,25 @@
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e332">
     <p:title>Counting things</p:title>
-    <p>Most entities in the schema can be counted:</p>
-    <ul>
+    <p xmlns="http://www.w3.org/1999/xhtml">Most entities in the schema can be counted:</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>xs:element</li>
       <li>xs:choice</li>
       <li>xs:sequence</li>
     </ul>
-    <p>We use <code>minOccurs</code> and <code>maxOccurs</code> attributes to implement them</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">We use <code>minOccurs</code> and <code>maxOccurs</code> attributes to implement them</p>
   </p:slide>
 
 
-  <p:slide>
+  <p:slide xml:id="d1e362">
     <p:title>Counting things (cont)</p:title>
-    <p>Both attributes default <strong>1</strong> so all definitions default to one and only one
+    <p xmlns="http://www.w3.org/1999/xhtml">Both attributes default <strong>1</strong> so all definitions default to one and only one
       occurrence and allow positive integers as values</p>
-    <p><code>maxOccurs</code> can also have the value <em>unbounded</em></p>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="article">
+    <p xmlns="http://www.w3.org/1999/xhtml"><code>maxOccurs</code> can also have the value <em>unbounded</em></p>
+    <p:code type="xml">
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="article">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="title"/>
@@ -202,18 +200,18 @@
         </xs:complexType>
       </xs:element>
     </p:code>
-    <p>We can make elements optional by setting <code>minOccurs</code> to <strong>0</strong></p>
+    <p xmlns="http://www.w3.org/1999/xhtml">We can make elements optional by setting <code>minOccurs</code> to <strong>0</strong></p>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e412">
     <p:title>xs:all</p:title>
-    <p>In addition to choices and sequences we can use the <code>xs:all</code> element as well:</p>
-    <ul>
+    <p xmlns="http://www.w3.org/1999/xhtml">In addition to choices and sequences we can use the <code>xs:all</code> element as well:</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>the elements can occur in any order</li>
       <li>the elements can occur zero or one times</li>
     </ul>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="name">
+    <p:code type="xml">
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="name">
         <xs:complexType>
           <xs:all>
             <xs:element name="forename"/>
@@ -225,51 +223,50 @@
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e451">
     <p:title>Namespaces</p:title>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>We can define schemas with our without a namespace</li>
       <li>We use the <code>targetNamespace</code> attribute to define the namespace we are using in
         element definitions</li>
     </ul>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:schema targetNamespace="http://www.example.com/ns/elements"> … </xs:schema>
+    <p:code type="xml">
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/ns/elements"> … </xs:schema>
     </p:code>
   </p:slide>
 
-  <p:slide>
+  <p:slide xml:id="d1e476">
     <p:title>Qualified vs unqualified</p:title>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>Elements can be defined as <em>qualified</em> or <em>unqualified</em></li>
     </ul>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:schema targetNamespace="http://www.example.com/ns/elements">        
+    <p:code type="xml">
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/ns/elements">        
         <xs:element name="article" form="qualified"/>  
       </xs:schema>          
     </p:code>
-    <p>We can set defaults for those on the <code>schema</code> element using the
+    <p xmlns="http://www.w3.org/1999/xhtml">We can set defaults for those on the <code>schema</code> element using the
     <code>elementFormDefault</code> and <code>attributeFormDefault</code> attributes</p>
   </p:slide>
   
-  <p:slide>
+  <p:slide xml:id="d1e513">
     <p:title>How to  use them</p:title>
-    <p>The default values for <code>elementFormDefault</code> and <code>attributeFormDefault</code> 
+    <p xmlns="http://www.w3.org/1999/xhtml">The default values for <code>elementFormDefault</code> and <code>attributeFormDefault</code> 
     map to our usual assumptions about elements - elements are qualified and attributes are not.</p>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>Set <code>targetNamespace</code></li>
       <li>Declare your namespaces</li>
     </ul>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:schema targetNamespace="http://www.example.com/ns/elements"
-        xmlns:example="http://www.example.com/ns/elements">        
+    <p:code type="xml">
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/ns/elements">        
         <xs:element name="article" form="qualified"/>  
       </xs:schema>          
     </p:code>
   </p:slide>
   
-  <p:slide>
+  <p:slide xml:id="d1e547">
     <p:title>Constructing schemas</p:title>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>We can write "Russian Doll" schemas</li>
       <li>Elements defined in elements defined in …</li>
       <li>This is generally considered a bad idea.</li>
@@ -277,15 +274,15 @@
     </ul>
   </p:slide>
   
-  <p:slide>
+  <p:slide xml:id="d1e568">
     <p:title>Global definitions</p:title>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>Elements, attributes and types can be defined globally</li>
       <li>Global elements are named and can be referenced</li>
       <li>Global types are named can be used.</li>
     </ul>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="article">
+    <p:code type="xml">
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="article">
         
         <xs:complexType>
           
@@ -302,18 +299,18 @@
         
       </xs:element>
       
-      <xs:element name="title"/>
-      <xs:element name="para"/>
-      <xs:element name="table"/>
-      <xs:element name="list"/>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="title"/>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="para"/>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="table"/>
+      <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="list"/>
     </p:code>
   </p:slide>
   
-  <p:slide>
+  <p:slide xml:id="d1e617">
     <p:title>Groups</p:title>
-    <p>Groups allow sets of elements to be defined and reused</p>
-    <p:code type="xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:group name="content-group">
+    <p xmlns="http://www.w3.org/1999/xhtml">Groups allow sets of elements to be defined and reused</p>
+    <p:code type="xml">
+    <xs:group xmlns:xs="http://www.w3.org/2001/XMLSchema" name="content-group">
       <xs:sequence>
         <xs:element ref="title"/>
         <xs:choice minOccurs="1" maxOccurs="unbounded">

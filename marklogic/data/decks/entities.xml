@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:deck xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:p="http://www.corbas.co.uk/ns/presentations">
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
   
   <p:meta>
     <p:id>entities-intro</p:id>
@@ -14,16 +13,16 @@
   <p:title>Entities</p:title>
   <p:slide xml:id="comp-entities">
     <p:title>Entities</p:title>
-    <p>There are several sorts of entity. The most common are character entities.</p>
-    <p>Character entities are normally used when:</p>
-    <ul>
+    <p xmlns="http://www.w3.org/1999/xhtml">There are several sorts of entity. The most common are character entities.</p>
+    <p xmlns="http://www.w3.org/1999/xhtml">Character entities are normally used when:</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>You can't type the character with your keyboard</li>
       <li>The character can't be expressed in the encoding*</li>
       <li>XML requires that you use it</li>
     </ul>
-    <h4>General Form(s)</h4>
-    <p>There are three ways to write an entity:</p>
-    <ul>
+    <h4 xmlns="http://www.w3.org/1999/xhtml">General Form(s)</h4>
+    <p xmlns="http://www.w3.org/1999/xhtml">There are three ways to write an entity:</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>Text entities — &amp;lt; = &lt;</li>
       <li>Decimal entities — &amp;#169; = ©</li>
       <li>Hexadecimal entities - &amp;#xA9; = ©</li>
@@ -32,7 +31,7 @@
   
   <p:slide xml:id="d1e67">
     <p:title>Aside: Hexadecimal</p:title>
-    <ul>
+    <ul xmlns="http://www.w3.org/1999/xhtml">
       <li>Hexadecimal is base 16</li>
       <li>Used a lot in computer science because it's logically close to binary (base
         2)*</li>
@@ -46,14 +45,14 @@
       </ul>
       </li>
     </ul>
-    <p class="footnote">* When you get right down to the smallest details, computers only
+    <p xmlns="http://www.w3.org/1999/xhtml" class="footnote">* When you get right down to the smallest details, computers only
       use binary.</p>
   </p:slide>
   
   <p:slide xml:id="d1e116">
     <p:title>Predefined entities</p:title>
-    <p>XML defines five entities:</p>
-    <table>
+    <p xmlns="http://www.w3.org/1999/xhtml">XML defines five entities:</p>
+    <table xmlns="http://www.w3.org/1999/xhtml">
       <tr>
         <td>&amp;lt;</td>
         <td>&lt;</td>
