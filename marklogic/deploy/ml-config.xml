@@ -255,7 +255,7 @@
           <scalar-type>string</scalar-type>
           <namespace-uri>http://www.corbas.co.uk/ns/presentations</namespace-uri>
           <localname>keyword</localname>
-          <collation>http://marklogic.com/collation/en/S1</collation>
+          <collation>http://marklogic.com/collation/</collation>
           <range-value-positions>false</range-value-positions>
         </range-element-index>
         
@@ -263,7 +263,7 @@
           <scalar-type>string</scalar-type>
           <namespace-uri>http://www.corbas.co.uk/ns/presentations</namespace-uri>
           <localname>level</localname>
-          <collation>http://marklogic.com/collation/en/S1</collation>
+          <collation>http://marklogic.com/collation/</collation>
           <range-value-positions>false</range-value-positions>
         </range-element-index>
         

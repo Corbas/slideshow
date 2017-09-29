@@ -46,13 +46,14 @@ declare function facets:get-facets() as element(pres:facets)
     <options xmlns="http://marklogic.com/appservices/search">
       <return-results>false</return-results>
       <return-facets>true</return-facets>
-      <constraint name="keywords"  facet="true">
-        <range type="xs:string">
+      
+      <constraint name="keywords"  facet="true" collation="http://marklogic.com/collation/">
+        <range type="xs:string" collation="http://marklogic.com/collation/">
             <element ns="http://www.corbas.co.uk/ns/presentations" name="keyword"/>
         </range>
       </constraint>
-            <constraint name="levels"  facet="true">
-        <range type="xs:string">
+      <constraint name="levels"  facet="true" collation="http://marklogic.com/collation/">
+        <range type="xs:string" collation="http://marklogic.com/collation/">
             <element ns="http://www.corbas.co.uk/ns/presentations" name="level"/>
         </range>
       </constraint>
