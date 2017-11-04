@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
+
+	<p:meta>
+		<p:id>xpath-sequences</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>XPath</p:keyword>
+		<p:keyword>Sequences</p:keyword>
+		<p:level>Intermediate</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>
+	</p:meta>
+	
+	<p:title>Sequences</p:title>
+
+	<p:slide xml:id="d1e31">
+		<p:title>Sequences</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Sequences are one of the most significant changes between XSLT 1.0 and 2.0.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">XSLT 1.0 had node sets and tree fragments. Both are subsumed into sequences in XSLT
+			2.0</p>
+		<p xmlns="http://www.w3.org/1999/xhtml"><strong>A sequence is an ordered group of nodes.</strong></p>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Nodes are:</h4>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Elements</li>
+			<li>Text</li>
+			<li>Comments</li>
+			<li>Processing Instructions</li>
+			<li>Namespaces</li>
+		</ul>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e69" toc="exclude">
+		<p:title>Sequences (cont)</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">The result of almost anything that generates content</p>
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="my-element">
+				<other-element xmlns="http://www.w3.org/1999/xhtml"/>
+				<other-element xmlns="http://www.w3.org/1999/xhtml"/>
+			</xsl:template>
+		</p:code>
+
+		<p:code>
+			<xsl:sequence xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="foo" select="(bar, baz)"/>
+		</p:code>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">They are not sets - the same element can occur many times</p>
+
+		<p:code><xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="(//*, //para)"/></p:code>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">All paras will be processed twice in the above example</p>
+		
+	</p:slide>
+
+	<p:slide xml:id="d1e103">
+		<p:title>Sequences are ordered and indexed</p:title>
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="my-element">
+				<my-element xmlns="http://www.w3.org/1999/xhtml" nodes="a b c d e f"/>
+				<xsl:variable name="my-nodes" select="tokenize(@nodes, ' ')"/>
+				<!-- $my-nodes = "('a', 'b', 'c', 'd', 'e', 'f')" -->
+				<result xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="string-join($my-nodes, '-')"/></result>
+			</xsl:template>
+		</p:code>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">This produces</p>
+
+		<p:code><result xmlns="http://www.w3.org/1999/xhtml">a-b-c-d-e-f</result></p:code>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">
+			<code>tokenize</code> splits a string into a sequence of tokens and
+				<code>string-join</code> creates a string by placing the delimiter between the
+			values of the sequence.</p>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e141" toc="exclude">
+		<p:title>Sequences are Ordered</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Selecting nodes normally processes them in document order.</li>
+			<li>Sequences are in the order created</li>
+		</ul>
+
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Input</h4>
+
+		<p:code>
+			<name xmlns="http://www.w3.org/1999/xhtml">
+				<lastname>Decker</lastname>
+				<firstname>Rick</firstname>
+			</name>
+		</p:code>
+
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Output</h4>
+
+		<p:code>
+			<person xmlns="http://www.w3.org/1999/xhtml">
+				<given-name>Rick</given-name>
+				<family-name>Decker</family-name>
+			</person>
+		</p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e187" toc="exclude">
+		<p:title>Sequences are Ordered (cont)</p:title>
+		<h3 xmlns="http://www.w3.org/1999/xhtml">Without Sequences</h3>
+
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Stylesheet</h4>
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="name">
+				<person>
+					<xsl:apply-templates/>
+				</person>
+			</xsl:template>
+		</p:code>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="note"><code>&lt;xsl:apply-templates select="*"&gt;</code> or
+				<code>&lt;xsl:apply-templates select="lastname|firstname"&gt;</code> would do the
+			same.</p>
+
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Output</h4>
+		<p:code>
+			<person xmlns="http://www.w3.org/1999/xhtml">
+				<family-name>Decker</family-name>
+				<given-name>Rick</given-name>
+			</person>
+		</p:code>
+
+
+	</p:slide>
+
+	<p:slide xml:id="d1e234" toc="exclude">
+		<p:title>Sequences are Ordered (cont)</p:title>
+		<h3 xmlns="http://www.w3.org/1999/xhtml">With Sequences</h3>
+
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Stylesheet</h4>
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="name">
+				<person xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:apply-templates select="(firstname, lastname)"/>
+				</person>
+			</xsl:template>
+		</p:code>
+
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Output</h4>
+		<p:code>
+			<person xmlns="http://www.w3.org/1999/xhtml">
+				<given-name>Rick</given-name>
+				<family-name>Decker</family-name>
+			</person>
+		</p:code>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">Sequences can provide a simple solution to ordering.</p>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e276">
+		<p:title>Operating on sequences</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Sequences are directly accessed by position operators:</p>
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="section" mode="contents">
+				<xsl:variable name="ids" select="(@id, parent::*/@id, parent::*/parent::*/@id)"/>
+				<li xmlns="http://www.w3.org/1999/xhtml"><a href="{concat('#', $ids[1])}"><xsl:apply-templates select="title"/></a></li>
+			</xsl:template>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml">The XPath predicate syntax (<code>[n]</code>) for position is reused.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Note that non-matching XPaths will not lead to 'empty' values (e.g. If our
+				<code>section</code> element had no id then <code>$values</code> would contain two
+			values only.</p>
+	</p:slide>
+
+	<p:notes>
+		<p xmlns="http://www.w3.org/1999/xhtml">Point out that this is a useful trick when selecting the first available option from a
+			set of possible values.</p>
+	</p:notes>
+
+	<p:slide xml:id="d1e318">
+		<p:title>Sequence Rules</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>The empty sequence is <code>()</code></li>
+			<li>Sequences cannot nest:</li>
+		</ul>
+
+		<p:code>
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="my-var">
+				<xsl:sequence select="(1, 3, 4)"/>
+				<xsl:sequence select="(4, 5, 6)"/>
+			</xsl:variable>
+			<!-- $myvar = (1, 3, 4, 4, 5, 6) -->
+		</p:code>
+
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>A single element and a sequence containing a single element are equivalent</li>
+			<li>Comparing an item to a sequence tests if the sequence contains the value:</li>
+		</ul>
+
+		<p:code>
+			<xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$country = ('uk', 'ie', 'de', 'fr', 'es', 'be', …)">
+				<xsl:apply-templates select="." mode="european"/>
+			</xsl:if>
+		</p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e365">
+		<p:title>Sequences in Use</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Almost everything in XSLT 2.0 operates on or generates sequences</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Templates generate sequences. This means we can generate sequences and assign them to a
+			variable. Templates can generate multiple elements simply.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">We apply templates to the selected sequence. This means we can apply templates to a
+			variable holding a sequence.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">We will discuss sequence functions later when we cover XPath 2 in detail</p>
+	</p:slide>
+	
+	<p:slide xml:id="d1e383" toc="exclude">
+		<p:title>Sequences in Use (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:for-each</code>, <code>xsl:for-each-group</code> 
+		and <code>xsl:apply-templates</code> all operate on sequences:</p>
+		
+<p:code>		<xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$sequence"/>
+		<xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="//para"/> <!-- implicitly creates a sequence in document order -->
+</p:code>			
+			
+			<p xmlns="http://www.w3.org/1999/xhtml">Not the same at all:</p>
+<p:code>			<xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="(title, para)"/>  <!-- processed in user defined order -->
+			<xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="title|para"/>	   <!-- processed in document order -->
+</p:code>			
+	</p:slide>
+	
+	<p:slide xml:id="d1e423" toc="exclude">
+		<p:title>Sequences in Use (cont)</p:title>
+		
+		<p xmlns="http://www.w3.org/1999/xhtml">Multiple matches don't create multiple nodes in a select with a union:</p>
+		<p:code><xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="//* | ./para"/> <!-- paras will only match once --></p:code>
+		
+		<p xmlns="http://www.w3.org/1999/xhtml">Use a sequence to select more than once:</p>
+		<p:code><xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="(//*, ./para)"/> <!-- each para processed twice --></p:code>
+		
+	</p:slide>
+	
+	<p:code>
+		<p:title>Example Sequences</p:title>
+		
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xs" version="2.0">
+				
+				<xsl:template match="accounts">
+					
+					<!-- all-postive will be "" if all gt zero or "false" if not, the XSLT 1 approach -->
+					<xsl:variable name="all-positive">
+						<xsl:for-each select="balance">
+							<xsl:if test=". &lt;= 0">false</xsl:if>
+						</xsl:for-each>
+					</xsl:variable>
+					
+					<!-- always return. If nothing obvious return () -->
+					<xsl:variable name="if-demo" select="if (@test = true()) then (result1, result2) else ()"/>
+					
+					<!-- SINGLE ITEMS AND SEQUENCES CONTAINING SINGLE ITEMS ARE THE SAME --> 
+					<xsl:variable name="if-demo-2" select="if (@test = true()) then result else ()"/>
+					
+					<!-- complex as required -->
+					
+					<xsl:variable name="complex-for" select="for $x in //balance return if ($x gt 0) then 'good' else 'bad'"/>
+					
+				</xsl:template>
+				
+			</xsl:stylesheet>
+		</p:code>
+		
+</p:deck>

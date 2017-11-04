@@ -1,0 +1,29 @@
+<div class="responsive-table" *ngIf="deck">
+    <table class="table">
+        <tr>
+            <th>Title </th>
+            <td>{{deck.title}}</td>
+            <th>Author</th>
+            <td>{{deck.author}}</td>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <td>{{deck.id}}</td>
+            <th>Updated</th>
+            <td>{{deck.updated}}</td>                                
+        </tr>
+        <tr>
+            <th>Level</th>
+            <td>{{deck.level}}</td>
+            <th>Keywords</th>
+            <td>
+               <slides-kwlist [keywords]='deck.keywords'></slides-kwlist>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+              <button class="btn btn-info btn-small"><a [routerLink]="['/ddetails', deck.id]">More…</a></button>
+            </td>
+        </tr>
+    </table>
+</div>

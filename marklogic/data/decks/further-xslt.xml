@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
+
+
+	<p:meta>
+		<p:id>effective-xslt</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>XSLT</p:keyword>
+		<p:level>Intermediate</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>
+	</p:meta>
+
+	<p:title>Effective XSLT</p:title>
+
+
+	<p:slide xml:id="identities"><p:title>Identities</p:title></p:slide>
+
+	<p:slide xml:id="further-xslt-identities">
+		<p:title>Identities</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>The identity transform copies its input to the output</li>
+			<li>Using matching templates we can override this process at will</li>
+			<li>Allows a very simple approach to changing limited amounts of data in a document whilst
+				passing the rest unchanged</li>
+		</ul>
+		<p:code>
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/xhtml" version="2.0">
+				<xsl:template match="@*|node()">
+					<xsl:copy>
+						<xsl:apply-templates select="@*|node()"/>
+					</xsl:copy>
+				</xsl:template>
+				<xsl:template match="para">
+					<para><text><xsl:apply-templates/></text></para>
+				</xsl:template>
+			</xsl:stylesheet>
+		</p:code>
+	</p:slide>
+
+	<p:slide xml:id="d1e71">
+		<p:title>Namespace Stripping</p:title>
+		<p:code>
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/xhtml" version="2.0">
+				<xsl:template match="@*|text()|comment()|processing-instruction()" mode="#all">
+					<xsl:copy>
+						<xsl:apply-templates select="@*|node()" mode="#current"/>
+					</xsl:copy>
+				</xsl:template>
+				<xsl:template match="*" mode="#all">
+					<xsl:element name="{local-name()}">
+						<xsl:apply-templates select="@*|node()" mode="#current"/>
+					</xsl:element>
+				</xsl:template>
+			</xsl:stylesheet>
+		</p:code>
+	</p:slide>
+
+
+
+	<p:slide xml:id="creating-documents">
+		<p:title>Creating Documents</p:title></p:slide>
+
+
+	<p:slide xml:id="d1e105">
+		<p:title>xsl:output</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:output</code> has changed in XSLT 2.0. Multiple output statements are allowed some
+			of which may be named.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Statements with the same name (or none) are merged to form a set of options.</p>
+		<p:code>
+			<xsl:output xmlns:xsl="http://www.w3.org/1999/XSL/Transform" encoding="utf-8"/>
+			<xsl:output xmlns:xsl="http://www.w3.org/1999/XSL/Transform" method="xhtml"/>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml">Additionally, we have a new output method - <code>xhtml</code></p>
+	</p:slide>
+
+	<p:slide xml:id="d1e131">
+		<p:title>xsl:result-document</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Creates a secondary result document</li>
+			<li>The name is controlled by the stylesheet (as opposed to the processing environment)</li>
+		</ul>
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="chapter">
+				<xsl:result-document href="{concat(@id, '.html')}">
+					<xsl:apply-templates/>
+				</xsl:result-document>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+
+	<p:notes>
+		<p xmlns="http://www.w3.org/1999/xhtml">Talk about how result-document could be used to simplify complex processes where multiple
+			documents are created from a single input document. Discuss the fact that it is not unusual to
+			have no primary output.</p>
+	</p:notes>
+
+	<p:slide xml:id="d1e163">
+		<p:title>xsl:result-document (cont)</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>All attributes of <code>xsl:output</code> are allowed</li>
+			<li>Do not confuse with <code>xsl:document</code></li>
+			<li>Use for splitting an input document into multiple outputs (e.g. EPUB generation)</li>
+			<li>The <code>format</code> attribute allows a named output format to be used.</li>
+		</ul>
+		<p:code>
+			<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+				<xsl:output name="html-format" method="html" encoding="iso-8859-1"/>
+				<xsl:result-document format="html-format" href="mydoc.html"> … </xsl:result-document>
+			</xsl:stylesheet>
+		</p:code>
+	</p:slide>
+
+
+	<p:slide xml:id="new-statements">
+		<p:title>Further Statements</p:title>
+		<table xmlns="http://www.w3.org/1999/xhtml" class="statement-table">
+			<tr>
+				<td>xsl:result-document</td>
+
+				<td>xsl:analyze-string</td>
+				<td>xsl:sequence</td>
+			</tr>
+			<tr>
+				<td>xsl:function</td>
+				<td>xsl:matching-substring</td>
+				<td>xsl:perform-sort</td>
+
+
+			</tr>
+			<tr>
+				<td>xsl:for-each-group</td>
+				<td>xsl:non-matching-substring</td>
+				<td>xsl:namespace</td>
+
+
+			</tr>
+			<tr>
+				<td>xsl:next-match</td>
+			</tr>
+		</table>
+	</p:slide>
+
+		<p:slide xml:id="d1e255"><p:title> New Namespace Features </p:title></p:slide>
+
+		<p:slide xml:id="d1e259">
+			<p:title>New Namespace Features</p:title>
+			<p xmlns="http://www.w3.org/1999/xhtml">Namespace handling is much improved in XSLT 2.0. New features include:</p>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>Default namespace for XPath statements</li>
+				<!--				<li>Undeclaring namespaces</li>-->
+				<li>Additional XPath Functions for namespaces: <ul>
+						<li>
+							<code>namespace-uri-for-prefix</code>
+						</li>
+						<li>
+							<code>in-scope-namespaces</code>
+						</li>
+					</ul>
+				</li>
+				<li>Creating namespace nodes easily</li>
+			</ul>
+		</p:slide>
+
+		<p:slide xml:id="d1e297">
+			<p:title>Default Namespaces</p:title>
+			<p xmlns="http://www.w3.org/1999/xhtml">In XSLT 1.0, all XPath statements referenced either no namespace or a specified namespace.
+				This leads to </p>
+			<p:code>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"> …
+				</xsl:stylesheet>
+			</p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml">This is a problem because</p>
+			<p:code>
+				<xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="//p"/>
+			</p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml">matches elements in <em>no</em> namespace not the default namespace. We need to use:</p>
+			<p:code>
+				<xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="//html:p"/>
+			</p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml">This is error prone!</p>
+		</p:slide>
+
+		<p:notes>
+			<p xmlns="http://www.w3.org/1999/xhtml">Remember that the default namespace should be used for the default namespace on the output
+				elements.</p>
+		</p:notes>
+
+		<p:slide xml:id="d1e341">
+			<p:title>Default Namespace (cont)</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>XSLT 2.0 makes this much simpler.</li>
+				<li><strong>Tip:</strong> Make the default namespace the one you want as the primary output
+					namespace (don't declare one for no output namespace).</li>
+			</ul>
+			<p:code>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"> …
+				</xsl:stylesheet>
+			</p:code>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>Use the <code>xpath-default-namespace</code> attribute on the stylesheet to set default
+					namespace for all XPath statement</li>
+				<li><strong>Tip:</strong>&gt; Make this the default namespace of the input document</li>
+			</ul>
+			<p:code>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xpath-default-namespace="http://www.w3.org/1999/xhtml"> … </xsl:stylesheet>
+			</p:code>
+		</p:slide>
+
+		<p:notes>
+			<p xmlns="http://www.w3.org/1999/xhtml">You can set it to any declared namespace. You can also set it on any element.</p>
+		</p:notes>
+		<!--
+		<p:slide>
+			<p:title>Undeclaring Namespaces</p:title>
+			<ul>
+				<li>XSLT 2.0 allows us to undeclare namespaces:</li>
+			</ul>
+			<p:code>
+				<xsl:template match="para"
+					xmlns:core="">
+					<p><xsl:apply-templates/></p>
+				</xsl:template>
+			</p:code>
+			<ul>
+				<li><em>We can remove namespaces only if we are using XML 1.1</em></li>
+				<li>We can remove inherited namespaces in XSLT using:</li>
+			</ul>
+			<p:code>
+				<xsl:template match="@*|node()">
+					<xsl:copy inherit-namespaces="false">
+						<xsl:apply-template select="@*|node()"/>
+					</xsl:copy>
+				</xsl:template>
+			</p:code>
+			<p class="note">This doesn't control whether the current element inherits but whether
+				its descendants inherit from <em>it</em>.</p>
+		</p:slide>-->
+
+
+		<p:slide xml:id="d1e393">
+			<p:title>Creating Namespaces</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>xsl:namespace</code> creates namespace nodes*</li>
+				<li>This <em>isn't</em> needed to put elements into namespaces</li>
+				<li>Use this to: <ul>
+						<li>Declare namespaces as required for for DTD validation or to ensure that all
+							namespaces are declared on the root node.</li>
+						<li>Declare namespaces required because a document has QName content</li>
+					</ul></li>
+			</ul>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="book">
+					<xsl:namespace name="docbook" select="'http://docbook.org/ns/docbook'"/>
+				</xsl:template>
+			</p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml">A declaration like this forces the namespaces to be in scope at this point. This can stop
+				the proliferation of namespace declarations that can occurr.</p>
+			<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">* A namespace declaration and a namespace node are different things.</p>
+		</p:slide>
+
+		<p:notes>
+			<p xmlns="http://www.w3.org/1999/xhtml">A namespace node exists associated with every element where the given namespace is in
+				scope.</p>
+		</p:notes>
+
+
+		<p:slide xml:id="d1e444">
+			<p:title>Namespace Functions</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>XSLT 2.0 provides two namespace related functions: <ul>
+						<li>
+							<code>namespace-uri-for-prefix</code>
+						</li>
+						<li>
+							<code>in-scope-namespaces</code>
+						</li>
+					</ul>
+				</li>
+				<li>Combined with <code>namespace-uri</code>, this allows for most namespace
+					manipulation.</li>
+				<li>We could force all the namespaces to be in scope at the root (and so be declared
+					there):*</li>
+			</ul>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="COMMENTARYDOC">
+					<xsl:variable name="namespaces" select="distinct-values(//namespace::*)"/>
+					<xsl:for-each select="namespaces">
+						<xsl:namespace name="{concat('ns', position())}" select="."/>
+					</xsl:for-each>
+				</xsl:template>
+			</p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml" class="note"><code>namespace::*</code> is deprecated but can be replaced relatively easily
+				with XPath statements.</p>
+			<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">* but we can't control the prefix very easily because the same prefix may
+				be redefined lower down the tree.</p>
+		</p:slide>
+
+		<p:notes>
+			<p xmlns="http://www.w3.org/1999/xhtml">XPath to find deepest node (to get all namespaces) is
+				max(descendant::*[not(*)]/count(ancestor::*))</p>
+			<p xmlns="http://www.w3.org/1999/xhtml">See if we can build a sample that tries to use the current prefix if one is currently in
+				scope.</p>
+		</p:notes>
+
+
+		<p:slide xml:id="d1e510"><p:title>Grouping</p:title></p:slide>
+
+
+		<p:slide xml:id="d1e514">
+			<p:title>Grouping</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>Grouping is painful is XSLT 1.0 — the "Muenchian Transform" is not fun, nor is it
+					flexible.</li>
+				<li><code>xsl:for-each-group</code> makes life much much easier.</li>
+				<li>It provides four distinct types of grouping controlled by the attributes you choose: <ul>
+						<li>group-by</li>
+						<li>group-adjacent</li>
+						<li>group-starting-with</li>
+						<li>group-ending-with</li>
+					</ul>
+				</li>
+
+			</ul>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>We will discuss them in turn</li>
+				<li>Each iteration of the loop provides a sequence containing the currently selected
+					group</li>
+				<li>We will also discuss the functions involved in grouping: <ul>
+						<li>current-group()</li>
+						<li>current-grouping-key()</li>
+					</ul></li>
+			</ul>
+		</p:slide>
+
+		<p:slide xml:id="d1e570">
+			<p:title>Grouping — <code xmlns="http://www.w3.org/1999/xhtml">group-by</code></p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>The simplest group</li>
+				<li>Nodes from the matching group are placed into groups together if the key value for the
+					node is the same.</li>
+			</ul>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="book" mode="footnotes">
+					<xsl:for-each-group select=".//footnote" group-by="ancestor::chapter/@id">
+						<footnote-group xmlns="http://www.w3.org/1999/xhtml" parent="{current-grouping-key()}">
+							<xsl:apply-template select="current-group()"/>
+						</footnote-group>
+					</xsl:for-each-group>
+				</xsl:template>
+			</p:code>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>group-by</code> is evaluated and the items are grouped on the result</li>
+			</ul>
+		</p:slide>
+
+		<p:slide xml:id="d1e609">
+			<p:title>Grouping — <code xmlns="http://www.w3.org/1999/xhtml">group-adjacent</code></p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>group-adjacent</code> creates groups of nodes where the grouping key is the same
+					(as previously)</li>
+				<li>Only those nodes sharing a key and adjacent to each other are grouped.</li>
+				<li>The sample below groups list items and wraps them in lists (taken from an MS Word
+					conversion).</li>
+			</ul>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="*[li]">
+					<xsl:for-each-group group-adjacent="local-name()" select="node()">
+						<xsl:apply-templates select="." mode="do-group"/>
+						<xsl:choose>
+							<xsl:when test="current-grouping-key() = 'li'">
+								<ul xmlns="http://www.w3.org/1999/xhtml">
+									<xsl:apply-templates select="current-group()"/>
+								</ul>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates select="current-group()"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:for-each-group>
+				</xsl:template>
+			</p:code>
+		</p:slide>
+
+		<p:slide xml:id="d1e658">
+			<p:title>Grouping — <code xmlns="http://www.w3.org/1999/xhtml">group-starting-with</code></p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>group-starting-with</code> creates groups based on XPath match patterns.</li>
+				<li>The first group starts with the first node and a new group is created each time the
+					current node matches the pattern.</li>
+				<li>Use to group content into sections</li>
+			</ul>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="body">
+					<xsl:for-each-group select="*" group-starting-with="h1">
+						<section xmlns="http://www.w3.org/1999/xhtml">
+							<xsl:copy-of select="current-group()"/>
+						</section>
+					</xsl:for-each-group>
+				</xsl:template>
+			</p:code>
+		</p:slide>
+
+		<p:slide xml:id="d1e694">
+			<p:title>Grouping — <code xmlns="http://www.w3.org/1999/xhtml">group-ending-with</code></p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>group-ending-with</code> also creates groups based on XPath match patterns.</li>
+				<li>The first group starts with the first node and a new group is created each time the
+					current node matches the pattern.</li>
+				<li>Use to group content into sections</li>
+			</ul>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="body">
+					<xsl:for-each-group select="*" group-ending-with="hr">
+						<section xmlns="http://www.w3.org/1999/xhtml">
+							<xsl:copy-of select="current-group()"/>
+						</section>
+					</xsl:for-each-group>
+				</xsl:template>
+			</p:code>
+		</p:slide>
+
+		<p:slide xml:id="d1e730">
+			<p:title>Grouping Functions</p:title>
+			<p xmlns="http://www.w3.org/1999/xhtml">Two functions are available when working with groups</p>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>current-grouping-key()</li>
+				<li>current-group()</li>
+			</ul>
+			<p xmlns="http://www.w3.org/1999/xhtml"><code>current-grouping-key</code> is only available when using <code>group-by</code> and
+					<code>group-adjacent</code></p>
+			<p xmlns="http://www.w3.org/1999/xhtml"><code>current-group()</code> is available in any descendant of a
+					<code>xsl:for-each-group</code> statement.</p>
+			<p xmlns="http://www.w3.org/1999/xhtml"><strong>Note: </strong> the context node within a grouping statement is set to the first
+				node of the current group.</p>
+		</p:slide>
+
+
+
+		<p:slide xml:id="d1e772"><p:title>Pattern Matching</p:title></p:slide>
+		<p:slide xml:id="d1e777">
+			<p:title>Pattern Matching</p:title>
+			<p xmlns="http://www.w3.org/1999/xhtml">There are three elements involved in pattern matching</p>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>xsl:analyze-string</code></li>
+				<li><code>xsl:matching-substring</code></li>
+				<li><code>xsl:non-matching-substring</code></li>
+			</ul>
+		</p:slide>
+
+		<p:slide xml:id="d1e801">
+			<p:title>Matching Strings</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>xsl:analyze-string</code> text content to be processed using regular
+					expressions.</li>
+				<li>There are two processing to analyzing the results depending on the regular expression
+					used.</li>
+			</ul>
+		</p:slide>
+
+		<p:slide xml:id="d1e818">
+			<p:title>(Very) Brief Regular Expression Tutorial</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>Regular expressions (REs, regexes) match strings against patterns</li>
+				<li>The RE language in XSLT/XPath is based on Perl's</li>
+				<li>The basic pattern in a regular expression is a single character</li>
+				<li>The patterns match either exactly or as wildcards</li>
+			</ul>
+			<h4 xmlns="http://www.w3.org/1999/xhtml">Character Classes</h4>
+			<table xmlns="http://www.w3.org/1999/xhtml">
+				<thead>
+					<tr>
+						<th>Pattern</th>
+						<th>Matches</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>'a', 'b', '1', '©', '💩'</td>
+						<td>Literal characters match themselves</td>
+					</tr>
+					<tr>
+						<td>[a-d]</td>
+						<td>Match any <em>one</em> character in the range</td>
+					</tr>
+					<tr>
+						<td>[^a-d]</td>
+						<td>Match any one character <em>not</em> in the range</td>
+					</tr>
+					<tr>
+						<td>.</td>
+						<td>Match any one character</td>
+					</tr>
+					<tr>
+						<td>\w</td>
+						<td>Match any one 'word' character</td>
+					</tr>
+					<tr>
+						<td>\d</td>
+						<td>Match any one digit</td>
+					</tr>
+					<tr>
+						<td>\s</td>
+						<td>Match a single whitespace character</td>
+					</tr>
+				</tbody>
+			</table>
+		</p:slide>
+
+		<p:slide xml:id="d1e930">
+			<p:title>Tutorial (cont)</p:title>
+			<h4 xmlns="http://www.w3.org/1999/xhtml">Quantifiers</h4>
+			<table xmlns="http://www.w3.org/1999/xhtml">
+				<thead>
+					<tr>
+						<th>Pattern</th>
+						<th>Matches</th>
+						<th>Example</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>+</td>
+						<td>One or more</td>
+						<td>a+<br/>[a-z]+</td>
+					</tr>
+					<tr>
+						<td>*</td>
+						<td>Zero or more</td>
+						<td>\d*<br/>.*</td>
+					</tr>
+					<tr>
+						<td>?</td>
+						<td>Zero or one</td>
+						<td>[aeiou]?</td>
+					</tr>
+					<tr>
+						<td>{n}</td>
+						<td>Match exactly n times</td>
+						<td>\d{4}-\d{2}-\d{2}</td>
+					</tr>
+					<tr>
+						<td>{n,m}</td>
+						<td>Match n to m times</td>
+						<td>\d{4}-\d{1,2}-\d{1,2}</td>
+					</tr>
+					<tr>
+						<td>{n,}</td>
+						<td>Match at least n times</td>
+						<td>\d{6,}</td>
+					</tr>
+				</tbody>
+			</table>
+			<p xmlns="http://www.w3.org/1999/xhtml"><strong>Note:</strong> in order to avoid confusion with attribute value templates, you will
+				need to double the braces — '\d{{4}}'.</p>
+		</p:slide>
+
+		<p:slide xml:id="d1e1042">
+			<p:title>Tutorial (cont)</p:title>
+			<h4 xmlns="http://www.w3.org/1999/xhtml">Alternation</h4>
+			<p xmlns="http://www.w3.org/1999/xhtml">The <strong>|</strong> characters allows matches against its left or right side:</p>
+			<table xmlns="http://www.w3.org/1999/xhtml">
+				<thead>
+					<tr>
+						<th>Pattern</th>
+						<th>Matches</th>
+						<th>Example</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>|</td>
+						<td>Alternation</td>
+						<td>bread|water</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</p:slide>
+
+
+		<p:slide xml:id="d1e1090">
+			<p:title>Tutorial (cont)</p:title>
+			<h4 xmlns="http://www.w3.org/1999/xhtml">Anchors</h4>
+			<table xmlns="http://www.w3.org/1999/xhtml">
+				<thead>
+					<tr>
+						<th>Pattern</th>
+						<th>Matches</th>
+						<th>Example</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>^</td>
+						<td>Start of string</td>
+						<td>^\d+</td>
+					</tr>
+
+					<tr>
+						<td>$</td>
+						<td>End of string</td>
+						<td>\.[a-z]+$</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</p:slide>
+
+
+		<p:slide xml:id="d1e1145">
+			<p:title><code xmlns="http://www.w3.org/1999/xhtml">xsl:analyze-string</code></p:title>
+			<p xmlns="http://www.w3.org/1999/xhtml"><code>xsl:analyze-string</code> matches a string against a regular expression:</p>
+			<p:code>
+				<date xmlns="http://www.w3.org/1999/xhtml">2012-01-01</date>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="date">
+					<xsl:analyze-string select="." regex="\d{{4}}">
+						<xsl:matching-substring>
+							<matched xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="."/></matched>
+						</xsl:matching-substring>
+						<xsl:non-matching-substring>
+							<unmatched xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="."/></unmatched>
+						</xsl:non-matching-substring>
+					</xsl:analyze-string>
+				</xsl:template>
+				<!-- output -->
+				<matched xmlns="http://www.w3.org/1999/xhtml">2012</matched><unmatched xmlns="http://www.w3.org/1999/xhtml">-01-01</unmatched>
+			</p:code>
+		</p:slide>
+
+		<p:slide xml:id="d1e1188">
+			<p:title>More regular expressions</p:title>
+			<h4 xmlns="http://www.w3.org/1999/xhtml">Grouping</h4>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li>We can group and select substrings</li>
+				<li>Place parentheses around parts of the expression</li>
+				<li>The matched substrings can be retrieved using <code>regex-group()</code></li>
+			</ul>
+			<p:code>
+				<date xmlns="http://www.w3.org/1999/xhtml">2012-01-01</date>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="date">
+					<xsl:analyze-string select="." regex="(\d{{4}})-(\d{{2}})-(\d{{2}})">
+						<xsl:matching-substring>
+							<year xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="regex-group(1)"/></year>
+							<month xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="regex-group(2)"/></month>
+							<day xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="regex-group(3)"/></day>
+						</xsl:matching-substring>
+					</xsl:analyze-string>
+				</xsl:template>
+			</p:code>
+		</p:slide>
+
+		<p:slide xml:id="d1e1235">
+			<p:title>More regular expressions (cont)</p:title>
+			<h4 xmlns="http://www.w3.org/1999/xhtml">Output</h4>
+			<p:code>
+				<year xmlns="http://www.w3.org/1999/xhtml">2012</year><month xmlns="http://www.w3.org/1999/xhtml">01</month><day xmlns="http://www.w3.org/1999/xhtml">01</day>
+			</p:code>
+		</p:slide>
+
+		<p:slide xml:id="d1e1254">
+			<p:title>Regular Expression Related Functions</p:title>
+			<p xmlns="http://www.w3.org/1999/xhtml">Three functions use regular expressions as well</p>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+
+				<li>matches</li>
+				<li>replace</li>
+				<li>tokenize</li>
+
+			</ul>
+			<p xmlns="http://www.w3.org/1999/xhtml">We have already discussed the first two.</p>
+		</p:slide>
+
+
+		<p:slide xml:id="d1e1278">
+			<p:title><code xmlns="http://www.w3.org/1999/xhtml">tokenize</code></p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>tokenize</code> splits up a string on a regular expression and returns a
+					sequence</li>
+			</ul>
+			<p:code>
+				<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="fields" select="tokenize($csv-line, ',')"/>
+			</p:code>
+		</p:slide>
+
+
+
+
+
+<p:slide xml:id="d1e1298">		<p:title>Sequence Statements</p:title></p:slide>
+
+		<p:slide xml:id="d1e1304">
+			<p:title>Sequence Statements</p:title>
+			<p xmlns="http://www.w3.org/1999/xhtml">XSLT 2.0 has two sequence base statements</p>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>xsl:sequence</code></li>
+				<li><code>xsl:perform-sort</code></li>
+			</ul>
+		</p:slide>
+
+		<p:slide xml:id="d1e1324">
+			<p:title>xsl:sequence</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>xsl:sequence</code> creates sequences!</li>
+				<li>Allows atomic values to be generated by templates</li>
+				<li>Allows references to existing nodes to be generated</li>
+			</ul>
+			<p:code>
+				<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="total-price" as="xs:double">
+					<xsl:sequence select="@price * @quantity"/>
+				</xsl:variable>
+			</p:code>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="section" as="para*">
+					<xsl:sequence select="para"/>
+				</xsl:template>
+			</p:code>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="factbook" as="xs:float*">
+					<xsl:variable name="countries" select="count(//country)" as="xs:integer"/>
+					<xsl:sequence select="for $country in //country return $country/field[@ref='f2146'] div $countries"/>
+				</xsl:template>
+			</p:code>
+		</p:slide>
+
+		<p:slide xml:id="d1e1370">
+			<p:title>xsl:perform-sort</p:title>
+			<ul xmlns="http://www.w3.org/1999/xhtml">
+				<li><code>xsl:perform-sort</code> is used to sort sequences without processing them</li>
+				<li>It is a wrapper around <code>xsl:sort</code></li>
+			</ul>
+			<p:code>
+				<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="events" as="xs:date">
+					<xsl:variable name="sorted">
+						<xsl:perform-sort select="distinct-value(event/@date)">
+							<xsl:sort select="." order="descending"/>
+						</xsl:perform-sort>
+					</xsl:variable>
+					<xsl:value-of select="$sorted[1]"/>
+				</xsl:template>
+			</p:code>
+		</p:slide>
+
+
+	<p:slide xml:id="d1e1405">
+		<p:title>Functions</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li><code>xsl:function</code> creates new functions</li>
+			<li>Functions must be defined in a custom namespace</li>
+			<li>Arguments are not optional so defaults can't be used</li>
+			<li>Functions may have the same name as long as they have different numbers of arguments.</li>
+		</ul>
+		<p:code>
+			<xsl:function xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="cfn:total" as="xs:float">
+				<xsl:param name="price" as="xs:float"/>
+				<xsl:param name="qty" as="xs:integer"/>
+				<xsl:value-of select="$price * $qty"/>
+			</xsl:function>
+		</p:code>
+	</p:slide>
+
+
+
+
+
+
+
+
+</p:deck>

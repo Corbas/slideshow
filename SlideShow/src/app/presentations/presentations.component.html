@@ -1,0 +1,31 @@
+    
+    <div class="row">
+         <div class='col col-lg-2'>
+              
+         </div>
+         
+        <div class="col col-lg-10">
+            <ngb-accordion [closeOthers]="true" activeIds="idx-1">
+                <ngb-panel *ngFor='let presentation of presentations; index as i' [title]='presentation.title' [id]='"idx" + i'>
+                <ng-template ngbPanelContent>
+                    <div class="row">
+                    <div class="col col-lg-8">
+                        <em>{{presentation.description}}</em>
+                    </div>
+                    <div class="col col-lg-2">
+                            <button class="spacer btn btn-info btn-sm">
+                                    <a [routerLink]="['/play', presentation.id]">Play…</a></button>
+                    </div>
+                    <div class="col col-lg-2">
+                        <button class="spacer btn btn-info btn-sm">
+                            <a [routerLink]="['/pdetails', presentation.id]">Edit…</a></button>
+                    </div>
+                </div>
+                 </ng-template>
+            </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+
+
+        

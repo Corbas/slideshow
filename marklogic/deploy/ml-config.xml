@@ -255,7 +255,7 @@
           <scalar-type>string</scalar-type>
           <namespace-uri>http://www.corbas.co.uk/ns/presentations</namespace-uri>
           <localname>keyword</localname>
-          <collation>http://marklogic.com/collation/en/S1</collation>
+          <collation>http://marklogic.com/collation/</collation>
           <range-value-positions>false</range-value-positions>
         </range-element-index>
         
@@ -263,7 +263,7 @@
           <scalar-type>string</scalar-type>
           <namespace-uri>http://www.corbas.co.uk/ns/presentations</namespace-uri>
           <localname>level</localname>
-          <collation>http://marklogic.com/collation/en/S1</collation>
+          <collation>http://marklogic.com/collation/</collation>
           <range-value-positions>false</range-value-positions>
         </range-element-index>
         
@@ -465,6 +465,7 @@
       <role-name>${app-role}</role-name>
       <description>A role for users of the ${app-name} application</description>
       <role-names>
+        <role-name>rest-extension-user</role-name>
       </role-names>
       <permissions>
         <permission>
@@ -505,6 +506,9 @@
         <privilege>
           <privilege-name>xdmp:with-namespaces</privilege-name>
         </privilege>
+        <privilege>
+          <privilege-name>xdmp:xslt-invoke</privilege-name>
+        </privilege>        
         <!-- START: required to run Roxy's rewriter-lib -->
         <privilege>
           <privilege-name>xdmp:get-server-field</privilege-name>

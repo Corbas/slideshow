@@ -36,8 +36,6 @@ function slides:get(
 };
 
 
-
-
 (:
   given a set of keywords return the ids of the
   decks which have all the matching keywords

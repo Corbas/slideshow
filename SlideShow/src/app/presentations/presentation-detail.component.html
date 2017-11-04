@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col col-lg-2">
+
+    </div>
+
+    <div class="col col-lg-10" *ngIf="presentation">
+    <div class="row">
+        <div class="col col-lg-4">
+            <label>ID: </label>
+        </div>
+        <div class="col col-lg-8">
+            <span>{{ presentation.id }}</span>
+        </div>        
+    </div>
+
+    <div class="row">
+        <div class="col col-lg-4">
+            <label>Title: </label>
+        </div>
+        <div class="col col-lg-8">
+            <input [(ngModel)]="presentation.title" placeholder="title…"/>
+        </div>        
+    </div>
+    
+     <div class="row">
+        <div class="col col-lg-4">
+         <label>Description: </label>
+        </div>
+        <div class="col col-lg-8">
+           <input [(ngModel)]="presentation.description" placeholder="description…"/>
+        </div>            
+
+    </div>
+
+    <div class="row">
+         <div class="col col-lg-6">
+             <button (click)="save()" class="btn btn-info">Save</button>
+         </div>
+        
+        <div class="col col-lg-6">
+            <button (click)="delete()" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 2rem">
+        <div class="col col-lg-6">
+            <h4>Decks in Presentation</h4>
+                           <slides-deck-view [deck]="deck"  *ngFor="let deck of presentation.decks"></slides-deck-view>
+
+        </div>
+    </div>
+
+</div>
+
+</div>

@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
+	
+	<p:meta>
+		<p:id>xslt-best-practices</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>XSLT</p:keyword>
+		<p:level>Advanced</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>
+	</p:meta>
+	
+	<p:title>XSLT Best Practices</p:title>
+
+
+	<p:slide xml:id="d1e28">
+		<p:title xmlns="http://www.w3.org/1999/xhtml">XSLT Best Practices</p:title>
+		<div xmlns="http://www.w3.org/1999/xhtml" class="about">
+			<p>nicg@corbas.co.uk/@CorbasLtd</p>
+			<p>Copyright 2012-2015 Corbas Consulting Ltd</p>
+			<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC</a><br/>This work
+				is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons
+					Attribution-ShareAlike 3.0 Unported License</a>.</p>
+		</div>
+	</p:slide>
+
+	<p:slide xml:id="d1e52">
+		<p:title>If you are in an XSLT 1.0 environment, upgrade</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">The limitations of XSLT 1.0 will reduce the quality of your XSLT.
+			There is no reason to use XSLT 1.0 at this time. Namespacing issues will be resolved;
+			XPath 2 will lead to considerably simpler stylesheets; grouping is practical and
+			comprehensible.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">XSLT 3.0 was finalised and became a recommendation on 8<sup>th</sup> June 2017</p>
+	</p:slide>
+
+	<p:slide xml:id="d1e67">
+		<p:title>Take advantage of the built-in templates</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">The built in templates can save a great deal of effort if used
+			appropriately. Avoid the use of <code>xsl:value-of</code> for simple elements and
+			attributes (using <code>xsl:apply-templates</code> instead). This will achieve the same
+			effect in most cases and will make updates to the code considerably simpler.</p>
+		<p:code class="bad">
+			<xsl:value xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="@name"/>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml">would be better written as</p>
+		<p:code><xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="@name"/></p:code>
+	</p:slide>
+
+	<p:slide xml:id="d1e94">
+		<p:title>Avoid using <code xmlns="http://www.w3.org/1999/xhtml">xsl:for-each</code></p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice"><code>xsl:for-each</code> can always be replaced with
+				<code>xsl-apply-templates</code>. Working in a style that leads to the creation of
+			many small templates will make maintenance simpler and will dramatically reduce the
+			chances of a need to refactor the stylesheet.</p>
+
+		<p:code class="bad">
+			<xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="header/row">
+				<tr xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:copy-of select="@id"/>
+					<xsl:for-each select="entry">
+						<th>
+							<xsl:copy-of select="@id"/>
+							<xsl:value-of select="."/>
+						</th>
+					</xsl:for-each>
+				</tr>
+			</xsl:for-each>
+		</p:code>
+
+
+	</p:slide>
+
+	<p:slide xml:id="d1e131">
+		<p:title>Avoid using <code xmlns="http://www.w3.org/1999/xhtml">xsl:for-each</code> (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">That could be better written as:</p>
+
+		<p:code>
+			<xsl:apply-templates xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="header/row"/>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="row">
+				<tr xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:apply-templates select="@id|entry"/>
+				</tr>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="entry">
+				<th xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:apply-templates select="@id|node()"/>
+				</th>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="@id">
+				<xsl:copy/>
+			</xsl:template>
+		</p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e169">
+		<p:title>Avoid use of <code xmlns="http://www.w3.org/1999/xhtml">xsl:if</code></p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice"><code>xsl:if</code> can almost always be replaced by a template
+			that uses a predicate match. This encourages the use of small templates and matching.
+			Small templates and extensive use of matching leads to fewer special cases. In turn,
+			this leads to easier maintenance and easier to comprehend code.</p>
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="emb">
+				<headword xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:if test="@embtype">
+						<xsl:attribute name="role" select="@embtype"/>
+					</xsl:if>
+					<xsl:apply-templates/>
+				</headword>
+			</xsl:template>
+		</p:code>
+
+
+	</p:slide>
+	
+	<p:slide xml:id="d1e198">
+		<p:title>Better written as</p:title>
+		
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="emb">
+				<headword xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:apply-templates select="node()|@embtype"/>
+				</headword>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="emb/@embtype">
+				<xsl:attribute name="role" select="@embtype"/>
+			</xsl:template>
+		</p:code>
+		
+	</p:slide>
+
+	<p:slide xml:id="d1e220">
+		<p:title>The counter-argument</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">When you have blocks of output that you need to wrap
+				<code>xsl:if</code> may be the best choice.</p>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">If we have input:</p>
+
+		<p:code>
+			<doc xmlns="http://www.w3.org/1999/xhtml">
+				<title>Test Title</title>
+				<para>Para 1</para>
+				<para>Para 2</para>
+				<para>Para 3</para>
+			</doc>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml">we want output:</p>
+
+
+		<p:code>
+			<newdoc xmlns="http://www.w3.org/1999/xhtml">
+				<title>Test Title</title>
+				<body>
+					<para>Para 1</para>
+					<para>Para 2</para>
+					<para>Para 3</para>
+				</body>
+			</newdoc>
+		</p:code>
+	</p:slide>
+
+	<p:slide xml:id="d1e278">
+		<p:title>The counter-argument (cont)</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">The most effective xslt would be:</p>
+
+		<p:code><xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="doc">
+				<newdoc xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:apply-templates select="title"/>
+					<xsl:if test="para">
+						<body>
+							<xsl:apply-templates select="para"/>
+						</body>
+					</xsl:if>
+				</newdoc>
+			</xsl:template></p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e305">
+
+		<p:title>Avoid <code xmlns="http://www.w3.org/1999/xhtml">xsl:choose</code></p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice"><code>xsl:choose</code> can almost always be replaced by a series
+			of templates with predicates in the match statement. This encourages the use of small
+			templates and matching.</p>
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="wg">
+				<xsl:choose>
+					<xsl:when test="parent::wmeta">
+						<creatorInfo xmlns="http://www.w3.org/1999/xhtml">
+							<p>
+								<xsl:apply-templates/>
+							</p>
+						</creatorInfo>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+	
+	<p:slide xml:id="d1e343">
+		<p:title>Better written as</p:title>
+		
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="wg">
+				<xsl:apply-templates/>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="wmeta/wg">
+				<creatorInfo xmlns="http://www.w3.org/1999/xhtml"><p><xsl:apply-templates/></p></creatorInfo>
+			</xsl:template>
+		</p:code>
+		
+	</p:slide>
+
+	<p:slide xml:id="d1e364">
+		<p:title>Use predicates in <code xmlns="http://www.w3.org/1999/xhtml">xsl:template</code>
+			<code xmlns="http://www.w3.org/1999/xhtml">match</code> attributes</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">A great deal of complex decision making code can be eliminated by
+			the liberal use of predicates in <code>xsl:template</code>
+			<code>match</code> attributes.</p>
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="w:p[not(normalize-space(.) = '')]">
+				<xsl:apply-templates select="." mode="basic"/>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="w:p[normalize-space(.) = '']" priority="2"/>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="w:p[w:pPr/w:numPr[w:numId and w:ilvl]]" priority="1">
+				<listitem xmlns="http://www.w3.org/1999/xhtml" list-level="{w:pPr/w:numPr/w:ilvl/@w:val}" list-mark="{w:pPr/w:numPr/w:numId/@w:val}">
+					<xsl:apply-templates select="." mode="basic"/>
+				</listitem>
+			</xsl:template>
+		</p:code>
+	</p:slide>
+
+	<p:slide xml:id="d1e403">
+		<p:title>Use empty templates to avoid undesired processing</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">If you are replacing an <code>xsl:choose</code> statement with a
+			series of templates, you may have a problem when <code>xsl:otherwise</code> was omitted
+			in order to suppress a default case. In this case you can simply use an empty template
+			to suppress the processing:</p>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">If you are checking for meaningful content before output this may
+			simplify your code:</p>
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="para">
+				<p xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates/></p>
+			</xsl:template>
+			<!-- skip empty paras -->
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="para[not(node())]"/>
+		</p:code>
+
+	</p:slide>
+	<p:slide xml:id="d1e434">
+		<p:title>Limit use of <code xmlns="http://www.w3.org/1999/xhtml">xsl:call-template</code></p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">Excessive use of <code>xsl:call-template</code> is usually
+			indicative of problems (or of stylesheets written by someone with a procedural or object
+			oriented programming background). It is appropriate to use when there is predefined output in multiple templates which can be refactored into
+			a single template.</p>
+		
+		<p xmlns="http://www.w3.org/1999/xhtml">Using <code>xsl:call-template</code> along with parameters (especially tunnel parameters) can simplify and <em>clarify</em> code.</p>
+	</p:slide>
+
+	<p:slide xml:id="d1e457">
+		<p:title>Use variables for complex XPaths</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">Variables are often optimised away by XSLT engines and, in any
+			case, have no more overhead than an XPath expression they may replace. There are two
+			situations in which the use of a variable is appropriate even if it isn't necessary.</p>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">Intermediate variables can greatly simplify the creation of a
+			complex variable and make the code considerably more comprehensible to another developer
+			who may be maintaining your stylesheet (or to yourself in six months' time). </p>
+
+
+
+	</p:slide>
+
+	<p:slide xml:id="d1e470">
+
+		<p:title>Use variables for complex XPaths (cont)</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">This?</p>
+
+		<p:code>
+			<!-- Create an ID value for the current node -->
+			<xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="concat(local-name(), format-number(count(preceding::*[local-name(.) = local-name(current())]) + 1, '000')))"/>
+		</p:code>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">Or this?</p>
+
+		<p:code>
+			<!-- Create an ID value for the current node -->
+			<!-- get the name -->
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="type" select="local-name(.)"/>
+			<!-- count how many nodes the same -->
+			<xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="num" select="count(preceding::*[local-name(.) = $type]) + 1"/>
+			<!-- format the id -->
+			<xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="concat($type, format-number($num, '000'))"/>
+		</p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e507">
+		<p:title>Consider global variables for complex reused XPaths</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">Complex XPath statements can be an overhead to evaluate. If reused,
+			consider a global variable. The code will be both shorter and closer to optimal.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">The code might even be easier to read.</p>
+
+		<p:code><xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="source-type" select="/CA:digest/header:metadata/header:metadata-item[@name='digest-type'][last()]/@value"/></p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e522">
+		<p:title>Use user defined functions</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice"> User defined functions can wrap up and localise complex repetitive
+			XPath statements</p>
+
+
+		<p:code><xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="month-names" select="doc('')/data:lookup/data:item"/>
+			<xsl:function xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="lnuk-fn:normalise-to-month-number" as="xs:integer">
+				<xsl:param name="name" as="xs:string"/>
+				<xsl:value-of select="if (number(normalize-space($name))) then $name      else for $n in 1 to count($month-names) return       if (lower-case($month-names[$n]/@abbrev) eq lower-case(normalize-space($name))) then $n      else if (lower-case($month-names[$n]/@full) eq lower-case(normalize-space($name))) then $n      else ()"/>
+			</xsl:function>
+		</p:code>
+	</p:slide>
+
+	<p:slide xml:id="d1e542">
+		<p:title>Use user defined functions (cont)</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">The look-up</p>
+
+		<p:code>
+			<lookup xmlns="http://www.lexisnexis.com/namespace/uk/data">
+				<item abbrev="Jan" full="January"/>
+				<item abbrev="Feb" full="February"/>
+				<item abbrev="Mar" full="March"/>
+				<item abbrev="Apr" full="April"/>
+				<item abbrev="May" full="May"/>
+				<item abbrev="Jun" full="June"/>
+				<item abbrev="Jul" full="July"/>
+				<item abbrev="Aug" full="August"/>
+				<item abbrev="Sep" full="September"/>
+				<item abbrev="Oct" full="October"/>
+				<item abbrev="Nov" full="November"/>
+				<item abbrev="Dec" full="December"/>
+			</lookup>
+		</p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e583">
+		<p:title>Multi-pass processing</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">Where it is necessary to apply templates to the same content twice,
+			modes must be used. The addition of modes to the approach described above enables any
+			task to be accomplished.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">Remember that the result applying a template in XSLT 2.0 is a
+			sequence. The processing results can be stored in a variable if required.
+				<code>xsl:apply-templates</code> operates on sequences, including those stored in
+			variables. This technique can be used in XSLT 1.0 if the `node-set` function is
+			available.</p>
+
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="table">
+				<xsl:variable name="step-1">
+					<xsl:apply-templates mode="pre-process"/>
+				</xsl:variable>
+				<xsl:apply-templates select="$step-1"/>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="table">
+				<xsl:variable name="step-1">
+					<xsl:apply-templates mode="pre-process"/>
+				</xsl:variable>
+				<xsl:apply-templates select="exsl:node-set($step-1)"/>
+			</xsl:template></p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e620">
+		<p:title>Modal Processing</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">It can be beneficial When building modular XSLT applications, to
+			use modal templates as much as possible. This is particularly useful when you are
+			creating templates that can be reused in other contexts. For example, a set of templates
+			that process list or table structures might be reused although the content of those
+			templates can be different across multiple source XML languages.</p>
+
+		<p:code>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="entry">
+				<tc xmlns="http://www.w3.org/1999/xhtml">
+					<xsl:apply-templates select="." mode="create-properties"/>
+					<xsl:apply-templates select="." mode="create-content"/>
+				</tc>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="entry" mode="create-properties">
+				<tcPr xmlns="http://www.w3.org/1999/xhtml"/>
+			</xsl:template>
+			<xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="entry" mode="create-content">
+				<xsl:apply-templates/>
+			</xsl:template>
+		</p:code>
+
+	</p:slide>
+
+	<p:slide xml:id="d1e653">
+		<p:title>Modal Processing</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">These templates should be used via an <code>xsl:import</code>
+			statement. The two later templates can be overridden for any particular input model
+			whilst the base template will remain the same no matter what model is used.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">In general, the approach is to create a template matching the
+			current node for each distinct task that needs to be carried out. These can be
+			overridden via <code>xsl:import</code> whenever necessary without any changes to the
+			library code at all.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="best-practice">If you have a content model that is reused across multiple schemas
+			with distinct namespaces (but the same model), this technique can be combined with the
+			previous one to create a consistent namespace for processing content.</p>
+	</p:slide>
+
+	<p:slide xml:id="d1e674">
+		<p:title>Use <code xmlns="http://www.w3.org/1999/xhtml">xsl:import</code></p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">Modularised XSLT is a good idea. It is tempting to use (the obvious)
+				<code>xsl:include</code> to achieve modularisation. You will achieve better results
+			if you use <code>xsl:import</code> instead. Any stylsheet included via
+				<code>xsl:import</code> has lower precedence than one loaded with
+				<code>xsl:include</code> . Stylesheets loaded using <code>xsl:include</code> have
+			the same precedence as the importing stylesheeet. This means that included stylesheets
+			cannot be treated as libraries of patterns to be overridden as necessary — overriding
+			them leads to unpredictable results at best and errors at worst (you cannot override a
+			named template for example).</p>
+	</p:slide>
+
+	<p:slide xml:id="d1e700">
+		<p:title>Summary - XSLT Design Patterns</p:title>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">The rules above suggest the use of a "rule-based" xslt design (ref Michael Kay).
+			Stylesheets should consist, as much as possible, of <code>xsl:template</code> statements
+			and <code>xsl:apply-template</code> statements.</p>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">The use of complex predicates on the templates reduces the number of xsl:apply-templates
+			statements where a select attribute is required. Output should be suppressed by the use
+			of empty templates where required.</p>
+
+		<p xmlns="http://www.w3.org/1999/xhtml">The use of this pattern allows the use of select attributes on xsl:apply-templates to be
+			limited to those situations where the built-in processing is not adequate.</p>
+	</p:slide>
+
+</p:deck>

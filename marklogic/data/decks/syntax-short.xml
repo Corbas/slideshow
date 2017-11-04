@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?><p:deck xmlns:p="http://www.corbas.co.uk/ns/presentations">
+	
+	<p:meta>
+		<p:id>xml-syntax</p:id>
+		<p:keyword>XML</p:keyword>
+		<p:keyword>Syntax</p:keyword>
+		<p:level>Introductory</p:level>
+		<p:author>Nic Gibson</p:author>
+		<p:updated>2017-09-02</p:updated>		
+	</p:meta>
+	
+	<p:title>XML Components</p:title>
+	<p:slide xml:id="comp-elements">
+		<p:title>Elements</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Main syntactic component of XML</li>
+			<li>An element is a start tag, an end tag and some (potentially optional) content.</li>
+			<li>A tag is either a start or an end tag</li>
+			<li>A start tag is made up of angle brackets and the element name*</li>
+		</ul>
+		<p xmlns="http://www.w3.org/1999/xhtml"><em>Every</em> element is contained inside another element except the <em>root</em> element
+			which contains all other elements.</p>
+		<p:code type="text"> &lt;element-name&gt; </p:code>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>An end tag is much like a start tag but contains a forward slash ('/') before the
+				name:</li>
+		</ul>
+		<p:code type="text"> &lt;/element-name&gt; </p:code>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Elements may be empty. Empty tags may be minimised:</li>
+		</ul>
+		<p:code type="text"> &lt;element-name&gt;&lt;/element-name&gt; &lt;element-name/&gt; </p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">* Ignoring attributes for now</p>
+	</p:slide>
+	<p:slide xml:id="d1e75">
+		<p:title>Elements (cont)</p:title>
+		<p:code>
+			<para xmlns="http://www.w3.org/1999/xhtml">Ceci n'est pas un paragraphe.</para>
+			<img xmlns="http://www.w3.org/1999/xhtml" src="pipe.jpg" alt="Ceci n'est pas une pipe"/>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e89">
+		<p:title>Names</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">XML has strict rules for element names.</p>
+		<blockquote xmlns="http://www.w3.org/1999/xhtml"><p>A Name is a token beginning with a letter or one of a few punctuation characters,
+				and continuing with letters, digits, hyphens, underscores, colons, or full stops, together
+				known as name characters.</p>
+			<p class="cite"><a href="http://www.w3.org/TR/REC-xml/">Extensible Markup Language (XML) 1.0
+					(Fifth Edition) – http://www.w3.org/TR/REC-xml/</a></p></blockquote>
+		<p xmlns="http://www.w3.org/1999/xhtml">In other words, start with a letter or a underscore ('_') and then use letters, digits,
+			underscores, hyphens full stops. Avoid using colons even though they are allowed.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Element names are case sensitive and must be the same across opening and closing tags.</p>
+	</p:slide>
+	<p:slide xml:id="comp-attributes">
+		<p:title>Attributes</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Attribute are additional information associated with elements</li>
+			<li>They consist of name and a value</li>
+			<li>They exist inside the opening tag of an element</li>
+			<li>Empty elements may contain attributes</li>
+		</ul>
+		<p:code type="xml">
+			<contributor xmlns="http://www.w3.org/1999/xhtml" role="author">A.N. Author</contributor>
+			<pagebreak xmlns="http://www.w3.org/1999/xhtml" number="123"/>
+		</p:code>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Attribute names follow the same rules as element names</li>
+			<li>The value is almost any text</li>
+			<li>Name and value separated by '='</li>
+			<li>Values can be in either single or double quotes</li>
+		</ul>
+	</p:slide>
+	<p:slide xml:id="d1e157">
+		<p:title>Element content</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Element content is whatever goes between the tags.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">It can be any or all of:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Elements</li>
+			<li>Text</li>
+			<li>Processing Instructions</li>
+			<li>Comments</li>
+		</ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">An element which contains both elements and attributes (inside paragraphs, for example) is
+			described as having <em>mixed content</em>.</p>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Nodes</h4>
+		<p xmlns="http://www.w3.org/1999/xhtml">In XML processing terminology most of the components of the document are referred to as
+				<em>nodes</em>. Attributes are (in some ways) not considered to be nodes. In addition to the
+			types listed above, the document itself is considered to a node.</p>
+	</p:slide>
+	<p:slide xml:id="comp-text">
+		<p:title>Text</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">XML documents can contain two types of text:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>PCDATA — <em>Parsed Character Data</em></li>
+			<li>CDATA – <em>Character Data</em></li>
+		</ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">Normal text in XML documents is PCDATA.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">XML is processed by a piece of software called a <em>parser</em>. XML parsers are
+			deliberately simple. This makes them inflexible. XML parsers can't cope with text that might
+			confuse them.</p>
+	</p:slide>
+	<p:slide xml:id="d1e231">
+		<p:title>Text (cont)</p:title>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">PCDATA</h4>
+		<p xmlns="http://www.w3.org/1999/xhtml">PCDATA can't contain:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>Ampersands</li>
+			<li>Less than</li>
+			<li>The string ']]&gt;'</li>
+		</ul>
+		<p xmlns="http://www.w3.org/1999/xhtml">We replace all of those using <em>entities</em>.</p>
+		<p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml">Find all x where x &lt; 25 &amp; x &gt; 12</p>
+			<p xmlns="http://www.w3.org/1999/xhtml">Find all x where x &amp;lt; 25 &amp;amp; &gt; 12</p>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="note">Note: attribute text can't contain <em>&amp;</em>, <em>&lt;</em>, <em>"</em> and
+				<em>'</em> (whichever isn't used as the attribute value delimiter is OK).</p>
+	</p:slide>
+	<p:slide xml:id="d1e286">
+		<p:title>Text (cont)</p:title>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">CDATA</h4>
+		<p xmlns="http://www.w3.org/1999/xhtml">All the restrictions on PCDATA content are relaxed on CDATA.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The cost is the requirement that the content is wrapped up in a deliberately obscure
+			character sequence</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">CDATA sections start with <code>&lt;![CDATA[</code>.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">CDATA sections end with <code>]]&gt;</code></p>
+		<p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml">&lt;![CDATA[Find all x where x &lt; 25 &amp; &gt; 12]]&gt;</p>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml">The difference is in the 'P' - CDATA is not parsed (processed by the parser).</p>
+	</p:slide>
+	<p:slide xml:id="comp-pis">
+		<p:title>Processing Instructions</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Processing instructions are special nodes. They are intended to be ignored by anything that
+			doesn't understand the specific processing instruction (PI).</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">A PI is made up of the characters <code>&lt;?</code> followed by a name (following the rules
+			of XML names). The content of the PI follows (after some whitespace). The PI is closed by the
+			characters <code>?&gt;</code>.</p>
+		<p:code>
+			<?xml-model href="schema.rnc" type="application/relax-ng-compact-syntax"?>
+			<?xml-stylesheet type="text/xsl" href="formatter.xsl"?>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="comp-comments">
+		<p:title>Comments</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Comments in XML are pieces of text ignored by the parser. You can put anything except a
+			comment in a comment.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Comments look like <code>&lt;!--</code> followed by the comment body followed by
+				<code>--&gt;</code></p>
+		<p:code type="xml">
+			<!-- XML inside comments is invisible to the parser <p>This element will be ignored</p> -->
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml">Because XML parsers aren't complex and because comments can't occur inside comments you can't
+			use the sequence <code>--</code> anywhere inside a comment (because the parser thinks you are
+			finishing a comment)</p>
+	</p:slide>
+	<p:slide xml:id="syntax-declaration">
+		<p:title>The XML Declaration</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Now we have enough information to discuss this!</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The XML declaration is the first thing in many XML files. It's not required but it is
+			sensible.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The XML declaration is a special processing instruction.</p>
+		<p:code type="text"> &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; </p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml"><strong>version</strong> — this must be either <code>1.0</code> or <code>1.1</code>.
+			99.9999999% of the time, <code>1.0</code> is correct.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml"><strong>encoding</strong> — the document encoding; defaults to <code>UTF-8</code> if
+			omitted.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="note">Note: BMC content is usually encoded as ISO-8859-1 (otherwise know as Latin
+			1).</p>
+		<p xmlns="http://www.w3.org/1999/xhtml"><strong>standalone</strong> — rarely used; indicates that the DTD does not contain any
+			definitions which might change the content (like default attribute values).</p>
+	</p:slide>
+	<p:slide xml:id="d1e425">
+		<p:title>Well-formed XML</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The XML specification is clear:</p>
+		<blockquote xmlns="http://www.w3.org/1999/xhtml">
+			<p>Violations of well-formedness constraints are fatal errors</p>
+		</blockquote>
+		<p xmlns="http://www.w3.org/1999/xhtml">In other words, if it's not well-formed, it's not XML.</p>
+	</p:slide>
+	<p:slide xml:id="d1e443">
+		<p:title>Well-formed XML</p:title>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">The rules</h4>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>There must be a single root element</li>
+			<li>Elements must be properly nested</li>
+			<li>All names must be valid</li>
+			<li>If a declaration is present, only a DTD, PIs and comments may be between it and root
+				element</li>
+			<li>Nothing may come before a declaration</li>
+			<li><strong>&amp;</strong> and <strong>&lt;</strong> are converted to entities if not being
+				used syntatically</li>
+		</ul>
+	</p:slide>
+	<p:slide xml:id="d1e479">
+		<p:title>Nesting</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The rules for element content imply this. An element may contain other elements and an
+			element consists of both the start and end tags. If only one is present, the element isn't
+			contained properly.</p>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Wrong</h4>
+		<p:code class="bad" type="text"> &lt;p&gt;This text is both &lt;bold&gt;&lt;italic&gt;bold and
+			italic&lt;/bold&gt;&lt;/italic&gt;&lt;/p&gt; </p:code>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Right</h4>
+		<p:code>
+			<p xmlns="http://www.w3.org/1999/xhtml">This text is both <bold><italic>bold and italic</italic></bold></p>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e507">
+		<p:title>Document Hierarchy</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">The nesting rules mean that a document can be viewed in two ways:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>As a nested sequence of elements</li>
+			<li>As a tree*</li>
+		</ul>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">* This is the computer science notion of a tree — upside down</p>
+	</p:slide>
+	<p:slide xml:id="d1e529">
+		<p:title>Trees</p:title>
+		<p:code>
+			<art xmlns="http://www.w3.org/1999/xhtml">
+				<ui>1687-1847-2013-85</ui>
+				<ji>1687-1847</ji>
+				<fm>…</fm>
+				<bdy>
+					<sec>…</sec>
+					<sec>…</sec>
+					<sec>…</sec>
+				</bdy>
+				<bm>…</bm>
+			</art>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml"><img src="http://localhost:4200/assets/images/hierarchy.svg" alt="XML Hierarchy"/></p>
+	</p:slide>
+	<p:slide xml:id="d1e568">
+		<p:title>Trees (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml"><img src="http://localhost:4200/assets/images/hierarchy-numbered.svg" alt="XML Hierarchy"/></p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="note">“Traversing” the tree in the numbered order is the same as walking through in
+			the order of the element starts in the document. Processing systems such as XSLT use this
+			order.</p>
+	</p:slide>
+	<p:slide xml:id="d1e580">
+		<p:title>Namespaces</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Namespaces are not complex! A namespace is a URL associated with one or more XML elements*.
+			Namespaces are mainly used to prevent ambiguity.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">XML is commonly used to create mashup documents with elements from more than one source.
+			Namespaces let us identify that source and solve problems of ambiguity when more than one
+			source used share an element name.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">We'll look at two sets of elements. The first is about companies and the second about people.
+			We want to create a document with contains information about companies supplying us and the
+			named contaact at that company.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml" class="footnote">And sometimes attributes.</p>
+	</p:slide>
+	<p:slide xml:id="d1e598">
+		<p:title>Namespaces (cont)</p:title>
+		<p:code>
+			<company xmlns="http://www.w3.org/1999/xhtml">
+				<name>Cheap Stationery Ltd</name>
+				<supplier.code>ABC123</supplier.code>
+				<phone.number>+44 1825 607100</phone.number>
+			</company>
+			<person xmlns="http://www.w3.org/1999/xhtml">
+				<name>Anthony Salesman</name>
+				<phone.number>+44 1825 607123</phone.number>
+			</person>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e628">
+		<p:title>Namespaces (cont)</p:title>
+		<p:code>
+			<supplier xmlns="http://www.w3.org/1999/xhtml">
+				<name>Cheap Stationery Ltd</name>
+				<supplier.code>ABC123</supplier.code>
+				<phone.number>+44 1825 607100</phone.number>
+				<name>Anthony Salesman</name>
+				<phone.number>+44 1825 607123</phone.number>
+			</supplier>
+		</p:code>
+		<p xmlns="http://www.w3.org/1999/xhtml">There's a couple of problems there.</p>
+	</p:slide>
+	<p:slide xml:id="d1e658">
+		<p:title>Namespaces (cont)</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Introducing the namespace resolves our problem. Each set of elements has a URL associated
+			with it. A namespace applies from the point of declaration ‘inwards’</p>
+		<p:code show-ns-declarations="true">
+			<company xmlns="http://www.corbas.co.uk/ns/company">
+				<name>Cheap Stationery Ltd</name>
+				<supplier.code>ABC123</supplier.code>
+				<phone.number>+44 1825 607100</phone.number>
+			</company>
+			<person xmlns="http://www.corbas.co.uk/ns/person">
+				<name>Anthony Salesman</name>
+				<phone.number>+44 1825 607123</phone.number>
+			</person>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e692">
+		<p:title>Namespaces (cont)</p:title>
+		<p:code show-ns-declarations="true">
+			<supplier xmlns="http://www.w3.org/1999/xhtml">
+				<name xmlns="http://www.corbas.co.uk/ns/company">Cheap Stationery Ltd</name>
+				<supplier.code xmlns="http://www.corbas.co.uk/ns/company">ABC123</supplier.code>
+				<phone.number xmlns="http://www.corbas.co.uk/ns/company">+44 1825 607100</phone.number>
+				<name xmlns="http://www.corbas.co.uk/ns/person">Anthony Salesman</name>
+				<phone.number xmlns="http://www.corbas.co.uk/ns/person">+44 1825 607123</phone.number>
+			</supplier>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e719">
+		<p:title>Namespace Terminology</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">Creating a namespace as we just did is know as <em>declaration</em>.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">The declaration looks like an attribute but isn't treated as one <em>if</em> the processing
+			system understands namespaces.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">We have declared what is known as a <em>default namespace</em>.</p>
+		<p xmlns="http://www.w3.org/1999/xhtml">Any element is only <em>in</em> at most one namespace.</p>
+		<h4 xmlns="http://www.w3.org/1999/xhtml">Prefixes</h4>
+		<p xmlns="http://www.w3.org/1999/xhtml">We can also declare namespaces with a prefix:</p>
+		<p:code show-ns-declarations="true">
+			<metadata xmlns="http://www.idpf.org/2007/opf"/>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e761">
+		<p:title>Prefixed namespaces</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">When we declare a namespace with a prefix we are only declaring that it exists, we are not
+			using it. In order to use it we have to put the prefix in front of an element name. This
+			approach lets us keep the number of declarations down to a sane level.</p>
+		<p:code show-ns-declarations="true">
+			<metadata xmlns="http://www.idpf.org/2007/opf">
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Gullivers Travels</dc:title>
+			</metadata>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e779">
+		<p:title>Complex Namespace Example</p:title>
+		<p:code show-ns-declarations="true">
+			<package xmlns="http://www.idpf.org/2007/opf" version="2.0">
+				<metadata>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Gullivers Travels</dc:title>
+					<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf" opf:role="aut" opf:file-as="Swift, Jonathan">Jonathan Swift</dc:creator>
+					<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Corbas Consulting</dc:publisher>
+					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/">en</dc:language>
+					<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">This work is in the public domain.</dc:rights>
+				</metadata>
+			</package>
+		</p:code>
+	</p:slide>
+	<p:slide xml:id="d1e812">
+		<p:title>Namespaces summarised</p:title>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>A namespace is a URL. This URL is called the namespace name.</li>
+			<li>A URL may have a prefix. This is just a string used as shorthand.</li>
+			<li>An element is <em>in</em> at most one namespace.</li>
+			<li>Namespaces are <em>in scope</em> from the point of declaration inwards.</li>
+		</ul>
+	</p:slide>
+	<p:slide xml:id="d1e839">
+		<p:title>Summary</p:title>
+		<p xmlns="http://www.w3.org/1999/xhtml">We have discussed:</p>
+		<ul xmlns="http://www.w3.org/1999/xhtml">
+			<li>XML's little history</li>
+			<li>XML components</li>
+			<li>Unicode and encodings</li>
+			<li>The XML declaration</li>
+			<li>Well-formed XML</li>
+			<li>Document Hierarchy</li>
+			<li>Namespaces</li>
+		</ul>
+	</p:slide>
+</p:deck>
