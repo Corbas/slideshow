@@ -1,0 +1,11 @@
+{
+  "id": "pres003A11",
+  "title": "DTD Basics",
+  "author": "Nic Gibson",
+  "description": "A brief introduction to the simpler aspects of DTD authoring.",
+  "updated": "2017-08-22",
+  "decks": [{
+    "id": "dtd-intro",
+    "exclude": []
+  }]
+}
